@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZroleModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZroleModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,role_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_ROLE
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_ROLE
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZroleModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_ROLE (id,role_name)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.roleName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZroleModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.roleName != null and record.roleName != '' ">
+				role_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.roleName != null and record.roleName != '' ">
+				#{record.roleName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZroleModel">
+		update R_ROLE
+		<set>
+			<if test="record.roleName != null and record.roleName != '' ">
+				role_name = #{record.roleName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZroleModel">
+		update R_ROLE
+		set
+		role_name = #{record.roleName,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_ROLE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.roleName != null and record.roleName != '' ">
+			and role_name = #{record.roleName,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZroleModel" resultType="java.lang.Integer">
+		select count(*) from R_ROLE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.roleName != null and record.roleName != '' ">
+			and role_name = #{record.roleName,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_ROLE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.roleName != null and record.roleName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.roleName != null and require.greaterThan.roleName != '' ">
+					and role_name > #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.roleName != null and require.lessThan.roleName != '' ">
+					and role_name &lt; #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.roleName != null and require.greaterThanAndEquals.roleName != '' ">
+					and role_name >= #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.roleName != null and require.lessThanAndEquals.roleName != '' ">
+					and role_name &lt;= #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.roleName != null and require.notEquality.roleName != '' ">
+					and role_name &lt;> #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.roleName != null and require.similar.roleName != '' ">
+					and  INSTR(role_name ,#{record.roleName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.roleName == null">
+				and role_name = #{record.roleName , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZroleModel" resultType="java.lang.Integer">
+		select count(*) from R_ROLE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.roleName != null and record.roleName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.roleName != null and require.greaterThan.roleName != '' ">
+					and role_name > #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.roleName != null and require.lessThan.roleName != '' ">
+					and role_name &lt; #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.roleName != null and require.greaterThanAndEquals.roleName != '' ">
+					and role_name >= #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.roleName != null and require.lessThanAndEquals.roleName != '' ">
+					and role_name &lt;= #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.roleName != null and require.notEquality.roleName != '' ">
+					and role_name &lt;> #{record.roleName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.roleName != null and require.similar.roleName != '' ">
+					and  INSTR(role_name ,#{record.roleName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.roleName == null">
+				and role_name = #{record.roleName , jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_ROLE (
+		id,role_name
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.roleName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZroleModel">
+		delete from R_ROLE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.roleName != null and record.roleName != '' ">
+			and role_name = #{record.roleName,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

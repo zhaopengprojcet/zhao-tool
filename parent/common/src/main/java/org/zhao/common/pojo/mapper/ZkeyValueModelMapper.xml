@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZkeyValueModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZkeyValueModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="server_key" property="serverKey" jdbcType="VARCHAR" />
+		<result column="server_value" property="serverValue" jdbcType="VARCHAR" />
+		<result column="serverey_desc" property="servereyDesc" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,server_key,server_value,serverey_desc
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_KEY_VALUE
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_KEY_VALUE
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZkeyValueModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_KEY_VALUE (id,server_key,server_value,serverey_desc)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.serverKey,jdbcType=VARCHAR},
+			#{record.serverValue,jdbcType=VARCHAR},
+			#{record.servereyDesc,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZkeyValueModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_KEY_VALUE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.serverKey != null and record.serverKey != '' ">
+				server_key,
+			</if>
+			<if test="record.serverValue != null and record.serverValue != '' ">
+				server_value,
+			</if>
+			<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+				serverey_desc,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.serverKey != null and record.serverKey != '' ">
+				#{record.serverKey,jdbcType=VARCHAR},
+			</if>
+			<if test="record.serverValue != null and record.serverValue != '' ">
+				#{record.serverValue,jdbcType=VARCHAR},
+			</if>
+			<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+				#{record.servereyDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZkeyValueModel">
+		update R_KEY_VALUE
+		<set>
+			<if test="record.serverKey != null and record.serverKey != '' ">
+				server_key = #{record.serverKey,jdbcType=VARCHAR},
+			</if>
+			<if test="record.serverValue != null and record.serverValue != '' ">
+				server_value = #{record.serverValue,jdbcType=VARCHAR},
+			</if>
+			<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+				serverey_desc = #{record.servereyDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZkeyValueModel">
+		update R_KEY_VALUE
+		set
+		server_key = #{record.serverKey,jdbcType=VARCHAR}
+		server_value = #{record.serverValue,jdbcType=VARCHAR}
+		serverey_desc = #{record.servereyDesc,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_KEY_VALUE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverKey != null and record.serverKey != '' ">
+			and server_key = #{record.serverKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverValue != null and record.serverValue != '' ">
+			and server_value = #{record.serverValue,jdbcType=VARCHAR}
+		</if>
+		<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+			and serverey_desc = #{record.servereyDesc,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZkeyValueModel" resultType="java.lang.Integer">
+		select count(*) from R_KEY_VALUE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverKey != null and record.serverKey != '' ">
+			and server_key = #{record.serverKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverValue != null and record.serverValue != '' ">
+			and server_value = #{record.serverValue,jdbcType=VARCHAR}
+		</if>
+		<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+			and serverey_desc = #{record.servereyDesc,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_KEY_VALUE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.serverKey != null and record.serverKey != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serverKey != null and require.greaterThan.serverKey != '' ">
+					and server_key > #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serverKey != null and require.lessThan.serverKey != '' ">
+					and server_key &lt; #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serverKey != null and require.greaterThanAndEquals.serverKey != '' ">
+					and server_key >= #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serverKey != null and require.lessThanAndEquals.serverKey != '' ">
+					and server_key &lt;= #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serverKey != null and require.notEquality.serverKey != '' ">
+					and server_key &lt;> #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serverKey != null and require.similar.serverKey != '' ">
+					and  INSTR(server_key ,#{record.serverKey}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serverKey == null">
+				and server_key = #{record.serverKey , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.serverValue != null and record.serverValue != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serverValue != null and require.greaterThan.serverValue != '' ">
+					and server_value > #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serverValue != null and require.lessThan.serverValue != '' ">
+					and server_value &lt; #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serverValue != null and require.greaterThanAndEquals.serverValue != '' ">
+					and server_value >= #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serverValue != null and require.lessThanAndEquals.serverValue != '' ">
+					and server_value &lt;= #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serverValue != null and require.notEquality.serverValue != '' ">
+					and server_value &lt;> #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serverValue != null and require.similar.serverValue != '' ">
+					and  INSTR(server_value ,#{record.serverValue}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serverValue == null">
+				and server_value = #{record.serverValue , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.servereyDesc != null and require.greaterThan.servereyDesc != '' ">
+					and serverey_desc > #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.servereyDesc != null and require.lessThan.servereyDesc != '' ">
+					and serverey_desc &lt; #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.servereyDesc != null and require.greaterThanAndEquals.servereyDesc != '' ">
+					and serverey_desc >= #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.servereyDesc != null and require.lessThanAndEquals.servereyDesc != '' ">
+					and serverey_desc &lt;= #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.servereyDesc != null and require.notEquality.servereyDesc != '' ">
+					and serverey_desc &lt;> #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.servereyDesc != null and require.similar.servereyDesc != '' ">
+					and  INSTR(serverey_desc ,#{record.servereyDesc}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.servereyDesc == null">
+				and serverey_desc = #{record.servereyDesc , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZkeyValueModel" resultType="java.lang.Integer">
+		select count(*) from R_KEY_VALUE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.serverKey != null and record.serverKey != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serverKey != null and require.greaterThan.serverKey != '' ">
+					and server_key > #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serverKey != null and require.lessThan.serverKey != '' ">
+					and server_key &lt; #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serverKey != null and require.greaterThanAndEquals.serverKey != '' ">
+					and server_key >= #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serverKey != null and require.lessThanAndEquals.serverKey != '' ">
+					and server_key &lt;= #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serverKey != null and require.notEquality.serverKey != '' ">
+					and server_key &lt;> #{record.serverKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serverKey != null and require.similar.serverKey != '' ">
+					and  INSTR(server_key ,#{record.serverKey}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serverKey == null">
+				and server_key = #{record.serverKey , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.serverValue != null and record.serverValue != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serverValue != null and require.greaterThan.serverValue != '' ">
+					and server_value > #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serverValue != null and require.lessThan.serverValue != '' ">
+					and server_value &lt; #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serverValue != null and require.greaterThanAndEquals.serverValue != '' ">
+					and server_value >= #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serverValue != null and require.lessThanAndEquals.serverValue != '' ">
+					and server_value &lt;= #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serverValue != null and require.notEquality.serverValue != '' ">
+					and server_value &lt;> #{record.serverValue , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serverValue != null and require.similar.serverValue != '' ">
+					and  INSTR(server_value ,#{record.serverValue}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serverValue == null">
+				and server_value = #{record.serverValue , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.servereyDesc != null and require.greaterThan.servereyDesc != '' ">
+					and serverey_desc > #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.servereyDesc != null and require.lessThan.servereyDesc != '' ">
+					and serverey_desc &lt; #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.servereyDesc != null and require.greaterThanAndEquals.servereyDesc != '' ">
+					and serverey_desc >= #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.servereyDesc != null and require.lessThanAndEquals.servereyDesc != '' ">
+					and serverey_desc &lt;= #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.servereyDesc != null and require.notEquality.servereyDesc != '' ">
+					and serverey_desc &lt;> #{record.servereyDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.servereyDesc != null and require.similar.servereyDesc != '' ">
+					and  INSTR(serverey_desc ,#{record.servereyDesc}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.servereyDesc == null">
+				and serverey_desc = #{record.servereyDesc , jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_KEY_VALUE (
+		id,server_key,server_value,serverey_desc
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.serverKey,jdbcType=VARCHAR},
+			#{item.serverValue,jdbcType=VARCHAR},
+			#{item.servereyDesc,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZkeyValueModel">
+		delete from R_KEY_VALUE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverKey != null and record.serverKey != '' ">
+			and server_key = #{record.serverKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.serverValue != null and record.serverValue != '' ">
+			and server_value = #{record.serverValue,jdbcType=VARCHAR}
+		</if>
+		<if test="record.servereyDesc != null and record.servereyDesc != '' ">
+			and serverey_desc = #{record.servereyDesc,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

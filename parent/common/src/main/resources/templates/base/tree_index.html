@@ -1,0 +1,43 @@
+<head th:include="/common-css :: commonHead('Zmanage')"></head>
+
+<div id="table-center" class="easyui-layout" style="width:100%;height:100%;" >
+    <div th:if="${not #lists.isEmpty(searchs)}" data-options="region:'west',title:'过滤条件',split:false,collapsed:true,iconCls:'icon-dortmund-search',tools:'#search_tool'" style="width:30%;">
+    	<form id="search-form">
+    		<table class="search-table">
+	    		<thead>
+	    			<tr th:each="search:${searchs}">
+	    				<th th:text="${search.searchText}"></th>
+	    				<td>
+	    					<input th:if="${search.searchType == 'text'}" th:name="${search.searchKey}" class="easyui-textbox" style="width: 100%;height: 25px;"/>
+	    					<select th:if="${search.searchType == 'select'}" th:name="${search.searchKey}" th:attr="data=${search.loadValue},url=${search.loadValueUrl},loadKey='combobox',id='SL'+${search.id},valueField=${search.valueField},textField=${search.textField}" valueField="id" textField="text" class="easyui-combobox" editable="false"  style="width: 100%;height: 25px;"></select>
+	    					<input th:if="${search.searchType == 'date'}" th:name="${search.searchKey}" th:id="'SL'+${search.id}" type="text" class="easyui-datebox" editable="false" style="width: 100%;height: 25px;"/>
+	    					<input th:if="${search.searchType == 'datetime'}" th:name="${search.searchKey}" th:id="'SL'+${search.id}" type="text" class="easyui-datetimebox" editable="false" style="width: 100%;height: 25px;" />
+	    				</td>
+	    			</tr>
+	    		</thead>
+	    	</table>
+    	</form>
+    </div>
+    <div data-options="region:'center',collapsible:false,split:false"  style="width:70%;">
+    	<table id="center-table" class="easyui-treegrid" style="width:100%;height:100%"
+		    th:attr="data-options=${menu_parame}">
+		    <thead>
+				<tr>
+					<th th:each="fied:${fields}"  th:attr="field=${fied.fieldKey},width=${fied.width},align=${fied.align},formatter=${fied.formatter}" th:text="${fied.fieldName}"></th>
+				</tr>
+		    </thead>
+		</table>
+		<div id="grid-table-toolbar">
+			<a th:each="btn:${buttons}" href="javaScript:;" class="easyui-linkbutton" th:attr="iconCls=${btn.icos}" plain="true" th:onclick="'javascript:'+${btn.buttonFunction}+'(\''+${btn.modelTitle}+'\',\''+${btn.modelUrl}+'\','+${btn.modelWidth}+','+${btn.modelHeight}+');'" th:text="${btn.buttonName}"></a>
+		</div>
+    </div>
+</div>
+<div id="search_tool"  th:if="${searchs != null}">
+	<a href="javaScript:;" class="icon-munich-zoom" onclick="javascript:reloadTable();"></a>
+</div>
+<span th:include="/common-js :: commonOnLoadJs"></span>
+<script type="text/javascript" th:src="@{/index/scripts/table.js}"></script>
+<script type="text/javascript">
+var tableType = "tree";
+</script>
+ 

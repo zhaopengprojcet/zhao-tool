@@ -1,0 +1,33 @@
+<form id="update-center-form">
+	<table id="update-center-table" class="update-center-table" border="1">
+		<tr th:each="view:${update_view}" th:class="${view.type == 'textarray' ? 'tr-textarray':view.type == 'hidden' ?'tr-hidden':''}">
+			<th th:text="${view.text}"></th>
+			<td>
+				<input th:if="${view.type == 'hidden'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" type="hidden"/>
+				<input th:if="${view.type == 'text'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-textbox"/>
+				<input th:if="${view.type == 'password'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name},showEye='true'" class="easyui-passwordbox"/>
+				<select th:if="${view.type == 'select'}" th:name="${view.name}" th:id="'vid_'+${view.name}"  th:attr="data=${view.loadValue},url=${view.loadValueUrl},loadKey='combobox',check=${view.check},key=${view.name},data-options='onLoadSuccess:updateLoadNum',valueField=${view.valueField},textField=${view.textField}" class="easyui-combobox" valueField="id" textField="text" editable="false"></select>
+				<select th:if="${view.type == 'selectree'}" th:name="${view.name}" th:id="'vid_'+${view.name}"  th:attr="data=${view.loadValue},url=${view.loadValueUrl},loadKey='combotree',check=${view.check},idField=${view.valueField},textField=${view.textField},key=${view.name},data-options='onLoadSuccess:updateLoadNum'" class="easyui-combotree" valueField="id" textField="text" editable="false"></select>
+				<input th:if="${view.type == 'date'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},loadKey='date',key=${view.name}" class="easyui-datebox" editable="false"/>
+				<input th:if="${view.type == 'datetime'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-datetimebox" editable="false" />
+				<input th:if="${view.type == 'textarray'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-textbox update-textarray" data-options="multiline:true" />
+			</td>
+		</tr>
+	</table>
+	
+</form>
+<script th:inline="javascript">
+var updateUrl = [[${update_url}]];
+var data = [[${data}]];
+var loadNum = [[${loadNum}]];
+function submit() {
+	var check = $("#update-center-form").check();
+	if(check.code == -1) {
+		top.msgAlert(check.msg , "error");
+		return;
+	} 
+	top.ajax_submit(updateUrl , "update-center-form");
+}
+</script>
+<script type="text/javascript" th:src="@{/index/scripts/update.js}"></script>
+ 

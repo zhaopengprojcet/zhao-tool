@@ -1,0 +1,29 @@
+<form id="menu_search_update_form">
+	<table id="search_update" class="update-table"  bordercolor="#a0c6e5"  border="1">
+		<tr style="height: 100%;">
+			<td>
+				<div id="pares_json" style="width: 100%;height: 100%;overflow:hidden;"><pre id="out_pre" style="font-size: 12px" ondblclick="javaScript:edit(true);"></pre></div>
+				<input type="hidden" name="menuId" th:value="${menuId}"/>
+				<textarea id="searchs" name="searchs" rows="28" cols="50" th:text="${data}" style="height: 100%;width: 99%;display: none;resize:none" ondblclick="javaScript:edit(false);"></textarea>
+			</td>
+		</tr>
+	</table>
+</form>
+<script th:inline="javascript">
+	function edit(edit) {
+		if(edit) {
+			$("#pares_json").hide();
+			$("#searchs").show();
+		}
+		if(!edit) {
+			$("#pares_json").show();
+			$("#searchs").hide();
+			$("#out_pre").html(JSON.stringify(JSON.parse($("#searchs").val() == ""?"[]":$("#searchs").val()), null, 2));
+		}
+	}
+	$("#out_pre").html(JSON.stringify(JSON.parse($("#searchs").val() == ""?"[]":$("#searchs").val()), null, 2)); //将json数据格式化显示
+    function submit() {
+		if($("#searchs").val() == "")$("#searchs").val("[]");
+    	top.ajax_submit("/menu/searchSave.html" , "menu_search_update_form");
+    }
+</script>

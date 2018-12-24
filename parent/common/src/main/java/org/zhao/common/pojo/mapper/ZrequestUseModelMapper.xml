@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZrequestUseModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZrequestUseModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="request_time" property="requestTime" jdbcType="VARCHAR" />
+		<result column="times" property="times" jdbcType="DOUBLE" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="count" property="count" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,request_time,times,name,count
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_REQUEST_USE
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_REQUEST_USE
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_REQUEST_USE (id,request_time,times,name,count)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.requestTime,jdbcType=VARCHAR},
+			#{record.times,jdbcType=DOUBLE},
+			#{record.name,jdbcType=VARCHAR},
+			#{record.count,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_REQUEST_USE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.requestTime != null and record.requestTime != '' ">
+				request_time,
+			</if>
+			<if test="record.times != null and record.times != '' ">
+				times,
+			</if>
+			<if test="record.name != null and record.name != '' ">
+				name,
+			</if>
+			<if test="record.count != null and record.count != '' ">
+				count,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.requestTime != null and record.requestTime != '' ">
+				#{record.requestTime,jdbcType=VARCHAR},
+			</if>
+			<if test="record.times != null and record.times != '' ">
+				#{record.times,jdbcType=DOUBLE},
+			</if>
+			<if test="record.name != null and record.name != '' ">
+				#{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.count != null and record.count != '' ">
+				#{record.count,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZrequestUseModel">
+		update R_REQUEST_USE
+		<set>
+			<if test="record.requestTime != null and record.requestTime != '' ">
+				request_time = #{record.requestTime,jdbcType=VARCHAR},
+			</if>
+			<if test="record.times != null and record.times != '' ">
+				times = #{record.times,jdbcType=DOUBLE},
+			</if>
+			<if test="record.name != null and record.name != '' ">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.count != null and record.count != '' ">
+				count = #{record.count,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZrequestUseModel">
+		update R_REQUEST_USE
+		set
+		request_time = #{record.requestTime,jdbcType=VARCHAR}
+		times = #{record.times,jdbcType=DOUBLE}
+		name = #{record.name,jdbcType=VARCHAR}
+		count = #{record.count,jdbcType=INTEGER}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_REQUEST_USE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.requestTime != null and record.requestTime != '' ">
+			and request_time = #{record.requestTime,jdbcType=VARCHAR}
+		</if>
+		<if test="record.times != null and record.times != '' ">
+			and times = #{record.times,jdbcType=DOUBLE}
+		</if>
+		<if test="record.name != null and record.name != '' ">
+			and name = #{record.name,jdbcType=VARCHAR}
+		</if>
+		<if test="record.count != null and record.count != '' ">
+			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" resultType="java.lang.Integer">
+		select count(*) from R_REQUEST_USE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.requestTime != null and record.requestTime != '' ">
+			and request_time = #{record.requestTime,jdbcType=VARCHAR}
+		</if>
+		<if test="record.times != null and record.times != '' ">
+			and times = #{record.times,jdbcType=DOUBLE}
+		</if>
+		<if test="record.name != null and record.name != '' ">
+			and name = #{record.name,jdbcType=VARCHAR}
+		</if>
+		<if test="record.count != null and record.count != '' ">
+			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_REQUEST_USE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.requestTime != null and record.requestTime != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.requestTime != null and require.greaterThan.requestTime != '' ">
+					and request_time > #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.requestTime != null and require.lessThan.requestTime != '' ">
+					and request_time &lt; #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.requestTime != null and require.greaterThanAndEquals.requestTime != '' ">
+					and request_time >= #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.requestTime != null and require.lessThanAndEquals.requestTime != '' ">
+					and request_time &lt;= #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.requestTime != null and require.notEquality.requestTime != '' ">
+					and request_time &lt;> #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.requestTime != null and require.similar.requestTime != '' ">
+					and  INSTR(request_time ,#{record.requestTime}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.requestTime == null">
+				and request_time = #{record.requestTime , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.times != null and record.times != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.times != null and require.greaterThan.times != '' ">
+					and times > #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.times != null and require.lessThan.times != '' ">
+					and times &lt; #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.times != null and require.greaterThanAndEquals.times != '' ">
+					and times >= #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.times != null and require.lessThanAndEquals.times != '' ">
+					and times &lt;= #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.times != null and require.notEquality.times != '' ">
+					and times &lt;> #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.times != null and require.similar.times != '' ">
+					and  INSTR(times ,#{record.times}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.times == null">
+				and times = #{record.times , jdbcType=DOUBLE}
+			</if>
+		</if>
+		<if test="record.name != null and record.name != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.name != null and require.greaterThan.name != '' ">
+					and name > #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.name != null and require.lessThan.name != '' ">
+					and name &lt; #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.name != null and require.greaterThanAndEquals.name != '' ">
+					and name >= #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.name != null and require.lessThanAndEquals.name != '' ">
+					and name &lt;= #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.name != null and require.notEquality.name != '' ">
+					and name &lt;> #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.name != null and require.similar.name != '' ">
+					and  INSTR(name ,#{record.name}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.name == null">
+				and name = #{record.name , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.count != null and record.count != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.count != null and require.greaterThan.count != '' ">
+					and count > #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.count != null and require.lessThan.count != '' ">
+					and count &lt; #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.count != null and require.greaterThanAndEquals.count != '' ">
+					and count >= #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.count != null and require.lessThanAndEquals.count != '' ">
+					and count &lt;= #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.count != null and require.notEquality.count != '' ">
+					and count &lt;> #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.count != null and require.similar.count != '' ">
+					and  INSTR(count ,#{record.count}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.count == null">
+				and count = #{record.count , jdbcType=INTEGER}
+			</if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" resultType="java.lang.Integer">
+		select count(*) from R_REQUEST_USE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.requestTime != null and record.requestTime != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.requestTime != null and require.greaterThan.requestTime != '' ">
+					and request_time > #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.requestTime != null and require.lessThan.requestTime != '' ">
+					and request_time &lt; #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.requestTime != null and require.greaterThanAndEquals.requestTime != '' ">
+					and request_time >= #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.requestTime != null and require.lessThanAndEquals.requestTime != '' ">
+					and request_time &lt;= #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.requestTime != null and require.notEquality.requestTime != '' ">
+					and request_time &lt;> #{record.requestTime , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.requestTime != null and require.similar.requestTime != '' ">
+					and  INSTR(request_time ,#{record.requestTime}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.requestTime == null">
+				and request_time = #{record.requestTime , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.times != null and record.times != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.times != null and require.greaterThan.times != '' ">
+					and times > #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.times != null and require.lessThan.times != '' ">
+					and times &lt; #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.times != null and require.greaterThanAndEquals.times != '' ">
+					and times >= #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.times != null and require.lessThanAndEquals.times != '' ">
+					and times &lt;= #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.times != null and require.notEquality.times != '' ">
+					and times &lt;> #{record.times , jdbcType=DOUBLE}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.times != null and require.similar.times != '' ">
+					and  INSTR(times ,#{record.times}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.times == null">
+				and times = #{record.times , jdbcType=DOUBLE}
+			</if>
+		</if>
+		<if test="record.name != null and record.name != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.name != null and require.greaterThan.name != '' ">
+					and name > #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.name != null and require.lessThan.name != '' ">
+					and name &lt; #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.name != null and require.greaterThanAndEquals.name != '' ">
+					and name >= #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.name != null and require.lessThanAndEquals.name != '' ">
+					and name &lt;= #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.name != null and require.notEquality.name != '' ">
+					and name &lt;> #{record.name , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.name != null and require.similar.name != '' ">
+					and  INSTR(name ,#{record.name}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.name == null">
+				and name = #{record.name , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.count != null and record.count != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.count != null and require.greaterThan.count != '' ">
+					and count > #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.count != null and require.lessThan.count != '' ">
+					and count &lt; #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.count != null and require.greaterThanAndEquals.count != '' ">
+					and count >= #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.count != null and require.lessThanAndEquals.count != '' ">
+					and count &lt;= #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.count != null and require.notEquality.count != '' ">
+					and count &lt;> #{record.count , jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.count != null and require.similar.count != '' ">
+					and  INSTR(count ,#{record.count}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.count == null">
+				and count = #{record.count , jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_REQUEST_USE (
+		id,request_time,times,name,count
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.requestTime,jdbcType=VARCHAR},
+			#{item.times,jdbcType=DOUBLE},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.count,jdbcType=INTEGER}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZrequestUseModel">
+		delete from R_REQUEST_USE where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.requestTime != null and record.requestTime != '' ">
+			and request_time = #{record.requestTime,jdbcType=VARCHAR}
+		</if>
+		<if test="record.times != null and record.times != '' ">
+			and times = #{record.times,jdbcType=DOUBLE}
+		</if>
+		<if test="record.name != null and record.name != '' ">
+			and name = #{record.name,jdbcType=VARCHAR}
+		</if>
+		<if test="record.count != null and record.count != '' ">
+			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+	</delete>
+</mapper>

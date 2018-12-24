@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common-css :: commonHead('Zmanage')"></head>
+<body>
+    <div id="top">
+		<div id="top_logo">
+			<img alt="logo" th:src="@{/index/images/common/logo.png}" width="274" height="49" style="vertical-align:middle;" />
+		</div>
+		<div id="top_links">
+			<ul class="top-desc">
+				<li><a href="#"><i class="fa fa-sign-out"></i>outLogin</a></li>
+				<li><a href="#"><i class="fa fa-user-circle"></i>admin</a></li>
+				<li><a href="#"><i class="fa fa-cog"></i>seting</a></li>
+			</ul>
+		</div>
+	</div>
+    <!-- side menu start -->
+	<div id="side">
+		
+		 <div id="left_menu_cnt">
+		 	<div id="nav_module">
+		 		<img th:src="@{/index/images/common/module_1.png}" width="210" height="58"/>
+		 	</div>
+		 	<div id="nav_resource">
+		 		<ul id="dleft_tab1" class="ztree"></ul>
+		 	</div>
+		 </div>
+	</div>
+    <!-- side menu start -->
+    <div id="main">
+      	<div id="main-tabs" class="easyui-tabs" style="width:100%;height:100%;">
+		</div>
+    </div>
+    <div id="model_index"></div>
+    <div id="model_ajax" class="model-ajax">
+		<img th:src="@{/index/images/loading.gif}" />
+	</div>
+	<span th:include="/common-js :: commonOnLoadJs"></span>
+	<script type="text/javascript" th:src="@{/index/scripts/load.js}"></script>
+</body>
+</html>
+   
+ 

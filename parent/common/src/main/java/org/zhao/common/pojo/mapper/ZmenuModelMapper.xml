@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZmenuModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZmenuModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="parent_menu_id" property="parentMenuId" jdbcType="VARCHAR" />
+		<result column="menu_state" property="menuState" jdbcType="VARCHAR" />
+		<result column="power_key" property="powerKey" jdbcType="VARCHAR" />
+		<result column="list_inner" property="listInner" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="orders" property="orders" jdbcType="VARCHAR" />
+		<result column="menu_herf" property="menuHerf" jdbcType="VARCHAR" />
+		<result column="list_type" property="listType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,parent_menu_id,menu_state,power_key,list_inner,menu_name,orders,menu_herf,list_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_MENU
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_MENU
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZmenuModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MENU (id,parent_menu_id,menu_state,power_key,list_inner,menu_name,orders,menu_herf,list_type)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.parentMenuId,jdbcType=VARCHAR},
+			#{record.menuState,jdbcType=VARCHAR},
+			#{record.powerKey,jdbcType=VARCHAR},
+			#{record.listInner,jdbcType=VARCHAR},
+			#{record.menuName,jdbcType=VARCHAR},
+			#{record.orders,jdbcType=VARCHAR},
+			#{record.menuHerf,jdbcType=VARCHAR},
+			#{record.listType,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZmenuModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MENU
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+				parent_menu_id,
+			</if>
+			<if test="record.menuState != null and record.menuState != '' ">
+				menu_state,
+			</if>
+			<if test="record.powerKey != null and record.powerKey != '' ">
+				power_key,
+			</if>
+			<if test="record.listInner != null and record.listInner != '' ">
+				list_inner,
+			</if>
+			<if test="record.menuName != null and record.menuName != '' ">
+				menu_name,
+			</if>
+			<if test="record.orders != null and record.orders != '' ">
+				orders,
+			</if>
+			<if test="record.menuHerf != null and record.menuHerf != '' ">
+				menu_herf,
+			</if>
+			<if test="record.listType != null and record.listType != '' ">
+				list_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+				#{record.parentMenuId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuState != null and record.menuState != '' ">
+				#{record.menuState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.powerKey != null and record.powerKey != '' ">
+				#{record.powerKey,jdbcType=VARCHAR},
+			</if>
+			<if test="record.listInner != null and record.listInner != '' ">
+				#{record.listInner,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuName != null and record.menuName != '' ">
+				#{record.menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orders != null and record.orders != '' ">
+				#{record.orders,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuHerf != null and record.menuHerf != '' ">
+				#{record.menuHerf,jdbcType=VARCHAR},
+			</if>
+			<if test="record.listType != null and record.listType != '' ">
+				#{record.listType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZmenuModel">
+		update R_MENU
+		<set>
+			<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+				parent_menu_id = #{record.parentMenuId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuState != null and record.menuState != '' ">
+				menu_state = #{record.menuState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.powerKey != null and record.powerKey != '' ">
+				power_key = #{record.powerKey,jdbcType=VARCHAR},
+			</if>
+			<if test="record.listInner != null and record.listInner != '' ">
+				list_inner = #{record.listInner,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuName != null and record.menuName != '' ">
+				menu_name = #{record.menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orders != null and record.orders != '' ">
+				orders = #{record.orders,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuHerf != null and record.menuHerf != '' ">
+				menu_herf = #{record.menuHerf,jdbcType=VARCHAR},
+			</if>
+			<if test="record.listType != null and record.listType != '' ">
+				list_type = #{record.listType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZmenuModel">
+		update R_MENU
+		set
+		parent_menu_id = #{record.parentMenuId,jdbcType=VARCHAR}
+		menu_state = #{record.menuState,jdbcType=VARCHAR}
+		power_key = #{record.powerKey,jdbcType=VARCHAR}
+		list_inner = #{record.listInner,jdbcType=VARCHAR}
+		menu_name = #{record.menuName,jdbcType=VARCHAR}
+		orders = #{record.orders,jdbcType=VARCHAR}
+		menu_herf = #{record.menuHerf,jdbcType=VARCHAR}
+		list_type = #{record.listType,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_MENU where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+			and parent_menu_id = #{record.parentMenuId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuState != null and record.menuState != '' ">
+			and menu_state = #{record.menuState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.powerKey != null and record.powerKey != '' ">
+			and power_key = #{record.powerKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listInner != null and record.listInner != '' ">
+			and list_inner = #{record.listInner,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuName != null and record.menuName != '' ">
+			and menu_name = #{record.menuName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.orders != null and record.orders != '' ">
+			and orders = #{record.orders,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuHerf != null and record.menuHerf != '' ">
+			and menu_herf = #{record.menuHerf,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listType != null and record.listType != '' ">
+			and list_type = #{record.listType,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZmenuModel" resultType="java.lang.Integer">
+		select count(*) from R_MENU where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+			and parent_menu_id = #{record.parentMenuId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuState != null and record.menuState != '' ">
+			and menu_state = #{record.menuState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.powerKey != null and record.powerKey != '' ">
+			and power_key = #{record.powerKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listInner != null and record.listInner != '' ">
+			and list_inner = #{record.listInner,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuName != null and record.menuName != '' ">
+			and menu_name = #{record.menuName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.orders != null and record.orders != '' ">
+			and orders = #{record.orders,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuHerf != null and record.menuHerf != '' ">
+			and menu_herf = #{record.menuHerf,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listType != null and record.listType != '' ">
+			and list_type = #{record.listType,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_MENU where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.parentMenuId != null and require.greaterThan.parentMenuId != '' ">
+					and parent_menu_id > #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.parentMenuId != null and require.lessThan.parentMenuId != '' ">
+					and parent_menu_id &lt; #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.parentMenuId != null and require.greaterThanAndEquals.parentMenuId != '' ">
+					and parent_menu_id >= #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.parentMenuId != null and require.lessThanAndEquals.parentMenuId != '' ">
+					and parent_menu_id &lt;= #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.parentMenuId != null and require.notEquality.parentMenuId != '' ">
+					and parent_menu_id &lt;> #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.parentMenuId != null and require.similar.parentMenuId != '' ">
+					and  INSTR(parent_menu_id ,#{record.parentMenuId}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.parentMenuId == null">
+				and parent_menu_id = #{record.parentMenuId , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuState != null and record.menuState != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuState != null and require.greaterThan.menuState != '' ">
+					and menu_state > #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuState != null and require.lessThan.menuState != '' ">
+					and menu_state &lt; #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuState != null and require.greaterThanAndEquals.menuState != '' ">
+					and menu_state >= #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuState != null and require.lessThanAndEquals.menuState != '' ">
+					and menu_state &lt;= #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuState != null and require.notEquality.menuState != '' ">
+					and menu_state &lt;> #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuState != null and require.similar.menuState != '' ">
+					and  INSTR(menu_state ,#{record.menuState}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuState == null">
+				and menu_state = #{record.menuState , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.powerKey != null and record.powerKey != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.powerKey != null and require.greaterThan.powerKey != '' ">
+					and power_key > #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.powerKey != null and require.lessThan.powerKey != '' ">
+					and power_key &lt; #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.powerKey != null and require.greaterThanAndEquals.powerKey != '' ">
+					and power_key >= #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.powerKey != null and require.lessThanAndEquals.powerKey != '' ">
+					and power_key &lt;= #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.powerKey != null and require.notEquality.powerKey != '' ">
+					and power_key &lt;> #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.powerKey != null and require.similar.powerKey != '' ">
+					and  INSTR(power_key ,#{record.powerKey}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.powerKey == null">
+				and power_key = #{record.powerKey , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.listInner != null and record.listInner != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.listInner != null and require.greaterThan.listInner != '' ">
+					and list_inner > #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.listInner != null and require.lessThan.listInner != '' ">
+					and list_inner &lt; #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.listInner != null and require.greaterThanAndEquals.listInner != '' ">
+					and list_inner >= #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.listInner != null and require.lessThanAndEquals.listInner != '' ">
+					and list_inner &lt;= #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.listInner != null and require.notEquality.listInner != '' ">
+					and list_inner &lt;> #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.listInner != null and require.similar.listInner != '' ">
+					and  INSTR(list_inner ,#{record.listInner}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.listInner == null">
+				and list_inner = #{record.listInner , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuName != null and record.menuName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuName != null and require.greaterThan.menuName != '' ">
+					and menu_name > #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuName != null and require.lessThan.menuName != '' ">
+					and menu_name &lt; #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuName != null and require.greaterThanAndEquals.menuName != '' ">
+					and menu_name >= #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuName != null and require.lessThanAndEquals.menuName != '' ">
+					and menu_name &lt;= #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuName != null and require.notEquality.menuName != '' ">
+					and menu_name &lt;> #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuName != null and require.similar.menuName != '' ">
+					and  INSTR(menu_name ,#{record.menuName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuName == null">
+				and menu_name = #{record.menuName , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.orders != null and record.orders != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.orders != null and require.greaterThan.orders != '' ">
+					and orders > #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.orders != null and require.lessThan.orders != '' ">
+					and orders &lt; #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.orders != null and require.greaterThanAndEquals.orders != '' ">
+					and orders >= #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.orders != null and require.lessThanAndEquals.orders != '' ">
+					and orders &lt;= #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.orders != null and require.notEquality.orders != '' ">
+					and orders &lt;> #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.orders != null and require.similar.orders != '' ">
+					and  INSTR(orders ,#{record.orders}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.orders == null">
+				and orders = #{record.orders , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuHerf != null and record.menuHerf != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuHerf != null and require.greaterThan.menuHerf != '' ">
+					and menu_herf > #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuHerf != null and require.lessThan.menuHerf != '' ">
+					and menu_herf &lt; #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuHerf != null and require.greaterThanAndEquals.menuHerf != '' ">
+					and menu_herf >= #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuHerf != null and require.lessThanAndEquals.menuHerf != '' ">
+					and menu_herf &lt;= #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuHerf != null and require.notEquality.menuHerf != '' ">
+					and menu_herf &lt;> #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuHerf != null and require.similar.menuHerf != '' ">
+					and  INSTR(menu_herf ,#{record.menuHerf}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuHerf == null">
+				and menu_herf = #{record.menuHerf , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.listType != null and record.listType != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.listType != null and require.greaterThan.listType != '' ">
+					and list_type > #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.listType != null and require.lessThan.listType != '' ">
+					and list_type &lt; #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.listType != null and require.greaterThanAndEquals.listType != '' ">
+					and list_type >= #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.listType != null and require.lessThanAndEquals.listType != '' ">
+					and list_type &lt;= #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.listType != null and require.notEquality.listType != '' ">
+					and list_type &lt;> #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.listType != null and require.similar.listType != '' ">
+					and  INSTR(list_type ,#{record.listType}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.listType == null">
+				and list_type = #{record.listType , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZmenuModel" resultType="java.lang.Integer">
+		select count(*) from R_MENU where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.parentMenuId != null and require.greaterThan.parentMenuId != '' ">
+					and parent_menu_id > #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.parentMenuId != null and require.lessThan.parentMenuId != '' ">
+					and parent_menu_id &lt; #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.parentMenuId != null and require.greaterThanAndEquals.parentMenuId != '' ">
+					and parent_menu_id >= #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.parentMenuId != null and require.lessThanAndEquals.parentMenuId != '' ">
+					and parent_menu_id &lt;= #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.parentMenuId != null and require.notEquality.parentMenuId != '' ">
+					and parent_menu_id &lt;> #{record.parentMenuId , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.parentMenuId != null and require.similar.parentMenuId != '' ">
+					and  INSTR(parent_menu_id ,#{record.parentMenuId}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.parentMenuId == null">
+				and parent_menu_id = #{record.parentMenuId , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuState != null and record.menuState != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuState != null and require.greaterThan.menuState != '' ">
+					and menu_state > #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuState != null and require.lessThan.menuState != '' ">
+					and menu_state &lt; #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuState != null and require.greaterThanAndEquals.menuState != '' ">
+					and menu_state >= #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuState != null and require.lessThanAndEquals.menuState != '' ">
+					and menu_state &lt;= #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuState != null and require.notEquality.menuState != '' ">
+					and menu_state &lt;> #{record.menuState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuState != null and require.similar.menuState != '' ">
+					and  INSTR(menu_state ,#{record.menuState}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuState == null">
+				and menu_state = #{record.menuState , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.powerKey != null and record.powerKey != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.powerKey != null and require.greaterThan.powerKey != '' ">
+					and power_key > #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.powerKey != null and require.lessThan.powerKey != '' ">
+					and power_key &lt; #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.powerKey != null and require.greaterThanAndEquals.powerKey != '' ">
+					and power_key >= #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.powerKey != null and require.lessThanAndEquals.powerKey != '' ">
+					and power_key &lt;= #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.powerKey != null and require.notEquality.powerKey != '' ">
+					and power_key &lt;> #{record.powerKey , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.powerKey != null and require.similar.powerKey != '' ">
+					and  INSTR(power_key ,#{record.powerKey}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.powerKey == null">
+				and power_key = #{record.powerKey , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.listInner != null and record.listInner != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.listInner != null and require.greaterThan.listInner != '' ">
+					and list_inner > #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.listInner != null and require.lessThan.listInner != '' ">
+					and list_inner &lt; #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.listInner != null and require.greaterThanAndEquals.listInner != '' ">
+					and list_inner >= #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.listInner != null and require.lessThanAndEquals.listInner != '' ">
+					and list_inner &lt;= #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.listInner != null and require.notEquality.listInner != '' ">
+					and list_inner &lt;> #{record.listInner , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.listInner != null and require.similar.listInner != '' ">
+					and  INSTR(list_inner ,#{record.listInner}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.listInner == null">
+				and list_inner = #{record.listInner , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuName != null and record.menuName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuName != null and require.greaterThan.menuName != '' ">
+					and menu_name > #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuName != null and require.lessThan.menuName != '' ">
+					and menu_name &lt; #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuName != null and require.greaterThanAndEquals.menuName != '' ">
+					and menu_name >= #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuName != null and require.lessThanAndEquals.menuName != '' ">
+					and menu_name &lt;= #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuName != null and require.notEquality.menuName != '' ">
+					and menu_name &lt;> #{record.menuName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuName != null and require.similar.menuName != '' ">
+					and  INSTR(menu_name ,#{record.menuName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuName == null">
+				and menu_name = #{record.menuName , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.orders != null and record.orders != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.orders != null and require.greaterThan.orders != '' ">
+					and orders > #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.orders != null and require.lessThan.orders != '' ">
+					and orders &lt; #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.orders != null and require.greaterThanAndEquals.orders != '' ">
+					and orders >= #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.orders != null and require.lessThanAndEquals.orders != '' ">
+					and orders &lt;= #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.orders != null and require.notEquality.orders != '' ">
+					and orders &lt;> #{record.orders , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.orders != null and require.similar.orders != '' ">
+					and  INSTR(orders ,#{record.orders}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.orders == null">
+				and orders = #{record.orders , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.menuHerf != null and record.menuHerf != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.menuHerf != null and require.greaterThan.menuHerf != '' ">
+					and menu_herf > #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.menuHerf != null and require.lessThan.menuHerf != '' ">
+					and menu_herf &lt; #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.menuHerf != null and require.greaterThanAndEquals.menuHerf != '' ">
+					and menu_herf >= #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.menuHerf != null and require.lessThanAndEquals.menuHerf != '' ">
+					and menu_herf &lt;= #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.menuHerf != null and require.notEquality.menuHerf != '' ">
+					and menu_herf &lt;> #{record.menuHerf , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.menuHerf != null and require.similar.menuHerf != '' ">
+					and  INSTR(menu_herf ,#{record.menuHerf}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.menuHerf == null">
+				and menu_herf = #{record.menuHerf , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.listType != null and record.listType != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.listType != null and require.greaterThan.listType != '' ">
+					and list_type > #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.listType != null and require.lessThan.listType != '' ">
+					and list_type &lt; #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.listType != null and require.greaterThanAndEquals.listType != '' ">
+					and list_type >= #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.listType != null and require.lessThanAndEquals.listType != '' ">
+					and list_type &lt;= #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.listType != null and require.notEquality.listType != '' ">
+					and list_type &lt;> #{record.listType , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.listType != null and require.similar.listType != '' ">
+					and  INSTR(list_type ,#{record.listType}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.listType == null">
+				and list_type = #{record.listType , jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_MENU (
+		id,parent_menu_id,menu_state,power_key,list_inner,menu_name,orders,menu_herf,list_type
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.parentMenuId,jdbcType=VARCHAR},
+			#{item.menuState,jdbcType=VARCHAR},
+			#{item.powerKey,jdbcType=VARCHAR},
+			#{item.listInner,jdbcType=VARCHAR},
+			#{item.menuName,jdbcType=VARCHAR},
+			#{item.orders,jdbcType=VARCHAR},
+			#{item.menuHerf,jdbcType=VARCHAR},
+			#{item.listType,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZmenuModel">
+		delete from R_MENU where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
+			and parent_menu_id = #{record.parentMenuId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuState != null and record.menuState != '' ">
+			and menu_state = #{record.menuState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.powerKey != null and record.powerKey != '' ">
+			and power_key = #{record.powerKey,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listInner != null and record.listInner != '' ">
+			and list_inner = #{record.listInner,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuName != null and record.menuName != '' ">
+			and menu_name = #{record.menuName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.orders != null and record.orders != '' ">
+			and orders = #{record.orders,jdbcType=VARCHAR}
+		</if>
+		<if test="record.menuHerf != null and record.menuHerf != '' ">
+			and menu_herf = #{record.menuHerf,jdbcType=VARCHAR}
+		</if>
+		<if test="record.listType != null and record.listType != '' ">
+			and list_type = #{record.listType,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

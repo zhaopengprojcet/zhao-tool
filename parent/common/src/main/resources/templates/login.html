@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	
+		<title>Wopop</title>
+		<link th:href="@{/login/Wopop_files/style_log.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/login/Wopop_files/style.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/login/Wopop_files/userpanel.css}" rel="stylesheet" type="text/css"  />
+	</head>
+	
+	<body class="login" mycollectionplug="bind">
+		<div class="login_m">
+			<div class="login_logo">
+				<img th:src="@{/login/Wopop_files/logo.png}" width="196" height="46" />
+			</div>
+			<div class="login_boder">
+				<form method="post" id="sign_login">
+					<div class="login_padding" id="login_model">
+						<h2>登录名称</h2>
+						<label> 
+							<input type="text" id="username" name="loginName" class="txt_input txt_input2" value="zhao" />
+						</label>
+						<h2>登录密码</h2>
+						<label> 
+							<input type="password" name="password" id="userpwd"  class="txt_input" value="123" />
+						</label>
+						<h2>验证码</h2>
+						<label> 
+							<input style="width: 135px;vertical-align:middle;" type="text" name="code" id="code"  class="txt_input" value="" />
+							
+							<img id="code-img" th:src="@{/drawCode.sv?pwh=36X160}" alt="" style="vertical-align:middle;margin-bottom: 10px;" width="160px" height="36px"/>
+						</label>
+						<div class="rem_sub">
+							<label> 
+								<input type="button" class="sub_button" name="button" id="button" value="登  入" style="opacity: 0.7;" />
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<br />
+		<p align="center" style="color: red;" id="error-msg">
+			<span th:text="${error_msg}"></span>
+		</p>
+		<br />
+		<p align="center">
+			EMAIL&nbsp;:&nbsp;&nbsp; 
+			<a href="javaScript:;" title="273615813@qq.com">273615813@qq.com</a>
+		</p>
+	</body>
+	<script type="text/javascript" th:src="@{/login/js/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/login/js/index.js}"></script>
+</html>
