@@ -11,6 +11,10 @@ public class ZrequestUseModel {
 	private String id;
 	@DataColum(type=FieldTypeEnum.STRING ,length=100,comment="请求目标")
 	private String name;
+	@DataColum(type=FieldTypeEnum.STRING ,length=30,comment="请求ip")
+	private String queryIp;
+	@DataColum(type=FieldTypeEnum.STRING ,length=30,comment="请求服务")
+	private String serviceName;
 	@DataColum(type=FieldTypeEnum.DOUBLE ,length=100,comment="平均耗时")
 	private double times;
 	@DataColum(type=FieldTypeEnum.INT ,length=100,comment="访问次数")
@@ -52,6 +56,18 @@ public class ZrequestUseModel {
 	}
 	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
+	}
+	public String getQueryIp() {
+		return queryIp;
+	}
+	public void setQueryIp(String queryIp) {
+		this.queryIp = queryIp;
+	}
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 	
 	

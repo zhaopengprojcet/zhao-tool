@@ -5,11 +5,13 @@
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="request_time" property="requestTime" jdbcType="VARCHAR" />
 		<result column="times" property="times" jdbcType="DOUBLE" />
+		<result column="query_ip" property="queryIp" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="count" property="count" jdbcType="INTEGER" />
+		<result column="service_name" property="serviceName" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id,request_time,times,name,count
+		id,request_time,times,query_ip,name,count,service_name
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
@@ -22,13 +24,15 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" useGeneratedKeys="true" keyProperty="id">
-		insert into R_REQUEST_USE (id,request_time,times,name,count)
+		insert into R_REQUEST_USE (id,request_time,times,query_ip,name,count,service_name)
 		values (
 			#{record.id,jdbcType=VARCHAR},
 			#{record.requestTime,jdbcType=VARCHAR},
 			#{record.times,jdbcType=DOUBLE},
+			#{record.queryIp,jdbcType=VARCHAR},
 			#{record.name,jdbcType=VARCHAR},
-			#{record.count,jdbcType=INTEGER}
+			#{record.count,jdbcType=INTEGER},
+			#{record.serviceName,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZrequestUseModel" useGeneratedKeys="true" keyProperty="id">
@@ -43,11 +47,17 @@
 			<if test="record.times != null and record.times != '' ">
 				times,
 			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				query_ip,
+			</if>
 			<if test="record.name != null and record.name != '' ">
 				name,
 			</if>
 			<if test="record.count != null and record.count != '' ">
 				count,
+			</if>
+			<if test="record.serviceName != null and record.serviceName != '' ">
+				service_name,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -60,11 +70,17 @@
 			<if test="record.times != null and record.times != '' ">
 				#{record.times,jdbcType=DOUBLE},
 			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				#{record.queryIp,jdbcType=VARCHAR},
+			</if>
 			<if test="record.name != null and record.name != '' ">
 				#{record.name,jdbcType=VARCHAR},
 			</if>
 			<if test="record.count != null and record.count != '' ">
 				#{record.count,jdbcType=INTEGER},
+			</if>
+			<if test="record.serviceName != null and record.serviceName != '' ">
+				#{record.serviceName,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -77,11 +93,17 @@
 			<if test="record.times != null and record.times != '' ">
 				times = #{record.times,jdbcType=DOUBLE},
 			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				query_ip = #{record.queryIp,jdbcType=VARCHAR},
+			</if>
 			<if test="record.name != null and record.name != '' ">
 				name = #{record.name,jdbcType=VARCHAR},
 			</if>
 			<if test="record.count != null and record.count != '' ">
 				count = #{record.count,jdbcType=INTEGER},
+			</if>
+			<if test="record.serviceName != null and record.serviceName != '' ">
+				service_name = #{record.serviceName,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{record.id,jdbcType=VARCHAR}
@@ -91,8 +113,10 @@
 		set
 		request_time = #{record.requestTime,jdbcType=VARCHAR}
 		times = #{record.times,jdbcType=DOUBLE}
+		query_ip = #{record.queryIp,jdbcType=VARCHAR}
 		name = #{record.name,jdbcType=VARCHAR}
 		count = #{record.count,jdbcType=INTEGER}
+		service_name = #{record.serviceName,jdbcType=VARCHAR}
 		where id = #{record.id,jdbcType=VARCHAR}
 	</update>
 	<select id="selectPageListByParameters" resultMap="BaseResultMap">
@@ -106,11 +130,17 @@
 		<if test="record.times != null and record.times != '' ">
 			and times = #{record.times,jdbcType=DOUBLE}
 		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
 		<if test="record.name != null and record.name != '' ">
 			and name = #{record.name,jdbcType=VARCHAR}
 		</if>
 		<if test="record.count != null and record.count != '' ">
 			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+		<if test="record.serviceName != null and record.serviceName != '' ">
+			and service_name = #{record.serviceName,jdbcType=VARCHAR}
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -132,11 +162,17 @@
 		<if test="record.times != null and record.times != '' ">
 			and times = #{record.times,jdbcType=DOUBLE}
 		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
 		<if test="record.name != null and record.name != '' ">
 			and name = #{record.name,jdbcType=VARCHAR}
 		</if>
 		<if test="record.count != null and record.count != '' ">
 			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+		<if test="record.serviceName != null and record.serviceName != '' ">
+			and service_name = #{record.serviceName,jdbcType=VARCHAR}
 		</if>
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
@@ -249,6 +285,42 @@
 				and times = #{record.times , jdbcType=DOUBLE}
 			</if>
 		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryIp != null and require.greaterThan.queryIp != '' ">
+					and query_ip > #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryIp != null and require.lessThan.queryIp != '' ">
+					and query_ip &lt; #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryIp != null and require.greaterThanAndEquals.queryIp != '' ">
+					and query_ip >= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryIp != null and require.lessThanAndEquals.queryIp != '' ">
+					and query_ip &lt;= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryIp != null and require.notEquality.queryIp != '' ">
+					and query_ip &lt;> #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryIp != null and require.similar.queryIp != '' ">
+					and  INSTR(query_ip ,#{record.queryIp}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryIp == null">
+				and query_ip = #{record.queryIp , jdbcType=VARCHAR}
+			</if>
+		</if>
 		<if test="record.name != null and record.name != '' ">
 			<if test="require.greaterThan != null">
 				<if test="require.greaterThan.name != null and require.greaterThan.name != '' ">
@@ -319,6 +391,42 @@
 			</if>
 			<if test="require.allColom.count == null">
 				and count = #{record.count , jdbcType=INTEGER}
+			</if>
+		</if>
+		<if test="record.serviceName != null and record.serviceName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serviceName != null and require.greaterThan.serviceName != '' ">
+					and service_name > #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serviceName != null and require.lessThan.serviceName != '' ">
+					and service_name &lt; #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serviceName != null and require.greaterThanAndEquals.serviceName != '' ">
+					and service_name >= #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serviceName != null and require.lessThanAndEquals.serviceName != '' ">
+					and service_name &lt;= #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serviceName != null and require.notEquality.serviceName != '' ">
+					and service_name &lt;> #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serviceName != null and require.similar.serviceName != '' ">
+					and  INSTR(service_name ,#{record.serviceName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serviceName == null">
+				and service_name = #{record.serviceName , jdbcType=VARCHAR}
 			</if>
 		</if>
 		<if test=" page != null ">
@@ -440,6 +548,42 @@
 				and times = #{record.times , jdbcType=DOUBLE}
 			</if>
 		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryIp != null and require.greaterThan.queryIp != '' ">
+					and query_ip > #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryIp != null and require.lessThan.queryIp != '' ">
+					and query_ip &lt; #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryIp != null and require.greaterThanAndEquals.queryIp != '' ">
+					and query_ip >= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryIp != null and require.lessThanAndEquals.queryIp != '' ">
+					and query_ip &lt;= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryIp != null and require.notEquality.queryIp != '' ">
+					and query_ip &lt;> #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryIp != null and require.similar.queryIp != '' ">
+					and  INSTR(query_ip ,#{record.queryIp}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryIp == null">
+				and query_ip = #{record.queryIp , jdbcType=VARCHAR}
+			</if>
+		</if>
 		<if test="record.name != null and record.name != '' ">
 			<if test="require.greaterThan != null">
 				<if test="require.greaterThan.name != null and require.greaterThan.name != '' ">
@@ -512,18 +656,56 @@
 				and count = #{record.count , jdbcType=INTEGER}
 			</if>
 		</if>
+		<if test="record.serviceName != null and record.serviceName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.serviceName != null and require.greaterThan.serviceName != '' ">
+					and service_name > #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.serviceName != null and require.lessThan.serviceName != '' ">
+					and service_name &lt; #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.serviceName != null and require.greaterThanAndEquals.serviceName != '' ">
+					and service_name >= #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.serviceName != null and require.lessThanAndEquals.serviceName != '' ">
+					and service_name &lt;= #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.serviceName != null and require.notEquality.serviceName != '' ">
+					and service_name &lt;> #{record.serviceName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.serviceName != null and require.similar.serviceName != '' ">
+					and  INSTR(service_name ,#{record.serviceName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.serviceName == null">
+				and service_name = #{record.serviceName , jdbcType=VARCHAR}
+			</if>
+		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">
 		insert into R_REQUEST_USE (
-		id,request_time,times,name,count
+		id,request_time,times,query_ip,name,count,service_name
 		) values
 		<foreach collection="list" item="item" index="index" separator=",">
 			(
 			#{item.id,jdbcType=VARCHAR},
 			#{item.requestTime,jdbcType=VARCHAR},
 			#{item.times,jdbcType=DOUBLE},
+			#{item.queryIp,jdbcType=VARCHAR},
 			#{item.name,jdbcType=VARCHAR},
-			#{item.count,jdbcType=INTEGER}
+			#{item.count,jdbcType=INTEGER},
+			#{item.serviceName,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -538,11 +720,17 @@
 		<if test="record.times != null and record.times != '' ">
 			and times = #{record.times,jdbcType=DOUBLE}
 		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
 		<if test="record.name != null and record.name != '' ">
 			and name = #{record.name,jdbcType=VARCHAR}
 		</if>
 		<if test="record.count != null and record.count != '' ">
 			and count = #{record.count,jdbcType=INTEGER}
+		</if>
+		<if test="record.serviceName != null and record.serviceName != '' ">
+			and service_name = #{record.serviceName,jdbcType=VARCHAR}
 		</if>
 	</delete>
 </mapper>

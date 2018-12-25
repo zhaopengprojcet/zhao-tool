@@ -55,24 +55,34 @@ public class UseTimeController {
 		ResultContent<JSONObject> query = QuerySign.deQuery(jr, request , "page" , "rows");
 		PageContext page = new PageContext(query.getJsonInt("page"), query.getJsonInt("rows") , "times" , "desc");
 		String queryKey = query.getJsonString("queryKey");
+		String ipKey = query.getJsonString("ipKey");
+		String nameKey = query.getJsonString("nameKey");
 		if(query.getData().containsKey("requestTime") && !StringUtils.isEmpty(query.getJsonString("requestTime"))) {
 			String date = query.getJsonString("requestTime");
 			if(DateUtil.getTimeStr(new Date(), DateUtil.yyyy_MM_dd).equals(date)) {
-				return QueryTimeUse.getTimeEasyUiData(queryKey ,page);
+				return QueryTimeUse.getTimeEasyUiData(queryKey , ipKey , nameKey ,page);
 			}
 			else {
 				ZrequestUseModel req = new ZrequestUseModel();
 				req.setRequestTime(date);
 				ParamterRequirement require = new ParamterRequirement();
 				if(!StringUtils.isEmpty(queryKey)) {
-					req.setName(queryKey);
+					req.setServiceName(queryKey);
+					require.addSimilar("serviceName");
+				}
+				if(!StringUtils.isEmpty(ipKey)) {
+					req.setQueryIp(ipKey);
+					require.addSimilar("queryIp");
+				}
+				if(!StringUtils.isEmpty(nameKey)) {
+					req.setName(nameKey);
 					require.addSimilar("name");
 				}
 				return BaseResultUtil.resultEasyUi(this.zUseTimeService.selectPageList(req, page , require.getParamter()));
 			}
 		}
 		else {
-			return QueryTimeUse.getTimeEasyUiData(queryKey ,page);
+			return QueryTimeUse.getTimeEasyUiData(queryKey , ipKey , nameKey ,page);
 		}
 	}
 	

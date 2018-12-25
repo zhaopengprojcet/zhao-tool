@@ -51,7 +51,7 @@ public class ServerController {
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
-		QueryTimeUse.putTime("【" + client.getIp() + "--->" + client.getServiceName() + "】" +  time.getJsonString("from"), Long.parseLong(time.getJsonString("times")));
+		QueryTimeUse.putTime(client.getIp() + "|" + client.getServiceName() + "|" +  time.getJsonString("from"), Long.parseLong(time.getJsonString("times")));
 		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
 	}
 }

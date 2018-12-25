@@ -50,7 +50,10 @@ public class QueryTimeUse {
 			for (Map.Entry<String, Long> entry : useTimeTable.entrySet()) { 
 				ZrequestUseModel model = new ZrequestUseModel();
 				model.setCount(requestCountTable.get(entry.getKey()) == null ? 0 : requestCountTable.get(entry.getKey()).intValue());
-				model.setName(entry.getKey());
+				String[] names = entry.getKey().split("\\|");
+				model.setQueryIp(names[0]);
+				model.setServiceName(names[1]);
+				model.setName(names[2]);
 				model.setRequestTime(DateUtil.getTimeStr(new Date(), DateUtil.yyyy_MM_dd));
 				model.setTimes(entry.getValue() == null ? 0 : entry.getValue().longValue());
 				list.add(model);
@@ -88,7 +91,7 @@ public class QueryTimeUse {
 		if(requestCount != null)requestCountTable.putAll(requestCount);
 	}
 	
-	public static String getTimeEasyUiData(String queryKey ,PageContext page) {
+	public static String getTimeEasyUiData(String serviceQuery , String ipQuery , String nameQuery ,PageContext page) {
 		synchronized (useTimeTable) {
 			List<Map.Entry<String,Long>> list = new ArrayList<Map.Entry<String,Long>>(useTimeTable.entrySet());
 	        Collections.sort(list,new Comparator<Map.Entry<String,Long>>() {
@@ -109,13 +112,22 @@ public class QueryTimeUse {
 				int end = begin + page.getCount().intValue() - 1;
 				for(Map.Entry<String,Long> mapping:list){ 
 					String key = mapping.getKey(); 
-					if(!StringUtils.isEmpty(queryKey)) {
-						if(key.indexOf(queryKey) == -1) continue;
-					}
 					long val = mapping.getValue();
 					if(index >= begin && index <= end) {
 						JSONObject ob = new JSONObject();
-						ob.put("name", key);
+						String[] names = key.split("\\|");
+						if(!StringUtils.isEmpty(serviceQuery)) {
+							if(names[1].indexOf(serviceQuery) == -1) continue;
+						}
+						if(!StringUtils.isEmpty(ipQuery)) {
+							if(names[0].indexOf(ipQuery) == -1) continue;
+						}
+						if(!StringUtils.isEmpty(nameQuery)) {
+							if(names[2].indexOf(nameQuery) == -1) continue;
+						}
+						ob.put("queryIp", names[0]);
+						ob.put("serviceName", names[1]);
+						ob.put("name", names[2]);
 						ob.put("times", val);
 						ob.put("count", requestCountTable.get(key).longValue());
 						array.add(ob);

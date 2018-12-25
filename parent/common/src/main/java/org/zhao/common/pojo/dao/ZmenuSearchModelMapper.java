@@ -9,12 +9,12 @@ import org.zhao.common.pojo.model.ZmenuSearchModel;
 
 public interface ZmenuSearchModelMapper extends MapperBase<ZmenuSearchModel>{
 
-	@Select("SELECT * FROM r_menu_search WHERE parent_menu_id = #{menuId} AND search_state = '1' ")
+	@Select("SELECT * FROM r_menu_search WHERE parent_menu_id = #{menuId} AND search_state = '1' ORDER BY orders ")
 	@ResultMap("BaseResultMap")
 	List<ZmenuSearchModel> selectListByMenuId(@Param("menuId")String menuId);
 	
 	
-	@Select("SELECT * FROM r_menu_search WHERE parent_menu_id = #{id} ")
+	@Select("SELECT * FROM r_menu_search WHERE parent_menu_id = #{id} ORDER BY orders ")
 	@ResultMap("BaseResultMap")
 	List<ZmenuSearchModel> selectAllListByMenuId(@Param("id")String menuId);
 	 /**

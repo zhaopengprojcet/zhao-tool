@@ -40,7 +40,7 @@ public class RequestAfterAspect {
  		long begin = System.currentTimeMillis();
  		Object obj= joinPoint.proceed();
  		long end = System.currentTimeMillis();
- 		String name = "【" + SessionUtil.getWebIp() + "--->" + ConfigProperties.instance().getPropertiesVal("run.server.name") + "】" + classType + "." + methodName;
+ 		String name = SessionUtil.getWebIp() + "|" + ConfigProperties.instance().getPropertiesVal("run.server.name") + "|" + classType + "." + methodName;
  		QueryTimeUse.putTime(name, end - begin);
  		
  		return obj;
