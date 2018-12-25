@@ -3,13 +3,10 @@ package org.zhao.common.schedule;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.zhao.common.aspect.query.QueryTimeUse;
-import org.zhao.common.service.ZuseTimeService;
-import org.zhao.common.util.SpringContextUtil;
+import org.zhao.service.ZuseTimeService;
 
 @Component
 public class ServerSchedule {

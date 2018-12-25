@@ -26,6 +26,7 @@ public class RegiestOtherServerThread extends Thread{
 	@Override
 	public void run() {
 		String[] servers = ServerConfig.getServerPaths();
+		if(servers == null || servers.length < 1) return;
 		client.setFullServer(false);
 		String par = SignUtil.getHttpContext(JSONObject.fromObject(client).toString());
 		for (String string : servers) {
@@ -38,6 +39,4 @@ public class RegiestOtherServerThread extends Thread{
 			}
 		}
 	}
-
-	
 }

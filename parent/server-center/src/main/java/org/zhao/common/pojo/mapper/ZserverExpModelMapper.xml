@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZserverExpModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZserverExpModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="query_server_name" property="queryServerName" jdbcType="VARCHAR" />
+		<result column="query_ip" property="queryIp" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="exp_desc" property="expDesc" jdbcType="VARCHAR" />
+		<result column="exp_state" property="expState" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,query_server_name,query_ip,create_time,exp_desc,exp_state
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_SERVER_EXP
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_SERVER_EXP
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZserverExpModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_SERVER_EXP (id,query_server_name,query_ip,create_time,exp_desc,exp_state)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.queryServerName,jdbcType=VARCHAR},
+			#{record.queryIp,jdbcType=VARCHAR},
+			#{record.createTime,jdbcType=TIMESTAMP},
+			#{record.expDesc,jdbcType=VARCHAR},
+			#{record.expState,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZserverExpModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_SERVER_EXP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.queryServerName != null and record.queryServerName != '' ">
+				query_server_name,
+			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				query_ip,
+			</if>
+			<if test="record.createTime != null ">
+				create_time,
+			</if>
+			<if test="record.expDesc != null and record.expDesc != '' ">
+				exp_desc,
+			</if>
+			<if test="record.expState != null and record.expState != '' ">
+				exp_state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.queryServerName != null and record.queryServerName != '' ">
+				#{record.queryServerName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				#{record.queryIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null ">
+				#{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.expDesc != null and record.expDesc != '' ">
+				#{record.expDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="record.expState != null and record.expState != '' ">
+				#{record.expState,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZserverExpModel">
+		update R_SERVER_EXP
+		<set>
+			<if test="record.queryServerName != null and record.queryServerName != '' ">
+				query_server_name = #{record.queryServerName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.queryIp != null and record.queryIp != '' ">
+				query_ip = #{record.queryIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null ">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.expDesc != null and record.expDesc != '' ">
+				exp_desc = #{record.expDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="record.expState != null and record.expState != '' ">
+				exp_state = #{record.expState,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZserverExpModel">
+		update R_SERVER_EXP
+		set
+		query_server_name = #{record.queryServerName,jdbcType=VARCHAR}
+		query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		exp_desc = #{record.expDesc,jdbcType=VARCHAR}
+		exp_state = #{record.expState,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_SERVER_EXP where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryServerName != null and record.queryServerName != '' ">
+			and query_server_name = #{record.queryServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.createTime != null ">
+			and create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.expDesc != null and record.expDesc != '' ">
+			and exp_desc = #{record.expDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="record.expState != null and record.expState != '' ">
+			and exp_state = #{record.expState,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZserverExpModel" resultType="java.lang.Integer">
+		select count(*) from R_SERVER_EXP where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryServerName != null and record.queryServerName != '' ">
+			and query_server_name = #{record.queryServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.createTime != null ">
+			and create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.expDesc != null and record.expDesc != '' ">
+			and exp_desc = #{record.expDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="record.expState != null and record.expState != '' ">
+			and exp_state = #{record.expState,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_SERVER_EXP where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.queryServerName != null and record.queryServerName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryServerName != null and require.greaterThan.queryServerName != '' ">
+					and query_server_name > #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryServerName != null and require.lessThan.queryServerName != '' ">
+					and query_server_name &lt; #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryServerName != null and require.greaterThanAndEquals.queryServerName != '' ">
+					and query_server_name >= #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryServerName != null and require.lessThanAndEquals.queryServerName != '' ">
+					and query_server_name &lt;= #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryServerName != null and require.notEquality.queryServerName != '' ">
+					and query_server_name &lt;> #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryServerName != null and require.similar.queryServerName != '' ">
+					and  INSTR(query_server_name ,#{record.queryServerName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryServerName == null">
+				and query_server_name = #{record.queryServerName , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryIp != null and require.greaterThan.queryIp != '' ">
+					and query_ip > #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryIp != null and require.lessThan.queryIp != '' ">
+					and query_ip &lt; #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryIp != null and require.greaterThanAndEquals.queryIp != '' ">
+					and query_ip >= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryIp != null and require.lessThanAndEquals.queryIp != '' ">
+					and query_ip &lt;= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryIp != null and require.notEquality.queryIp != '' ">
+					and query_ip &lt;> #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryIp != null and require.similar.queryIp != '' ">
+					and  INSTR(query_ip ,#{record.queryIp}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryIp == null">
+				and query_ip = #{record.queryIp , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.createTime != null and record.createTime != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.createTime != null and require.greaterThan.createTime != '' ">
+					and create_time > #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.createTime != null and require.lessThan.createTime != '' ">
+					and create_time &lt; #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.createTime != null and require.greaterThanAndEquals.createTime != '' ">
+					and create_time >= #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.createTime != null and require.lessThanAndEquals.createTime != '' ">
+					and create_time &lt;= #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.createTime != null and require.notEquality.createTime != '' ">
+					and create_time &lt;> #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.createTime != null and require.similar.createTime != '' ">
+					and  INSTR(create_time ,#{record.createTime}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.createTime == null">
+				and create_time = #{record.createTime , jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="record.expDesc != null and record.expDesc != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.expDesc != null and require.greaterThan.expDesc != '' ">
+					and exp_desc > #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.expDesc != null and require.lessThan.expDesc != '' ">
+					and exp_desc &lt; #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.expDesc != null and require.greaterThanAndEquals.expDesc != '' ">
+					and exp_desc >= #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.expDesc != null and require.lessThanAndEquals.expDesc != '' ">
+					and exp_desc &lt;= #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.expDesc != null and require.notEquality.expDesc != '' ">
+					and exp_desc &lt;> #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.expDesc != null and require.similar.expDesc != '' ">
+					and  INSTR(exp_desc ,#{record.expDesc}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.expDesc == null">
+				and exp_desc = #{record.expDesc , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.expState != null and record.expState != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.expState != null and require.greaterThan.expState != '' ">
+					and exp_state > #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.expState != null and require.lessThan.expState != '' ">
+					and exp_state &lt; #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.expState != null and require.greaterThanAndEquals.expState != '' ">
+					and exp_state >= #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.expState != null and require.lessThanAndEquals.expState != '' ">
+					and exp_state &lt;= #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.expState != null and require.notEquality.expState != '' ">
+					and exp_state &lt;> #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.expState != null and require.similar.expState != '' ">
+					and  INSTR(exp_state ,#{record.expState}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.expState == null">
+				and exp_state = #{record.expState , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZserverExpModel" resultType="java.lang.Integer">
+		select count(*) from R_SERVER_EXP where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
+					and id > #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
+					and id &lt; #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
+					and id >= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
+					and id &lt;= #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
+					and id &lt;> #{record.id , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.id != null and require.similar.id != '' ">
+					and  INSTR(id ,#{record.id}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.id == null">
+				and id = #{record.id , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.queryServerName != null and record.queryServerName != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryServerName != null and require.greaterThan.queryServerName != '' ">
+					and query_server_name > #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryServerName != null and require.lessThan.queryServerName != '' ">
+					and query_server_name &lt; #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryServerName != null and require.greaterThanAndEquals.queryServerName != '' ">
+					and query_server_name >= #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryServerName != null and require.lessThanAndEquals.queryServerName != '' ">
+					and query_server_name &lt;= #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryServerName != null and require.notEquality.queryServerName != '' ">
+					and query_server_name &lt;> #{record.queryServerName , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryServerName != null and require.similar.queryServerName != '' ">
+					and  INSTR(query_server_name ,#{record.queryServerName}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryServerName == null">
+				and query_server_name = #{record.queryServerName , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.queryIp != null and require.greaterThan.queryIp != '' ">
+					and query_ip > #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.queryIp != null and require.lessThan.queryIp != '' ">
+					and query_ip &lt; #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.queryIp != null and require.greaterThanAndEquals.queryIp != '' ">
+					and query_ip >= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.queryIp != null and require.lessThanAndEquals.queryIp != '' ">
+					and query_ip &lt;= #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.queryIp != null and require.notEquality.queryIp != '' ">
+					and query_ip &lt;> #{record.queryIp , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.queryIp != null and require.similar.queryIp != '' ">
+					and  INSTR(query_ip ,#{record.queryIp}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.queryIp == null">
+				and query_ip = #{record.queryIp , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.createTime != null and record.createTime != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.createTime != null and require.greaterThan.createTime != '' ">
+					and create_time > #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.createTime != null and require.lessThan.createTime != '' ">
+					and create_time &lt; #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.createTime != null and require.greaterThanAndEquals.createTime != '' ">
+					and create_time >= #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.createTime != null and require.lessThanAndEquals.createTime != '' ">
+					and create_time &lt;= #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.createTime != null and require.notEquality.createTime != '' ">
+					and create_time &lt;> #{record.createTime , jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.createTime != null and require.similar.createTime != '' ">
+					and  INSTR(create_time ,#{record.createTime}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.createTime == null">
+				and create_time = #{record.createTime , jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="record.expDesc != null and record.expDesc != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.expDesc != null and require.greaterThan.expDesc != '' ">
+					and exp_desc > #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.expDesc != null and require.lessThan.expDesc != '' ">
+					and exp_desc &lt; #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.expDesc != null and require.greaterThanAndEquals.expDesc != '' ">
+					and exp_desc >= #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.expDesc != null and require.lessThanAndEquals.expDesc != '' ">
+					and exp_desc &lt;= #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.expDesc != null and require.notEquality.expDesc != '' ">
+					and exp_desc &lt;> #{record.expDesc , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.expDesc != null and require.similar.expDesc != '' ">
+					and  INSTR(exp_desc ,#{record.expDesc}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.expDesc == null">
+				and exp_desc = #{record.expDesc , jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="record.expState != null and record.expState != '' ">
+			<if test="require.greaterThan != null">
+				<if test="require.greaterThan.expState != null and require.greaterThan.expState != '' ">
+					and exp_state > #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThan != null">
+				<if test="require.lessThan.expState != null and require.lessThan.expState != '' ">
+					and exp_state &lt; #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.greaterThanAndEquals != null">
+				<if test="require.greaterThanAndEquals.expState != null and require.greaterThanAndEquals.expState != '' ">
+					and exp_state >= #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.lessThanAndEquals != null">
+				<if
+					test="require.lessThanAndEquals.expState != null and require.lessThanAndEquals.expState != '' ">
+					and exp_state &lt;= #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.notEquality != null">
+				<if test="require.notEquality.expState != null and require.notEquality.expState != '' ">
+					and exp_state &lt;> #{record.expState , jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="require.similar != null">
+				<if test="require.similar.expState != null and require.similar.expState != '' ">
+					and  INSTR(exp_state ,#{record.expState}) >0 
+				</if>
+			</if>
+			<if test="require.allColom.expState == null">
+				and exp_state = #{record.expState , jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_SERVER_EXP (
+		id,query_server_name,query_ip,create_time,exp_desc,exp_state
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.queryServerName,jdbcType=VARCHAR},
+			#{item.queryIp,jdbcType=VARCHAR},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.expDesc,jdbcType=VARCHAR},
+			#{item.expState,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZserverExpModel">
+		delete from R_SERVER_EXP where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryServerName != null and record.queryServerName != '' ">
+			and query_server_name = #{record.queryServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.queryIp != null and record.queryIp != '' ">
+			and query_ip = #{record.queryIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.createTime != null ">
+			and create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.expDesc != null and record.expDesc != '' ">
+			and exp_desc = #{record.expDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="record.expState != null and record.expState != '' ">
+			and exp_state = #{record.expState,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

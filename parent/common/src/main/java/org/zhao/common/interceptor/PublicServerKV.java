@@ -26,21 +26,21 @@ public class PublicServerKV {
 	
 	public static int getIntVal(String key) {
 		if(map.containsKey(key)) return Integer.parseInt(map.get(key));
-		else throw new RuntimeException("value值应该为整数");
+		else throw new RuntimeException("【"+key+"】"+"value值应该为整数");
 	}
 	
 	public static boolean getBooleanVal(String key) {
 		if(map.containsKey(key)) return Boolean.parseBoolean(map.get(key));
-		else throw new RuntimeException("value值应该为布尔数");
+		else throw new RuntimeException("【"+key+"】"+"value值应该为布尔数");
 	}
 	
 	public static String getStringVal(String key) {
 		if(map.containsKey(key)) return map.get(key);
-		return null;
+		else throw new RuntimeException("【"+key+"】"+"不存在");
 	}
 	
 	public static double getDoubleVal(String key) {
 		if(map.containsKey(key)) return Double.parseDouble(map.get(key));
-		else throw new RuntimeException("value值应该为浮点数");
+		else throw new RuntimeException("【"+key+"】"+"value值应该为浮点数");
 	}
 }

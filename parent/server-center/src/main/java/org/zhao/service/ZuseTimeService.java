@@ -1,4 +1,4 @@
-package org.zhao.common.service;
+package org.zhao.service;
 
 import java.util.List;
 import java.util.Map;
