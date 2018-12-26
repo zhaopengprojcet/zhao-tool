@@ -1,5 +1,6 @@
 package org.zhao.common.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,7 +23,18 @@ public class DateUtil {
 	}
 	
 	public static String getTimeStr(Date date , String formatter) {
-		if(sdf == null) sdf = new SimpleDateFormat(formatter);
+		sdf = new SimpleDateFormat(formatter);
 		return sdf.format(date);
+	}
+	
+	public static Date getTime(String date , String formatter) {
+		date = date.replaceAll("\\+", " ");
+		sdf = new SimpleDateFormat(formatter);
+		try {
+			return sdf.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

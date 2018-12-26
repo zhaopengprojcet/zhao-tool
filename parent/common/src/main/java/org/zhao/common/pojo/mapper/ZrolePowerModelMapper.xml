@@ -123,149 +123,97 @@
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
 		select * from R_ROLE_POWER where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.powerId != null and record.powerId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.powerId != null and require.greaterThan.powerId != '' ">
-					and power_id > #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.powerId != null and require.lessThan.powerId != '' ">
-					and power_id &lt; #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.powerId != null and require.greaterThanAndEquals.powerId != '' ">
-					and power_id >= #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.powerId != null and require.lessThanAndEquals.powerId != '' ">
-					and power_id &lt;= #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.powerId != null and require.notEquality.powerId != '' ">
-					and power_id &lt;> #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.powerId != null and require.similar.powerId != '' ">
-					and  INSTR(power_id ,#{record.powerId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.powerId == null">
-				and power_id = #{record.powerId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.powerId != null">
+			<if test="require.powerId.greaterThan != null">
+					and power_id > #{require.powerId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.lessThan != null">
+					and power_id &lt; #{require.powerId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.greaterThanAndEquals != null">
+					and power_id >= #{require.powerId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.lessThanAndEquals != null">
+					and power_id &lt;= #{require.powerId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.notEquality != null">
+					and power_id &lt;> #{require.powerId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.equality != null">
+					and power_id = #{require.powerId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.similar != null">
+					and INSTR(power_id, #{require.powerId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.roleId != null and record.roleId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.roleId != null and require.greaterThan.roleId != '' ">
-					and role_id > #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.roleId != null and require.lessThan.roleId != '' ">
-					and role_id &lt; #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.roleId != null and require.greaterThanAndEquals.roleId != '' ">
-					and role_id >= #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.roleId != null and require.lessThanAndEquals.roleId != '' ">
-					and role_id &lt;= #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.roleId != null and require.notEquality.roleId != '' ">
-					and role_id &lt;> #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.roleId != null and require.similar.roleId != '' ">
-					and  INSTR(role_id ,#{record.roleId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.roleId == null">
-				and role_id = #{record.roleId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.roleId != null">
+			<if test="require.roleId.greaterThan != null">
+					and role_id > #{require.roleId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.lessThan != null">
+					and role_id &lt; #{require.roleId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.greaterThanAndEquals != null">
+					and role_id >= #{require.roleId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.lessThanAndEquals != null">
+					and role_id &lt;= #{require.roleId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.notEquality != null">
+					and role_id &lt;> #{require.roleId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.equality != null">
+					and role_id = #{require.roleId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.similar != null">
+					and INSTR(role_id, #{require.roleId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.powerType != null and record.powerType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.powerType != null and require.greaterThan.powerType != '' ">
-					and power_type > #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.powerType != null and require.lessThan.powerType != '' ">
-					and power_type &lt; #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.powerType != null and require.greaterThanAndEquals.powerType != '' ">
-					and power_type >= #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.powerType != null and require.lessThanAndEquals.powerType != '' ">
-					and power_type &lt;= #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.powerType != null and require.notEquality.powerType != '' ">
-					and power_type &lt;> #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.powerType != null and require.similar.powerType != '' ">
-					and  INSTR(power_type ,#{record.powerType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.powerType == null">
-				and power_type = #{record.powerType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.powerType != null">
+			<if test="require.powerType.greaterThan != null">
+					and power_type > #{require.powerType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.lessThan != null">
+					and power_type &lt; #{require.powerType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.greaterThanAndEquals != null">
+					and power_type >= #{require.powerType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.lessThanAndEquals != null">
+					and power_type &lt;= #{require.powerType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.notEquality != null">
+					and power_type &lt;> #{require.powerType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.equality != null">
+					and power_type = #{require.powerType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.similar != null">
+					and INSTR(power_type, #{require.powerType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -278,149 +226,97 @@
 	</select>
 	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZrolePowerModel" resultType="java.lang.Integer">
 		select count(*) from R_ROLE_POWER where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.powerId != null and record.powerId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.powerId != null and require.greaterThan.powerId != '' ">
-					and power_id > #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.powerId != null and require.lessThan.powerId != '' ">
-					and power_id &lt; #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.powerId != null and require.greaterThanAndEquals.powerId != '' ">
-					and power_id >= #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.powerId != null and require.lessThanAndEquals.powerId != '' ">
-					and power_id &lt;= #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.powerId != null and require.notEquality.powerId != '' ">
-					and power_id &lt;> #{record.powerId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.powerId != null and require.similar.powerId != '' ">
-					and  INSTR(power_id ,#{record.powerId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.powerId == null">
-				and power_id = #{record.powerId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.powerId != null">
+			<if test="require.powerId.greaterThan != null">
+					and power_id > #{require.powerId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.lessThan != null">
+					and power_id &lt; #{require.powerId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.greaterThanAndEquals != null">
+					and power_id >= #{require.powerId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.lessThanAndEquals != null">
+					and power_id &lt;= #{require.powerId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.notEquality != null">
+					and power_id &lt;> #{require.powerId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.equality != null">
+					and power_id = #{require.powerId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerId.similar != null">
+					and INSTR(power_id, #{require.powerId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.roleId != null and record.roleId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.roleId != null and require.greaterThan.roleId != '' ">
-					and role_id > #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.roleId != null and require.lessThan.roleId != '' ">
-					and role_id &lt; #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.roleId != null and require.greaterThanAndEquals.roleId != '' ">
-					and role_id >= #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.roleId != null and require.lessThanAndEquals.roleId != '' ">
-					and role_id &lt;= #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.roleId != null and require.notEquality.roleId != '' ">
-					and role_id &lt;> #{record.roleId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.roleId != null and require.similar.roleId != '' ">
-					and  INSTR(role_id ,#{record.roleId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.roleId == null">
-				and role_id = #{record.roleId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.roleId != null">
+			<if test="require.roleId.greaterThan != null">
+					and role_id > #{require.roleId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.lessThan != null">
+					and role_id &lt; #{require.roleId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.greaterThanAndEquals != null">
+					and role_id >= #{require.roleId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.lessThanAndEquals != null">
+					and role_id &lt;= #{require.roleId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.notEquality != null">
+					and role_id &lt;> #{require.roleId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.equality != null">
+					and role_id = #{require.roleId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleId.similar != null">
+					and INSTR(role_id, #{require.roleId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.powerType != null and record.powerType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.powerType != null and require.greaterThan.powerType != '' ">
-					and power_type > #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.powerType != null and require.lessThan.powerType != '' ">
-					and power_type &lt; #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.powerType != null and require.greaterThanAndEquals.powerType != '' ">
-					and power_type >= #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.powerType != null and require.lessThanAndEquals.powerType != '' ">
-					and power_type &lt;= #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.powerType != null and require.notEquality.powerType != '' ">
-					and power_type &lt;> #{record.powerType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.powerType != null and require.similar.powerType != '' ">
-					and  INSTR(power_type ,#{record.powerType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.powerType == null">
-				and power_type = #{record.powerType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.powerType != null">
+			<if test="require.powerType.greaterThan != null">
+					and power_type > #{require.powerType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.lessThan != null">
+					and power_type &lt; #{require.powerType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.greaterThanAndEquals != null">
+					and power_type >= #{require.powerType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.lessThanAndEquals != null">
+					and power_type &lt;= #{require.powerType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.notEquality != null">
+					and power_type &lt;> #{require.powerType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.equality != null">
+					and power_type = #{require.powerType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powerType.similar != null">
+					and INSTR(power_type, #{require.powerType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.interceptor.RequestWBipInterceptor;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.pojo.model.ZwhiteBlackIpList;
 import org.zhao.common.role.RoleAop;
@@ -43,21 +44,18 @@ public class ZwhiteBlackIpController {
 	@ResponseBody
 	public String list( @RequestParam(value="_jr",required=false,defaultValue="")String jr , HttpServletRequest request) {
 		ResultContent<JSONObject> query = QuerySign.deQuery(jr, request , "page" , "rows");
-		ZwhiteBlackIpList ip = new ZwhiteBlackIpList();
-		ParamterRequirement require = new ParamterRequirement();
+		QueryParames parames = QueryParames.init();
 		if(!StringUtils.isEmpty(query.getJsonString("addDesc"))) {
-			ip.setAddDesc(query.getJsonString("addDesc"));
-			require.addSimilar("addDesc");
+			parames.addSimilar("addDesc", query.getJsonString("addDesc"));
 		}
 		if(!StringUtils.isEmpty(query.getJsonString("ip"))) {
-			ip.setIp(query.getJsonString("ip"));
-			require.addSimilar("ip");
+			parames.addSimilar("ip", query.getJsonString("ip"));
 		}
 		if(!StringUtils.isEmpty(query.getJsonString("bwType"))) {
-			ip.setBwType(query.getJsonString("bwType"));
+			parames.addEquality("bwType", query.getJsonString("bwType"));
 		}
 		PageContext page = new PageContext(query.getJsonInt("page"), query.getJsonInt("rows"));
-		return BaseResultUtil.resultEasyUi(this.zWhiteBlackIpService.selectPageListByParameterRequire(ip, page, require.getParamter()));
+		return BaseResultUtil.resultEasyUi(this.zWhiteBlackIpService.selectPageListByParameterRequire(page, parames.getParames()));
 	}
 	
 	@RoleAop(key=RoleAopEnum.POWER)

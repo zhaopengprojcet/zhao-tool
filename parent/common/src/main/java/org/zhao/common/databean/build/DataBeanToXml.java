@@ -219,7 +219,36 @@ public class DataBeanToXml {
 	
 	private void requireText(Map.Entry<String, DataColum> entry) {
 		fileText.append(
-				"		<if test=\"record."+entry.getKey()+" != null and record."+entry.getKey()+" != '' \">\n"+
+				"		<if test=\"require."+entry.getKey()+" != null\">\n" +
+				"			<if test=\"require."+entry.getKey()+".greaterThan != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" > #{require."+entry.getKey()+".greaterThan , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".lessThan != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" &lt; #{require."+entry.getKey()+".lessThan , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".greaterThanAndEquals != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" >= #{require."+entry.getKey()+".greaterThanAndEquals , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".lessThanAndEquals != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" &lt;= #{require."+entry.getKey()+".lessThanAndEquals , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".notEquality != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" &lt;> #{require."+entry.getKey()+".notEquality , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".equality != null\">\n" +
+				"					and "+DataParameUtil.convertName(entry.getKey())+" = #{require."+entry.getKey()+".equality , jdbcType=VARCHAR }\n" +
+				"		    </if>\n" +
+				"			<if test=\"require."+entry.getKey()+".similar != null\">\n" +
+				"					and INSTR("+DataParameUtil.convertName(entry.getKey())+", #{require."+entry.getKey()+".similar , jdbcType=VARCHAR }) >0 \n" +
+				"		    </if>\n" +
+				"		</if>\n"
+				);
+		
+		
+		
+		
+		/*fileText.append(
+				"		<if test=\"record."+entry.getKey()+" != null "+(entry.getValue().type() == FieldTypeEnum.DATETIME ?"":("and record."+entry.getKey()+" != ''")) + " \">\n"+
 				"			<if test=\"require.greaterThan != null\">\n"+
 				"				<if test=\"require.greaterThan."+entry.getKey()+" != null and require.greaterThan."+entry.getKey()+" != '' \">\n"+
 				"					and "+DataParameUtil.convertName(entry.getKey())+" > #{record."+entry.getKey()+" , jdbcType="+DataParameUtil.convertValueType(entry.getValue().type())+"}\n"+
@@ -255,7 +284,7 @@ public class DataBeanToXml {
 				"				and "+DataParameUtil.convertName(entry.getKey())+" = #{record."+entry.getKey()+" , jdbcType="+DataParameUtil.convertValueType(entry.getValue().type())+"}\n"+
 				"			</if>\n"+
 				"		</if>\n"		
-				);
+				);*/
 	}
 	
 	private void createPage(String befor) {

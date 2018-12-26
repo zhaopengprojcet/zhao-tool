@@ -249,401 +249,258 @@
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
 		select * from R_MENU_SEARCH where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.loadValue != null and record.loadValue != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.loadValue != null and require.greaterThan.loadValue != '' ">
-					and load_value > #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.loadValue != null and require.lessThan.loadValue != '' ">
-					and load_value &lt; #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.loadValue != null and require.greaterThanAndEquals.loadValue != '' ">
-					and load_value >= #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.loadValue != null and require.lessThanAndEquals.loadValue != '' ">
-					and load_value &lt;= #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.loadValue != null and require.notEquality.loadValue != '' ">
-					and load_value &lt;> #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.loadValue != null and require.similar.loadValue != '' ">
-					and  INSTR(load_value ,#{record.loadValue}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.loadValue == null">
-				and load_value = #{record.loadValue , jdbcType=VARCHAR}
-			</if>
+		<if test="require.loadValue != null">
+			<if test="require.loadValue.greaterThan != null">
+					and load_value > #{require.loadValue.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.lessThan != null">
+					and load_value &lt; #{require.loadValue.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.greaterThanAndEquals != null">
+					and load_value >= #{require.loadValue.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.lessThanAndEquals != null">
+					and load_value &lt;= #{require.loadValue.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.notEquality != null">
+					and load_value &lt;> #{require.loadValue.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.equality != null">
+					and load_value = #{require.loadValue.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.similar != null">
+					and INSTR(load_value, #{require.loadValue.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchText != null and record.searchText != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchText != null and require.greaterThan.searchText != '' ">
-					and search_text > #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchText != null and require.lessThan.searchText != '' ">
-					and search_text &lt; #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchText != null and require.greaterThanAndEquals.searchText != '' ">
-					and search_text >= #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchText != null and require.lessThanAndEquals.searchText != '' ">
-					and search_text &lt;= #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchText != null and require.notEquality.searchText != '' ">
-					and search_text &lt;> #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchText != null and require.similar.searchText != '' ">
-					and  INSTR(search_text ,#{record.searchText}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchText == null">
-				and search_text = #{record.searchText , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchText != null">
+			<if test="require.searchText.greaterThan != null">
+					and search_text > #{require.searchText.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.lessThan != null">
+					and search_text &lt; #{require.searchText.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.greaterThanAndEquals != null">
+					and search_text >= #{require.searchText.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.lessThanAndEquals != null">
+					and search_text &lt;= #{require.searchText.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.notEquality != null">
+					and search_text &lt;> #{require.searchText.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.equality != null">
+					and search_text = #{require.searchText.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.similar != null">
+					and INSTR(search_text, #{require.searchText.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.loadValueUrl != null and record.loadValueUrl != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.loadValueUrl != null and require.greaterThan.loadValueUrl != '' ">
-					and load_value_url > #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.loadValueUrl != null and require.lessThan.loadValueUrl != '' ">
-					and load_value_url &lt; #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.loadValueUrl != null and require.greaterThanAndEquals.loadValueUrl != '' ">
-					and load_value_url >= #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.loadValueUrl != null and require.lessThanAndEquals.loadValueUrl != '' ">
-					and load_value_url &lt;= #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.loadValueUrl != null and require.notEquality.loadValueUrl != '' ">
-					and load_value_url &lt;> #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.loadValueUrl != null and require.similar.loadValueUrl != '' ">
-					and  INSTR(load_value_url ,#{record.loadValueUrl}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.loadValueUrl == null">
-				and load_value_url = #{record.loadValueUrl , jdbcType=VARCHAR}
-			</if>
+		<if test="require.loadValueUrl != null">
+			<if test="require.loadValueUrl.greaterThan != null">
+					and load_value_url > #{require.loadValueUrl.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.lessThan != null">
+					and load_value_url &lt; #{require.loadValueUrl.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.greaterThanAndEquals != null">
+					and load_value_url >= #{require.loadValueUrl.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.lessThanAndEquals != null">
+					and load_value_url &lt;= #{require.loadValueUrl.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.notEquality != null">
+					and load_value_url &lt;> #{require.loadValueUrl.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.equality != null">
+					and load_value_url = #{require.loadValueUrl.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.similar != null">
+					and INSTR(load_value_url, #{require.loadValueUrl.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.parentMenuId != null and require.greaterThan.parentMenuId != '' ">
-					and parent_menu_id > #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.parentMenuId != null and require.lessThan.parentMenuId != '' ">
-					and parent_menu_id &lt; #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.parentMenuId != null and require.greaterThanAndEquals.parentMenuId != '' ">
-					and parent_menu_id >= #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.parentMenuId != null and require.lessThanAndEquals.parentMenuId != '' ">
-					and parent_menu_id &lt;= #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.parentMenuId != null and require.notEquality.parentMenuId != '' ">
-					and parent_menu_id &lt;> #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.parentMenuId != null and require.similar.parentMenuId != '' ">
-					and  INSTR(parent_menu_id ,#{record.parentMenuId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.parentMenuId == null">
-				and parent_menu_id = #{record.parentMenuId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.parentMenuId != null">
+			<if test="require.parentMenuId.greaterThan != null">
+					and parent_menu_id > #{require.parentMenuId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.lessThan != null">
+					and parent_menu_id &lt; #{require.parentMenuId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.greaterThanAndEquals != null">
+					and parent_menu_id >= #{require.parentMenuId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.lessThanAndEquals != null">
+					and parent_menu_id &lt;= #{require.parentMenuId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.notEquality != null">
+					and parent_menu_id &lt;> #{require.parentMenuId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.equality != null">
+					and parent_menu_id = #{require.parentMenuId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.similar != null">
+					and INSTR(parent_menu_id, #{require.parentMenuId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchType != null and record.searchType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchType != null and require.greaterThan.searchType != '' ">
-					and search_type > #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchType != null and require.lessThan.searchType != '' ">
-					and search_type &lt; #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchType != null and require.greaterThanAndEquals.searchType != '' ">
-					and search_type >= #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchType != null and require.lessThanAndEquals.searchType != '' ">
-					and search_type &lt;= #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchType != null and require.notEquality.searchType != '' ">
-					and search_type &lt;> #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchType != null and require.similar.searchType != '' ">
-					and  INSTR(search_type ,#{record.searchType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchType == null">
-				and search_type = #{record.searchType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchType != null">
+			<if test="require.searchType.greaterThan != null">
+					and search_type > #{require.searchType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.lessThan != null">
+					and search_type &lt; #{require.searchType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.greaterThanAndEquals != null">
+					and search_type >= #{require.searchType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.lessThanAndEquals != null">
+					and search_type &lt;= #{require.searchType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.notEquality != null">
+					and search_type &lt;> #{require.searchType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.equality != null">
+					and search_type = #{require.searchType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.similar != null">
+					and INSTR(search_type, #{require.searchType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.orders != null and record.orders != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.orders != null and require.greaterThan.orders != '' ">
-					and orders > #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.orders != null and require.lessThan.orders != '' ">
-					and orders &lt; #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.orders != null and require.greaterThanAndEquals.orders != '' ">
-					and orders >= #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.orders != null and require.lessThanAndEquals.orders != '' ">
-					and orders &lt;= #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.orders != null and require.notEquality.orders != '' ">
-					and orders &lt;> #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.orders != null and require.similar.orders != '' ">
-					and  INSTR(orders ,#{record.orders}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.orders == null">
-				and orders = #{record.orders , jdbcType=VARCHAR}
-			</if>
+		<if test="require.orders != null">
+			<if test="require.orders.greaterThan != null">
+					and orders > #{require.orders.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.lessThan != null">
+					and orders &lt; #{require.orders.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.greaterThanAndEquals != null">
+					and orders >= #{require.orders.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.lessThanAndEquals != null">
+					and orders &lt;= #{require.orders.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.notEquality != null">
+					and orders &lt;> #{require.orders.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.equality != null">
+					and orders = #{require.orders.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.similar != null">
+					and INSTR(orders, #{require.orders.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchKey != null and record.searchKey != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchKey != null and require.greaterThan.searchKey != '' ">
-					and search_key > #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchKey != null and require.lessThan.searchKey != '' ">
-					and search_key &lt; #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchKey != null and require.greaterThanAndEquals.searchKey != '' ">
-					and search_key >= #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchKey != null and require.lessThanAndEquals.searchKey != '' ">
-					and search_key &lt;= #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchKey != null and require.notEquality.searchKey != '' ">
-					and search_key &lt;> #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchKey != null and require.similar.searchKey != '' ">
-					and  INSTR(search_key ,#{record.searchKey}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchKey == null">
-				and search_key = #{record.searchKey , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchKey != null">
+			<if test="require.searchKey.greaterThan != null">
+					and search_key > #{require.searchKey.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.lessThan != null">
+					and search_key &lt; #{require.searchKey.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.greaterThanAndEquals != null">
+					and search_key >= #{require.searchKey.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.lessThanAndEquals != null">
+					and search_key &lt;= #{require.searchKey.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.notEquality != null">
+					and search_key &lt;> #{require.searchKey.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.equality != null">
+					and search_key = #{require.searchKey.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.similar != null">
+					and INSTR(search_key, #{require.searchKey.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchState != null and record.searchState != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchState != null and require.greaterThan.searchState != '' ">
-					and search_state > #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchState != null and require.lessThan.searchState != '' ">
-					and search_state &lt; #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchState != null and require.greaterThanAndEquals.searchState != '' ">
-					and search_state >= #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchState != null and require.lessThanAndEquals.searchState != '' ">
-					and search_state &lt;= #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchState != null and require.notEquality.searchState != '' ">
-					and search_state &lt;> #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchState != null and require.similar.searchState != '' ">
-					and  INSTR(search_state ,#{record.searchState}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchState == null">
-				and search_state = #{record.searchState , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchState != null">
+			<if test="require.searchState.greaterThan != null">
+					and search_state > #{require.searchState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.lessThan != null">
+					and search_state &lt; #{require.searchState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.greaterThanAndEquals != null">
+					and search_state >= #{require.searchState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.lessThanAndEquals != null">
+					and search_state &lt;= #{require.searchState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.notEquality != null">
+					and search_state &lt;> #{require.searchState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.equality != null">
+					and search_state = #{require.searchState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.similar != null">
+					and INSTR(search_state, #{require.searchState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.valueField != null and record.valueField != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.valueField != null and require.greaterThan.valueField != '' ">
-					and value_field > #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.valueField != null and require.lessThan.valueField != '' ">
-					and value_field &lt; #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.valueField != null and require.greaterThanAndEquals.valueField != '' ">
-					and value_field >= #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.valueField != null and require.lessThanAndEquals.valueField != '' ">
-					and value_field &lt;= #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.valueField != null and require.notEquality.valueField != '' ">
-					and value_field &lt;> #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.valueField != null and require.similar.valueField != '' ">
-					and  INSTR(value_field ,#{record.valueField}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.valueField == null">
-				and value_field = #{record.valueField , jdbcType=VARCHAR}
-			</if>
+		<if test="require.valueField != null">
+			<if test="require.valueField.greaterThan != null">
+					and value_field > #{require.valueField.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.lessThan != null">
+					and value_field &lt; #{require.valueField.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.greaterThanAndEquals != null">
+					and value_field >= #{require.valueField.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.lessThanAndEquals != null">
+					and value_field &lt;= #{require.valueField.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.notEquality != null">
+					and value_field &lt;> #{require.valueField.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.equality != null">
+					and value_field = #{require.valueField.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.similar != null">
+					and INSTR(value_field, #{require.valueField.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.textField != null and record.textField != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.textField != null and require.greaterThan.textField != '' ">
-					and text_field > #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.textField != null and require.lessThan.textField != '' ">
-					and text_field &lt; #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.textField != null and require.greaterThanAndEquals.textField != '' ">
-					and text_field >= #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.textField != null and require.lessThanAndEquals.textField != '' ">
-					and text_field &lt;= #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.textField != null and require.notEquality.textField != '' ">
-					and text_field &lt;> #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.textField != null and require.similar.textField != '' ">
-					and  INSTR(text_field ,#{record.textField}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.textField == null">
-				and text_field = #{record.textField , jdbcType=VARCHAR}
-			</if>
+		<if test="require.textField != null">
+			<if test="require.textField.greaterThan != null">
+					and text_field > #{require.textField.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.lessThan != null">
+					and text_field &lt; #{require.textField.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.greaterThanAndEquals != null">
+					and text_field >= #{require.textField.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.lessThanAndEquals != null">
+					and text_field &lt;= #{require.textField.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.notEquality != null">
+					and text_field &lt;> #{require.textField.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.equality != null">
+					and text_field = #{require.textField.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.similar != null">
+					and INSTR(text_field, #{require.textField.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -656,401 +513,258 @@
 	</select>
 	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZmenuSearchModel" resultType="java.lang.Integer">
 		select count(*) from R_MENU_SEARCH where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.loadValue != null and record.loadValue != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.loadValue != null and require.greaterThan.loadValue != '' ">
-					and load_value > #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.loadValue != null and require.lessThan.loadValue != '' ">
-					and load_value &lt; #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.loadValue != null and require.greaterThanAndEquals.loadValue != '' ">
-					and load_value >= #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.loadValue != null and require.lessThanAndEquals.loadValue != '' ">
-					and load_value &lt;= #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.loadValue != null and require.notEquality.loadValue != '' ">
-					and load_value &lt;> #{record.loadValue , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.loadValue != null and require.similar.loadValue != '' ">
-					and  INSTR(load_value ,#{record.loadValue}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.loadValue == null">
-				and load_value = #{record.loadValue , jdbcType=VARCHAR}
-			</if>
+		<if test="require.loadValue != null">
+			<if test="require.loadValue.greaterThan != null">
+					and load_value > #{require.loadValue.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.lessThan != null">
+					and load_value &lt; #{require.loadValue.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.greaterThanAndEquals != null">
+					and load_value >= #{require.loadValue.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.lessThanAndEquals != null">
+					and load_value &lt;= #{require.loadValue.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.notEquality != null">
+					and load_value &lt;> #{require.loadValue.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.equality != null">
+					and load_value = #{require.loadValue.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValue.similar != null">
+					and INSTR(load_value, #{require.loadValue.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchText != null and record.searchText != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchText != null and require.greaterThan.searchText != '' ">
-					and search_text > #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchText != null and require.lessThan.searchText != '' ">
-					and search_text &lt; #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchText != null and require.greaterThanAndEquals.searchText != '' ">
-					and search_text >= #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchText != null and require.lessThanAndEquals.searchText != '' ">
-					and search_text &lt;= #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchText != null and require.notEquality.searchText != '' ">
-					and search_text &lt;> #{record.searchText , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchText != null and require.similar.searchText != '' ">
-					and  INSTR(search_text ,#{record.searchText}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchText == null">
-				and search_text = #{record.searchText , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchText != null">
+			<if test="require.searchText.greaterThan != null">
+					and search_text > #{require.searchText.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.lessThan != null">
+					and search_text &lt; #{require.searchText.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.greaterThanAndEquals != null">
+					and search_text >= #{require.searchText.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.lessThanAndEquals != null">
+					and search_text &lt;= #{require.searchText.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.notEquality != null">
+					and search_text &lt;> #{require.searchText.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.equality != null">
+					and search_text = #{require.searchText.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchText.similar != null">
+					and INSTR(search_text, #{require.searchText.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.loadValueUrl != null and record.loadValueUrl != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.loadValueUrl != null and require.greaterThan.loadValueUrl != '' ">
-					and load_value_url > #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.loadValueUrl != null and require.lessThan.loadValueUrl != '' ">
-					and load_value_url &lt; #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.loadValueUrl != null and require.greaterThanAndEquals.loadValueUrl != '' ">
-					and load_value_url >= #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.loadValueUrl != null and require.lessThanAndEquals.loadValueUrl != '' ">
-					and load_value_url &lt;= #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.loadValueUrl != null and require.notEquality.loadValueUrl != '' ">
-					and load_value_url &lt;> #{record.loadValueUrl , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.loadValueUrl != null and require.similar.loadValueUrl != '' ">
-					and  INSTR(load_value_url ,#{record.loadValueUrl}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.loadValueUrl == null">
-				and load_value_url = #{record.loadValueUrl , jdbcType=VARCHAR}
-			</if>
+		<if test="require.loadValueUrl != null">
+			<if test="require.loadValueUrl.greaterThan != null">
+					and load_value_url > #{require.loadValueUrl.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.lessThan != null">
+					and load_value_url &lt; #{require.loadValueUrl.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.greaterThanAndEquals != null">
+					and load_value_url >= #{require.loadValueUrl.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.lessThanAndEquals != null">
+					and load_value_url &lt;= #{require.loadValueUrl.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.notEquality != null">
+					and load_value_url &lt;> #{require.loadValueUrl.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.equality != null">
+					and load_value_url = #{require.loadValueUrl.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.loadValueUrl.similar != null">
+					and INSTR(load_value_url, #{require.loadValueUrl.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.parentMenuId != null and record.parentMenuId != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.parentMenuId != null and require.greaterThan.parentMenuId != '' ">
-					and parent_menu_id > #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.parentMenuId != null and require.lessThan.parentMenuId != '' ">
-					and parent_menu_id &lt; #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.parentMenuId != null and require.greaterThanAndEquals.parentMenuId != '' ">
-					and parent_menu_id >= #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.parentMenuId != null and require.lessThanAndEquals.parentMenuId != '' ">
-					and parent_menu_id &lt;= #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.parentMenuId != null and require.notEquality.parentMenuId != '' ">
-					and parent_menu_id &lt;> #{record.parentMenuId , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.parentMenuId != null and require.similar.parentMenuId != '' ">
-					and  INSTR(parent_menu_id ,#{record.parentMenuId}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.parentMenuId == null">
-				and parent_menu_id = #{record.parentMenuId , jdbcType=VARCHAR}
-			</if>
+		<if test="require.parentMenuId != null">
+			<if test="require.parentMenuId.greaterThan != null">
+					and parent_menu_id > #{require.parentMenuId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.lessThan != null">
+					and parent_menu_id &lt; #{require.parentMenuId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.greaterThanAndEquals != null">
+					and parent_menu_id >= #{require.parentMenuId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.lessThanAndEquals != null">
+					and parent_menu_id &lt;= #{require.parentMenuId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.notEquality != null">
+					and parent_menu_id &lt;> #{require.parentMenuId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.equality != null">
+					and parent_menu_id = #{require.parentMenuId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.parentMenuId.similar != null">
+					and INSTR(parent_menu_id, #{require.parentMenuId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchType != null and record.searchType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchType != null and require.greaterThan.searchType != '' ">
-					and search_type > #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchType != null and require.lessThan.searchType != '' ">
-					and search_type &lt; #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchType != null and require.greaterThanAndEquals.searchType != '' ">
-					and search_type >= #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchType != null and require.lessThanAndEquals.searchType != '' ">
-					and search_type &lt;= #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchType != null and require.notEquality.searchType != '' ">
-					and search_type &lt;> #{record.searchType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchType != null and require.similar.searchType != '' ">
-					and  INSTR(search_type ,#{record.searchType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchType == null">
-				and search_type = #{record.searchType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchType != null">
+			<if test="require.searchType.greaterThan != null">
+					and search_type > #{require.searchType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.lessThan != null">
+					and search_type &lt; #{require.searchType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.greaterThanAndEquals != null">
+					and search_type >= #{require.searchType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.lessThanAndEquals != null">
+					and search_type &lt;= #{require.searchType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.notEquality != null">
+					and search_type &lt;> #{require.searchType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.equality != null">
+					and search_type = #{require.searchType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchType.similar != null">
+					and INSTR(search_type, #{require.searchType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.orders != null and record.orders != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.orders != null and require.greaterThan.orders != '' ">
-					and orders > #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.orders != null and require.lessThan.orders != '' ">
-					and orders &lt; #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.orders != null and require.greaterThanAndEquals.orders != '' ">
-					and orders >= #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.orders != null and require.lessThanAndEquals.orders != '' ">
-					and orders &lt;= #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.orders != null and require.notEquality.orders != '' ">
-					and orders &lt;> #{record.orders , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.orders != null and require.similar.orders != '' ">
-					and  INSTR(orders ,#{record.orders}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.orders == null">
-				and orders = #{record.orders , jdbcType=VARCHAR}
-			</if>
+		<if test="require.orders != null">
+			<if test="require.orders.greaterThan != null">
+					and orders > #{require.orders.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.lessThan != null">
+					and orders &lt; #{require.orders.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.greaterThanAndEquals != null">
+					and orders >= #{require.orders.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.lessThanAndEquals != null">
+					and orders &lt;= #{require.orders.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.notEquality != null">
+					and orders &lt;> #{require.orders.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.equality != null">
+					and orders = #{require.orders.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.orders.similar != null">
+					and INSTR(orders, #{require.orders.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchKey != null and record.searchKey != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchKey != null and require.greaterThan.searchKey != '' ">
-					and search_key > #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchKey != null and require.lessThan.searchKey != '' ">
-					and search_key &lt; #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchKey != null and require.greaterThanAndEquals.searchKey != '' ">
-					and search_key >= #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchKey != null and require.lessThanAndEquals.searchKey != '' ">
-					and search_key &lt;= #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchKey != null and require.notEquality.searchKey != '' ">
-					and search_key &lt;> #{record.searchKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchKey != null and require.similar.searchKey != '' ">
-					and  INSTR(search_key ,#{record.searchKey}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchKey == null">
-				and search_key = #{record.searchKey , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchKey != null">
+			<if test="require.searchKey.greaterThan != null">
+					and search_key > #{require.searchKey.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.lessThan != null">
+					and search_key &lt; #{require.searchKey.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.greaterThanAndEquals != null">
+					and search_key >= #{require.searchKey.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.lessThanAndEquals != null">
+					and search_key &lt;= #{require.searchKey.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.notEquality != null">
+					and search_key &lt;> #{require.searchKey.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.equality != null">
+					and search_key = #{require.searchKey.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchKey.similar != null">
+					and INSTR(search_key, #{require.searchKey.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.searchState != null and record.searchState != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.searchState != null and require.greaterThan.searchState != '' ">
-					and search_state > #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.searchState != null and require.lessThan.searchState != '' ">
-					and search_state &lt; #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.searchState != null and require.greaterThanAndEquals.searchState != '' ">
-					and search_state >= #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.searchState != null and require.lessThanAndEquals.searchState != '' ">
-					and search_state &lt;= #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.searchState != null and require.notEquality.searchState != '' ">
-					and search_state &lt;> #{record.searchState , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.searchState != null and require.similar.searchState != '' ">
-					and  INSTR(search_state ,#{record.searchState}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.searchState == null">
-				and search_state = #{record.searchState , jdbcType=VARCHAR}
-			</if>
+		<if test="require.searchState != null">
+			<if test="require.searchState.greaterThan != null">
+					and search_state > #{require.searchState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.lessThan != null">
+					and search_state &lt; #{require.searchState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.greaterThanAndEquals != null">
+					and search_state >= #{require.searchState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.lessThanAndEquals != null">
+					and search_state &lt;= #{require.searchState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.notEquality != null">
+					and search_state &lt;> #{require.searchState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.equality != null">
+					and search_state = #{require.searchState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.searchState.similar != null">
+					and INSTR(search_state, #{require.searchState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.valueField != null and record.valueField != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.valueField != null and require.greaterThan.valueField != '' ">
-					and value_field > #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.valueField != null and require.lessThan.valueField != '' ">
-					and value_field &lt; #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.valueField != null and require.greaterThanAndEquals.valueField != '' ">
-					and value_field >= #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.valueField != null and require.lessThanAndEquals.valueField != '' ">
-					and value_field &lt;= #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.valueField != null and require.notEquality.valueField != '' ">
-					and value_field &lt;> #{record.valueField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.valueField != null and require.similar.valueField != '' ">
-					and  INSTR(value_field ,#{record.valueField}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.valueField == null">
-				and value_field = #{record.valueField , jdbcType=VARCHAR}
-			</if>
+		<if test="require.valueField != null">
+			<if test="require.valueField.greaterThan != null">
+					and value_field > #{require.valueField.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.lessThan != null">
+					and value_field &lt; #{require.valueField.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.greaterThanAndEquals != null">
+					and value_field >= #{require.valueField.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.lessThanAndEquals != null">
+					and value_field &lt;= #{require.valueField.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.notEquality != null">
+					and value_field &lt;> #{require.valueField.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.equality != null">
+					and value_field = #{require.valueField.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.valueField.similar != null">
+					and INSTR(value_field, #{require.valueField.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.textField != null and record.textField != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.textField != null and require.greaterThan.textField != '' ">
-					and text_field > #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.textField != null and require.lessThan.textField != '' ">
-					and text_field &lt; #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.textField != null and require.greaterThanAndEquals.textField != '' ">
-					and text_field >= #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.textField != null and require.lessThanAndEquals.textField != '' ">
-					and text_field &lt;= #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.textField != null and require.notEquality.textField != '' ">
-					and text_field &lt;> #{record.textField , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.textField != null and require.similar.textField != '' ">
-					and  INSTR(text_field ,#{record.textField}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.textField == null">
-				and text_field = #{record.textField , jdbcType=VARCHAR}
-			</if>
+		<if test="require.textField != null">
+			<if test="require.textField.greaterThan != null">
+					and text_field > #{require.textField.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.lessThan != null">
+					and text_field &lt; #{require.textField.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.greaterThanAndEquals != null">
+					and text_field >= #{require.textField.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.lessThanAndEquals != null">
+					and text_field &lt;= #{require.textField.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.notEquality != null">
+					and text_field &lt;> #{require.textField.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.equality != null">
+					and text_field = #{require.textField.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.textField.similar != null">
+					and INSTR(text_field, #{require.textField.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">

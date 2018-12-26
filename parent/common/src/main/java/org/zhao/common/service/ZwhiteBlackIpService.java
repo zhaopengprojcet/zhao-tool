@@ -9,7 +9,7 @@ import org.zhao.common.util.view.ResultContent;
 
 public interface ZwhiteBlackIpService {
 
-	ResultContent<List<ZwhiteBlackIpList>> selectPageListByParameterRequire(ZwhiteBlackIpList ip , PageContext page ,  Map<String, Map<String, String>> require);
+	ResultContent<List<ZwhiteBlackIpList>> selectPageListByParameterRequire(PageContext page ,  Map<String, Map<String, String>> require);
 	
 	ResultContent<ZwhiteBlackIpList> selectIpById(String id);
 	

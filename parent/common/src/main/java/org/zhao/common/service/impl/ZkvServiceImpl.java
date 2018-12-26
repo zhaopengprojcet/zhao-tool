@@ -30,11 +30,10 @@ public class ZkvServiceImpl implements ZkvService {
 	
 	@Cacheable(value="kvSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
-	public ResultContent<List<ZkeyValueModel>> selectPageListByParameterRequire(ZkeyValueModel kv,
-			PageContext page, Map<String,Map<String,String>> param) {
+	public ResultContent<List<ZkeyValueModel>> selectPageListByParameterRequire(PageContext page, Map<String,Map<String,String>> param) {
 		ResultContent<List<ZkeyValueModel>> result = new ResultContent<List<ZkeyValueModel>>();
-		result.setData(this.zKeyValueModelMapper.selectPageListByParameterRequire(kv, page, param));
-		result.setCount(this.zKeyValueModelMapper.selectPageListByParameterRequireCount(kv, param));
+		result.setData(this.zKeyValueModelMapper.selectPageListByParameterRequire(page, param));
+		result.setCount(this.zKeyValueModelMapper.selectPageListByParameterRequireCount(param));
 		return BaseResultUtil.setCodeMsg(result);
 	}
 

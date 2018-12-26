@@ -54,11 +54,11 @@ public class ZroleServiceImpl implements ZroleService {
 	@Cacheable(value="roleSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
 	public ResultContent<List<ZroleModel>> selectPageListByParameterRequire(
-			ZroleModel role, PageContext page,
+			PageContext page,
 			Map<String, Map<String, String>> require) {
 		ResultContent<List<ZroleModel>> result = new ResultContent<List<ZroleModel>>();
-		result.setData(this.zRoleModelMapper.selectPageListByParameterRequire(role, page, require));
-		result.setCount(this.zRoleModelMapper.selectPageListByParameterRequireCount(role, require));
+		result.setData(this.zRoleModelMapper.selectPageListByParameterRequire(page, require));
+		result.setCount(this.zRoleModelMapper.selectPageListByParameterRequireCount(require));
 		return BaseResultUtil.setCodeMsg(result);
 	}
 	@CacheEvict(value="roleSelect" ,allEntries=true ,beforeInvocation=false)

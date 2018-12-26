@@ -87,77 +87,51 @@
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
 		select * from R_ROLE where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.roleName != null and record.roleName != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.roleName != null and require.greaterThan.roleName != '' ">
-					and role_name > #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.roleName != null and require.lessThan.roleName != '' ">
-					and role_name &lt; #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.roleName != null and require.greaterThanAndEquals.roleName != '' ">
-					and role_name >= #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.roleName != null and require.lessThanAndEquals.roleName != '' ">
-					and role_name &lt;= #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.roleName != null and require.notEquality.roleName != '' ">
-					and role_name &lt;> #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.roleName != null and require.similar.roleName != '' ">
-					and  INSTR(role_name ,#{record.roleName}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.roleName == null">
-				and role_name = #{record.roleName , jdbcType=VARCHAR}
-			</if>
+		<if test="require.roleName != null">
+			<if test="require.roleName.greaterThan != null">
+					and role_name > #{require.roleName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.lessThan != null">
+					and role_name &lt; #{require.roleName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.greaterThanAndEquals != null">
+					and role_name >= #{require.roleName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.lessThanAndEquals != null">
+					and role_name &lt;= #{require.roleName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.notEquality != null">
+					and role_name &lt;> #{require.roleName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.equality != null">
+					and role_name = #{require.roleName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.similar != null">
+					and INSTR(role_name, #{require.roleName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -170,77 +144,51 @@
 	</select>
 	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZroleModel" resultType="java.lang.Integer">
 		select count(*) from R_ROLE where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.roleName != null and record.roleName != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.roleName != null and require.greaterThan.roleName != '' ">
-					and role_name > #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.roleName != null and require.lessThan.roleName != '' ">
-					and role_name &lt; #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.roleName != null and require.greaterThanAndEquals.roleName != '' ">
-					and role_name >= #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.roleName != null and require.lessThanAndEquals.roleName != '' ">
-					and role_name &lt;= #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.roleName != null and require.notEquality.roleName != '' ">
-					and role_name &lt;> #{record.roleName , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.roleName != null and require.similar.roleName != '' ">
-					and  INSTR(role_name ,#{record.roleName}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.roleName == null">
-				and role_name = #{record.roleName , jdbcType=VARCHAR}
-			</if>
+		<if test="require.roleName != null">
+			<if test="require.roleName.greaterThan != null">
+					and role_name > #{require.roleName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.lessThan != null">
+					and role_name &lt; #{require.roleName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.greaterThanAndEquals != null">
+					and role_name >= #{require.roleName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.lessThanAndEquals != null">
+					and role_name &lt;= #{require.roleName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.notEquality != null">
+					and role_name &lt;> #{require.roleName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.equality != null">
+					and role_name = #{require.roleName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.roleName.similar != null">
+					and INSTR(role_name, #{require.roleName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">

@@ -10,7 +10,7 @@ import org.zhao.common.util.view.ResultContent;
 
 public interface ZkvService {
 
-	ResultContent<List<ZkeyValueModel>> selectPageListByParameterRequire(ZkeyValueModel kv , PageContext page , Map<String,Map<String,String>> param);
+	ResultContent<List<ZkeyValueModel>> selectPageListByParameterRequire(PageContext page , Map<String,Map<String,String>> param);
 	
 	ResultContent<ZkeyValueModel> selectKvById(String id);
 	

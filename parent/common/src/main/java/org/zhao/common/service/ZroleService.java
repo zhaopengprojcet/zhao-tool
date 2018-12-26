@@ -18,7 +18,7 @@ public interface ZroleService {
 	
 	ResultContent<List<ZroleModel>> selectComboList();
 	
-	ResultContent<List<ZroleModel>> selectPageListByParameterRequire(ZroleModel role , PageContext page ,  Map<String, Map<String, String>> require);
+	ResultContent<List<ZroleModel>> selectPageListByParameterRequire(PageContext page ,  Map<String, Map<String, String>> require);
 	
 	ResultContent<String> save(ZroleModel role , HttpServletRequest request);
 	

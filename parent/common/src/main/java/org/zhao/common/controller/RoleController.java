@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZroleModel;
 import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.role.RoleAop;
@@ -52,14 +53,12 @@ public class RoleController {
 	@ResponseBody
 	public String list( @RequestParam(value="_jr",required=false,defaultValue="")String jr , HttpServletRequest request) {
 		ResultContent<JSONObject> query = QuerySign.deQuery(jr, request , "page" , "rows");
-		ZroleModel role = new ZroleModel();
-		ParamterRequirement require = new ParamterRequirement();
+		QueryParames parames = QueryParames.init();
 		PageContext page = new PageContext(query.getJsonInt("page"), query.getJsonInt("rows"));
 		if(!StringUtils.isEmpty(query.getJsonString("roleName"))) {
-			role.setRoleName(query.getJsonString("roleName"));
-			require.addSimilar("roleName");
+			parames.addSimilar("roleName", query.getJsonString("roleName"));
 		}
-		return BaseResultUtil.resultEasyUi(this.zRoleService.selectPageListByParameterRequire(role, page, require.getParamter()));
+		return BaseResultUtil.resultEasyUi(this.zRoleService.selectPageListByParameterRequire(page, parames.getParames()));
 	}
 	
 	@RoleAop(key=RoleAopEnum.POWER)

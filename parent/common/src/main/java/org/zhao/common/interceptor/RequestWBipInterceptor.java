@@ -23,6 +23,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZmenuModel;
 import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.pojo.model.ZwhiteBlackIpList;
@@ -84,9 +85,9 @@ public class RequestWBipInterceptor implements HandlerInterceptor{
 	}
 	
 	public static void loadIps(HttpServletRequest request , String type , String sessionSaveName ,ZwhiteBlackIpService zWhiteBlackIpService) {
-		ZwhiteBlackIpList whites = new ZwhiteBlackIpList();
-		whites.setBwType(type);
-		ResultContent<List<ZwhiteBlackIpList>> list = zWhiteBlackIpService.selectPageListByParameterRequire(whites, null, new ParamterRequirement().getParamter());
+		QueryParames parames = QueryParames.init();
+		parames.addEquality("bwType", type);
+		ResultContent<List<ZwhiteBlackIpList>> list = zWhiteBlackIpService.selectPageListByParameterRequire(null, parames.getParames());
 		if(CollectionUtils.isNotEmpty(list.getData())) {
 			request.getServletContext().setAttribute(sessionSaveName, list.getData());
 		}

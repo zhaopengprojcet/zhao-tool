@@ -9,7 +9,7 @@ import org.zhao.common.util.view.ResultContent;
 
 public interface ZuserService {
 
-	ResultContent<List<ZuserModel>> selectPageListByParameterRequire(ZuserModel user , PageContext page , Map<String,Map<String,String>> param);
+	ResultContent<List<ZuserModel>> selectPageListByParameterRequire(PageContext page , Map<String,Map<String,String>> param);
 	
 	ResultContent<ZuserModel> selectUserById(String id);
 	

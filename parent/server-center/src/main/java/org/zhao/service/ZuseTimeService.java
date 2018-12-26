@@ -9,7 +9,7 @@ import org.zhao.common.util.view.ResultContent;
 
 public interface ZuseTimeService {
 
-	ResultContent<List<ZrequestUseModel>> selectPageList(ZrequestUseModel model , PageContext page, Map<String, Map<String, String>> paramMap);
+	ResultContent<List<ZrequestUseModel>> selectPageListByParameterRequire(PageContext page, Map<String, Map<String, String>> paramMap);
 	
 	ResultContent<String> save(List<ZrequestUseModel> model);
 }

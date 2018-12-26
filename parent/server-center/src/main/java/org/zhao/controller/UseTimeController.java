@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.aspect.query.QueryTimeUse;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZrequestUseModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
@@ -53,22 +54,17 @@ public class UseTimeController {
 				return QueryTimeUse.getTimeEasyUiData(queryKey , ipKey , nameKey ,page);
 			}
 			else {
-				ZrequestUseModel req = new ZrequestUseModel();
-				req.setRequestTime(date);
-				ParamterRequirement require = new ParamterRequirement();
+				QueryParames parames = QueryParames.init();
 				if(!StringUtils.isEmpty(queryKey)) {
-					req.setServiceName(queryKey);
-					require.addSimilar("serviceName");
+					parames.addSimilar("serviceName", queryKey);
 				}
 				if(!StringUtils.isEmpty(ipKey)) {
-					req.setQueryIp(ipKey);
-					require.addSimilar("queryIp");
+					parames.addSimilar("queryIp", ipKey);
 				}
 				if(!StringUtils.isEmpty(nameKey)) {
-					req.setName(nameKey);
-					require.addSimilar("name");
+					parames.addSimilar("name", nameKey);
 				}
-				return BaseResultUtil.resultEasyUi(this.zUseTimeService.selectPageList(req, page , require.getParamter()));
+				return BaseResultUtil.resultEasyUi(this.zUseTimeService.selectPageListByParameterRequire(page , parames.getParames()));
 			}
 		}
 		else {

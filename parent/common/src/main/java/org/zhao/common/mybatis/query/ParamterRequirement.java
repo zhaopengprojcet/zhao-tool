@@ -8,6 +8,7 @@ import java.util.Map;
  * @author j_zhao
  *
  */
+@Deprecated
 public class ParamterRequirement {
 	private Map<String, Map<String, String>> require = new HashMap<String, Map<String, String>>();
 

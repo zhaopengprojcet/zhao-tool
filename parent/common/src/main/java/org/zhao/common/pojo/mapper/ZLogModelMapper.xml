@@ -141,185 +141,120 @@
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
 		select * from R_LOG where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logType != null and record.logType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logType != null and require.greaterThan.logType != '' ">
-					and log_type > #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logType != null and require.lessThan.logType != '' ">
-					and log_type &lt; #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logType != null and require.greaterThanAndEquals.logType != '' ">
-					and log_type >= #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logType != null and require.lessThanAndEquals.logType != '' ">
-					and log_type &lt;= #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logType != null and require.notEquality.logType != '' ">
-					and log_type &lt;> #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logType != null and require.similar.logType != '' ">
-					and  INSTR(log_type ,#{record.logType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logType == null">
-				and log_type = #{record.logType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logType != null">
+			<if test="require.logType.greaterThan != null">
+					and log_type > #{require.logType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.lessThan != null">
+					and log_type &lt; #{require.logType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.greaterThanAndEquals != null">
+					and log_type >= #{require.logType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.lessThanAndEquals != null">
+					and log_type &lt;= #{require.logType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.notEquality != null">
+					and log_type &lt;> #{require.logType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.equality != null">
+					and log_type = #{require.logType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.similar != null">
+					and INSTR(log_type, #{require.logType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logDesc != null and record.logDesc != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logDesc != null and require.greaterThan.logDesc != '' ">
-					and log_desc > #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logDesc != null and require.lessThan.logDesc != '' ">
-					and log_desc &lt; #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logDesc != null and require.greaterThanAndEquals.logDesc != '' ">
-					and log_desc >= #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logDesc != null and require.lessThanAndEquals.logDesc != '' ">
-					and log_desc &lt;= #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logDesc != null and require.notEquality.logDesc != '' ">
-					and log_desc &lt;> #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logDesc != null and require.similar.logDesc != '' ">
-					and  INSTR(log_desc ,#{record.logDesc}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logDesc == null">
-				and log_desc = #{record.logDesc , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logDesc != null">
+			<if test="require.logDesc.greaterThan != null">
+					and log_desc > #{require.logDesc.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.lessThan != null">
+					and log_desc &lt; #{require.logDesc.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.greaterThanAndEquals != null">
+					and log_desc >= #{require.logDesc.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.lessThanAndEquals != null">
+					and log_desc &lt;= #{require.logDesc.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.notEquality != null">
+					and log_desc &lt;> #{require.logDesc.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.equality != null">
+					and log_desc = #{require.logDesc.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.similar != null">
+					and INSTR(log_desc, #{require.logDesc.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.createTime != null and record.createTime != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.createTime != null and require.greaterThan.createTime != '' ">
-					and create_time > #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.createTime != null and require.lessThan.createTime != '' ">
-					and create_time &lt; #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.createTime != null and require.greaterThanAndEquals.createTime != '' ">
-					and create_time >= #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.createTime != null and require.lessThanAndEquals.createTime != '' ">
-					and create_time &lt;= #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.createTime != null and require.notEquality.createTime != '' ">
-					and create_time &lt;> #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.createTime != null and require.similar.createTime != '' ">
-					and  INSTR(create_time ,#{record.createTime}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.createTime == null">
-				and create_time = #{record.createTime , jdbcType=TIMESTAMP}
-			</if>
+		<if test="require.createTime != null">
+			<if test="require.createTime.greaterThan != null">
+					and create_time > #{require.createTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThan != null">
+					and create_time &lt; #{require.createTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.greaterThanAndEquals != null">
+					and create_time >= #{require.createTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThanAndEquals != null">
+					and create_time &lt;= #{require.createTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.notEquality != null">
+					and create_time &lt;> #{require.createTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.equality != null">
+					and create_time = #{require.createTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.similar != null">
+					and INSTR(create_time, #{require.createTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logKey != null and record.logKey != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logKey != null and require.greaterThan.logKey != '' ">
-					and log_key > #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logKey != null and require.lessThan.logKey != '' ">
-					and log_key &lt; #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logKey != null and require.greaterThanAndEquals.logKey != '' ">
-					and log_key >= #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logKey != null and require.lessThanAndEquals.logKey != '' ">
-					and log_key &lt;= #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logKey != null and require.notEquality.logKey != '' ">
-					and log_key &lt;> #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logKey != null and require.similar.logKey != '' ">
-					and  INSTR(log_key ,#{record.logKey}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logKey == null">
-				and log_key = #{record.logKey , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logKey != null">
+			<if test="require.logKey.greaterThan != null">
+					and log_key > #{require.logKey.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.lessThan != null">
+					and log_key &lt; #{require.logKey.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.greaterThanAndEquals != null">
+					and log_key >= #{require.logKey.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.lessThanAndEquals != null">
+					and log_key &lt;= #{require.logKey.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.notEquality != null">
+					and log_key &lt;> #{require.logKey.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.equality != null">
+					and log_key = #{require.logKey.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.similar != null">
+					and INSTR(log_key, #{require.logKey.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -332,185 +267,120 @@
 	</select>
 	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZLogModel" resultType="java.lang.Integer">
 		select count(*) from R_LOG where 1 = 1
-		<if test="record.id != null and record.id != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.id != null and require.greaterThan.id != '' ">
-					and id > #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.id != null and require.lessThan.id != '' ">
-					and id &lt; #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.id != null and require.greaterThanAndEquals.id != '' ">
-					and id >= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.id != null and require.lessThanAndEquals.id != '' ">
-					and id &lt;= #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.id != null and require.notEquality.id != '' ">
-					and id &lt;> #{record.id , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.id != null and require.similar.id != '' ">
-					and  INSTR(id ,#{record.id}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.id == null">
-				and id = #{record.id , jdbcType=VARCHAR}
-			</if>
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logType != null and record.logType != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logType != null and require.greaterThan.logType != '' ">
-					and log_type > #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logType != null and require.lessThan.logType != '' ">
-					and log_type &lt; #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logType != null and require.greaterThanAndEquals.logType != '' ">
-					and log_type >= #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logType != null and require.lessThanAndEquals.logType != '' ">
-					and log_type &lt;= #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logType != null and require.notEquality.logType != '' ">
-					and log_type &lt;> #{record.logType , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logType != null and require.similar.logType != '' ">
-					and  INSTR(log_type ,#{record.logType}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logType == null">
-				and log_type = #{record.logType , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logType != null">
+			<if test="require.logType.greaterThan != null">
+					and log_type > #{require.logType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.lessThan != null">
+					and log_type &lt; #{require.logType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.greaterThanAndEquals != null">
+					and log_type >= #{require.logType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.lessThanAndEquals != null">
+					and log_type &lt;= #{require.logType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.notEquality != null">
+					and log_type &lt;> #{require.logType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.equality != null">
+					and log_type = #{require.logType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logType.similar != null">
+					and INSTR(log_type, #{require.logType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logDesc != null and record.logDesc != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logDesc != null and require.greaterThan.logDesc != '' ">
-					and log_desc > #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logDesc != null and require.lessThan.logDesc != '' ">
-					and log_desc &lt; #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logDesc != null and require.greaterThanAndEquals.logDesc != '' ">
-					and log_desc >= #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logDesc != null and require.lessThanAndEquals.logDesc != '' ">
-					and log_desc &lt;= #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logDesc != null and require.notEquality.logDesc != '' ">
-					and log_desc &lt;> #{record.logDesc , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logDesc != null and require.similar.logDesc != '' ">
-					and  INSTR(log_desc ,#{record.logDesc}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logDesc == null">
-				and log_desc = #{record.logDesc , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logDesc != null">
+			<if test="require.logDesc.greaterThan != null">
+					and log_desc > #{require.logDesc.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.lessThan != null">
+					and log_desc &lt; #{require.logDesc.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.greaterThanAndEquals != null">
+					and log_desc >= #{require.logDesc.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.lessThanAndEquals != null">
+					and log_desc &lt;= #{require.logDesc.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.notEquality != null">
+					and log_desc &lt;> #{require.logDesc.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.equality != null">
+					and log_desc = #{require.logDesc.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logDesc.similar != null">
+					and INSTR(log_desc, #{require.logDesc.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.createTime != null and record.createTime != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.createTime != null and require.greaterThan.createTime != '' ">
-					and create_time > #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.createTime != null and require.lessThan.createTime != '' ">
-					and create_time &lt; #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.createTime != null and require.greaterThanAndEquals.createTime != '' ">
-					and create_time >= #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.createTime != null and require.lessThanAndEquals.createTime != '' ">
-					and create_time &lt;= #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.createTime != null and require.notEquality.createTime != '' ">
-					and create_time &lt;> #{record.createTime , jdbcType=TIMESTAMP}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.createTime != null and require.similar.createTime != '' ">
-					and  INSTR(create_time ,#{record.createTime}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.createTime == null">
-				and create_time = #{record.createTime , jdbcType=TIMESTAMP}
-			</if>
+		<if test="require.createTime != null">
+			<if test="require.createTime.greaterThan != null">
+					and create_time > #{require.createTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThan != null">
+					and create_time &lt; #{require.createTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.greaterThanAndEquals != null">
+					and create_time >= #{require.createTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThanAndEquals != null">
+					and create_time &lt;= #{require.createTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.notEquality != null">
+					and create_time &lt;> #{require.createTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.equality != null">
+					and create_time = #{require.createTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.similar != null">
+					and INSTR(create_time, #{require.createTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
-		<if test="record.logKey != null and record.logKey != '' ">
-			<if test="require.greaterThan != null">
-				<if test="require.greaterThan.logKey != null and require.greaterThan.logKey != '' ">
-					and log_key > #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThan != null">
-				<if test="require.lessThan.logKey != null and require.lessThan.logKey != '' ">
-					and log_key &lt; #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.greaterThanAndEquals != null">
-				<if test="require.greaterThanAndEquals.logKey != null and require.greaterThanAndEquals.logKey != '' ">
-					and log_key >= #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.lessThanAndEquals != null">
-				<if
-					test="require.lessThanAndEquals.logKey != null and require.lessThanAndEquals.logKey != '' ">
-					and log_key &lt;= #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.notEquality != null">
-				<if test="require.notEquality.logKey != null and require.notEquality.logKey != '' ">
-					and log_key &lt;> #{record.logKey , jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="require.similar != null">
-				<if test="require.similar.logKey != null and require.similar.logKey != '' ">
-					and  INSTR(log_key ,#{record.logKey}) >0 
-				</if>
-			</if>
-			<if test="require.allColom.logKey == null">
-				and log_key = #{record.logKey , jdbcType=VARCHAR}
-			</if>
+		<if test="require.logKey != null">
+			<if test="require.logKey.greaterThan != null">
+					and log_key > #{require.logKey.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.lessThan != null">
+					and log_key &lt; #{require.logKey.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.greaterThanAndEquals != null">
+					and log_key >= #{require.logKey.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.lessThanAndEquals != null">
+					and log_key &lt;= #{require.logKey.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.notEquality != null">
+					and log_key &lt;> #{require.logKey.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.equality != null">
+					and log_key = #{require.logKey.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.logKey.similar != null">
+					and INSTR(log_key, #{require.logKey.similar , jdbcType=VARCHAR }) >0 
+		    </if>
 		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">

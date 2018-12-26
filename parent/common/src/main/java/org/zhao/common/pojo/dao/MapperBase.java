@@ -28,7 +28,7 @@ public abstract interface MapperBase<T> {
 	
 	  public int selectPageListByParametersCount(@Param("record") T paramT);
 	
-	  public List<T> selectPageListByParameterRequire(@Param("record") T paramT, @Param("page") PageContext pageContext, @Param("require") Map<String, Map<String, String>> paramMap);
+	  public List<T> selectPageListByParameterRequire(@Param("page") PageContext pageContext, @Param("require") Map<String, Map<String, String>> paramMap);
 	
-	  public int selectPageListByParameterRequireCount(@Param("record") T paramT, @Param("require") Map<String, Map<String, String>> paramMap);
+	  public int selectPageListByParameterRequireCount(@Param("require") Map<String, Map<String, String>> paramMap);
 }

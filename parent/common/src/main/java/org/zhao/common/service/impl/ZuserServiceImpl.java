@@ -36,11 +36,10 @@ public class ZuserServiceImpl implements ZuserService {
 	
 	@Cacheable(value="userSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
-	public ResultContent<List<ZuserModel>> selectPageListByParameterRequire(ZuserModel user,
-			PageContext page, Map<String,Map<String,String>> param) {
+	public ResultContent<List<ZuserModel>> selectPageListByParameterRequire(PageContext page, Map<String,Map<String,String>> param) {
 		ResultContent<List<ZuserModel>> result = new ResultContent<List<ZuserModel>>();
-		result.setData(this.zuserModelMapper.selectPageListByParameterRequire(user, page, param));
-		result.setCount(this.zuserModelMapper.selectPageListByParameterRequireCount(user, param));
+		result.setData(this.zuserModelMapper.selectPageListByParameterRequire(page, param));
+		result.setCount(this.zuserModelMapper.selectPageListByParameterRequireCount(param));
 		return BaseResultUtil.setCodeMsg(result);
 	}
 

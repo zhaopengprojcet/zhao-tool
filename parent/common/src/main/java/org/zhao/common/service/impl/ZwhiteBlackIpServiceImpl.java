@@ -26,11 +26,11 @@ public class ZwhiteBlackIpServiceImpl implements ZwhiteBlackIpService{
 	@Cacheable(value="wbIpSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
 	public ResultContent<List<ZwhiteBlackIpList>> selectPageListByParameterRequire(
-			ZwhiteBlackIpList ip, PageContext page,
+			PageContext page,
 			Map<String, Map<String, String>> require) {
 		ResultContent<List<ZwhiteBlackIpList>> result = new ResultContent<List<ZwhiteBlackIpList>>();
-		result.setData(this.zWhiteBlackIpListMapper.selectPageListByParameterRequire(ip, page, require));
-		result.setCount(this.zWhiteBlackIpListMapper.selectPageListByParameterRequireCount(ip, require));
+		result.setData(this.zWhiteBlackIpListMapper.selectPageListByParameterRequire( page, require));
+		result.setCount(this.zWhiteBlackIpListMapper.selectPageListByParameterRequireCount(require));
 		return BaseResultUtil.setCodeMsg(result);
 	}
 	@Cacheable(value="wbIpSelect",keyGenerator="keyGenerator", unless="#result.data == null")

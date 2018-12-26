@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZmenuModel;
 import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.role.RoleAop;
@@ -40,17 +41,15 @@ public class UserController {
 	@ResponseBody
 	public String list( @RequestParam(value="_jr",required=false,defaultValue="")String jr , HttpServletRequest request) {
 		ResultContent<JSONObject> query = QuerySign.deQuery(jr, request , "page" , "rows");
-		ZuserModel user = new ZuserModel();
-		ParamterRequirement require = new ParamterRequirement();
+		QueryParames parames = QueryParames.init();
 		if(!StringUtils.isEmpty(query.getJsonString("userState"))) {
-			user.setUserState(query.getJsonString("userState"));
+			parames.addEquality("userState", query.getJsonString("userState"));
 		}
 		if(!StringUtils.isEmpty(query.getJsonString("loginName"))) {
-			user.setLoginName(query.getJsonString("loginName"));
-			require.addSimilar("loginName");
+			parames.addSimilar("loginName", query.getJsonString("loginName"));
 		}
 		PageContext page = new PageContext(query.getJsonInt("page"), query.getJsonInt("rows"));
-		return BaseResultUtil.resultEasyUi(this.zUserService.selectPageListByParameterRequire(user, page, require.getParamter()));
+		return BaseResultUtil.resultEasyUi(this.zUserService.selectPageListByParameterRequire(page, parames.getParames()));
 	}
 	
 	@RoleAop(key=RoleAopEnum.POWER)

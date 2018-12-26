@@ -16,6 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZkeyValueModel;
 import org.zhao.common.pojo.model.ZroleModel;
 import org.zhao.common.service.ZkvService;
@@ -51,7 +52,7 @@ public class ServletContextLoadListener implements ApplicationRunner{
 			CacheUtil.context = servletContext;
 		}
 		logger.info("全局数据预加载...");
-		ResultContent<List<ZroleModel>> roles = this.zRoleService.selectPageListByParameterRequire(new ZroleModel(), null, new ParamterRequirement().getParamter());
+		ResultContent<List<ZroleModel>> roles = this.zRoleService.selectPageListByParameterRequire(null, QueryParames.init().getParames());
 		if(CollectionUtils.isEmpty(roles.getData())) {
 			for (ZroleModel role : roles.getData()) {
 				CacheUtil.saveSingleCache(role.getId()+"_"+RequestLoginInterceptor.SERVLET_POWER_UPDATE_TIME, new Date().getTime());
@@ -64,7 +65,7 @@ public class ServletContextLoadListener implements ApplicationRunner{
 	}
 
 	public static void loadKV(ZkvService kVService) {
-		ResultContent<List<ZkeyValueModel>> list = kVService.selectPageListByParameterRequire(new ZkeyValueModel(), null, new ParamterRequirement().getParamter());
+		ResultContent<List<ZkeyValueModel>> list = kVService.selectPageListByParameterRequire(null, QueryParames.init().getParames());
 		new PublicServerKV(list.getData());
 	}
 }

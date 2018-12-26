@@ -26,11 +26,11 @@ public class ZuseTimeServiceImpl implements ZuseTimeService {
 
 	@Cacheable(value="useTimeSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
-	public ResultContent<List<ZrequestUseModel>> selectPageList(
-			ZrequestUseModel model, PageContext page , Map<String, Map<String, String>> paramMap) {
+	public ResultContent<List<ZrequestUseModel>> selectPageListByParameterRequire(
+			PageContext page , Map<String, Map<String, String>> paramMap) {
 		ResultContent<List<ZrequestUseModel>> result = new ResultContent<List<ZrequestUseModel>>();
-		result.setData(this.zRequestUseModelMapper.selectPageListByParameterRequire(model, page, paramMap));
-		result.setCount(this.zRequestUseModelMapper.selectPageListByParameterRequireCount(model, paramMap));
+		result.setData(this.zRequestUseModelMapper.selectPageListByParameterRequire(page, paramMap));
+		result.setCount(this.zRequestUseModelMapper.selectPageListByParameterRequireCount(paramMap));
 		return BaseResultUtil.setCodeMsg(result);
 	}
 	@CacheEvict(value="useTimeSelect" ,allEntries=true ,beforeInvocation=false)

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.interceptor.ServletContextLoadListener;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.ParamterRequirement;
+import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZkeyValueModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
@@ -41,14 +42,12 @@ public class KvController {
 	@ResponseBody
 	public String list( @RequestParam(value="_jr",required=false,defaultValue="")String jr , HttpServletRequest request) {
 		ResultContent<JSONObject> query = QuerySign.deQuery(jr, request , "page" , "rows");
-		ZkeyValueModel kv = new ZkeyValueModel();
-		ParamterRequirement require = new ParamterRequirement();
+		QueryParames parames = QueryParames.init();
 		if(!StringUtils.isEmpty(query.getJsonString("serverKey"))) {
-			kv.setServerKey(query.getJsonString("serverKey"));;
-			require.addSimilar("serverKey");
+			parames.addSimilar("serverKey", query.getJsonString("serverKey"));
 		}
 		PageContext page = new PageContext(query.getJsonInt("page"), query.getJsonInt("rows"));
-		return BaseResultUtil.resultEasyUi(this.zKvService.selectPageListByParameterRequire(kv, page, require.getParamter()));
+		return BaseResultUtil.resultEasyUi(this.zKvService.selectPageListByParameterRequire(page, parames.getParames()));
 	}
 	
 	@RoleAop(key=RoleAopEnum.POWER)
