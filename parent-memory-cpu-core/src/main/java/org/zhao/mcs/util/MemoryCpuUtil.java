@@ -1,4 +1,4 @@
-package org.zhao.usetime.util;
+package org.zhao.mcs.util;
 
 import java.io.BufferedReader;
 import java.io.File;

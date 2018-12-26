@@ -1,4 +1,4 @@
-package org.zhao.usetime.util;
+package org.zhao.mcs.util;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;

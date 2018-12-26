@@ -1,4 +1,4 @@
-package org.zhao.usetime.util;
+package org.zhao.mcs.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

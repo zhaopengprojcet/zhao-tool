@@ -1,4 +1,4 @@
-package org.zhao.usetime.model;
+package org.zhao.mcs.model;
 
 /**
  * 注册服务时客户端参数实体

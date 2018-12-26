@@ -1,4 +1,4 @@
-package org.zhao.usetime.service;
+package org.zhao.mcs.service;
 
 import java.util.Date;
 
@@ -7,9 +7,9 @@ import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
-import org.zhao.usetime.model.PutThread;
-import org.zhao.usetime.util.ConfigProperties;
-import org.zhao.usetime.util.ThreadPoolUtils;
+import org.zhao.mcs.model.PutThread;
+import org.zhao.mcs.util.ConfigProperties;
+import org.zhao.mcs.util.ThreadPoolUtils;
 
 /**
  * 推送信息 

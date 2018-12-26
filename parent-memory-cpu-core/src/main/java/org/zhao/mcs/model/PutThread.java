@@ -1,4 +1,4 @@
-package org.zhao.usetime.model;
+package org.zhao.mcs.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,10 +7,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.zhao.usetime.util.HttpUtils;
-import org.zhao.usetime.util.MemoryCpuUtil;
-import org.zhao.usetime.util.RegiestServer;
-import org.zhao.usetime.util.SignUtil;
+import org.zhao.mcs.util.HttpUtils;
+import org.zhao.mcs.util.MemoryCpuUtil;
+import org.zhao.mcs.util.RegiestServer;
+import org.zhao.mcs.util.SignUtil;
 
 public class PutThread extends Thread{
 
