@@ -26,6 +26,7 @@ import org.zhao.common.util.ThreadPoolUtils;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.service.ServerService;
 import org.zhao.service.ZserverExpService;
+import org.zhao.usetime.annotation.UseTime;
 
 @RestController
 @RequestMapping("/server/")
@@ -42,6 +43,7 @@ public class ServerController {
 	 * @param request
 	 * @return
 	 */
+	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("regiest.html")
 	public String regiest(@RequestParam(value="_jr",required=false,defaultValue="")String context , HttpServletRequest request) {
@@ -75,6 +77,7 @@ public class ServerController {
 	 * @param request
 	 * @return
 	 */
+	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putMcs.html")
 	public String putMcs(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -92,6 +95,7 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
+	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putSchedule.html")
 	public String putSchedule(@RequestParam(value="_jr",required=false,defaultValue="")String context) {

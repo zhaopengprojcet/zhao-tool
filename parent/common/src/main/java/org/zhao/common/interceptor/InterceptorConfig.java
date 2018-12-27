@@ -37,12 +37,13 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(getInterceptor2())
 		.addPathPatterns("/")
 		.addPathPatterns("/**")
+		.excludePathPatterns("/schedule/response.html")
 		;
 		
 		registry.addInterceptor(getInterceptor())
 		.addPathPatterns("/")
 		.addPathPatterns("/**")
-		//.excludePathPatterns("/mq/mqclient.live")
+		.excludePathPatterns("/schedule/response.html")
 		;
         super.addInterceptors(registry);
 	}

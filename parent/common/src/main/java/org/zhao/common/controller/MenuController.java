@@ -22,6 +22,7 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/menu/")
@@ -34,6 +35,7 @@ public class MenuController {
 	 * 界面菜单加载
 	 * @return
 	 */
+	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("menuPowerList.html")
 	@ResponseBody

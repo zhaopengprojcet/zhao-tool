@@ -10,9 +10,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zhao.core.common.util.RegiestServer;
 import org.zhao.schedule.model.ReturnCode;
 import org.zhao.schedule.model.ScheduleModel;
-import org.zhao.schedule.util.RegiestServer;
 
 @RestController
 @RequestMapping("/schedule/")
@@ -33,16 +33,16 @@ public class ResponseController {
 			String token = obj.getString("_tk");
 			if(RegiestServer.getToken(false).equals("-1")) {
 				logger.info("schedule请求无效，当前服务未进行注册");
-				return ReturnCode.ERROR;
+				return ReturnCode.error("schedule请求无效，当前服务未进行注册");
 			}
 			if(!RegiestServer.getToken(false).equals(token)) {
-				logger.info("schedule请求无效，token错误");
-				return ReturnCode.ERROR;
+				logger.info("schedule请求无效，token错误【"+RegiestServer.getToken(false)+"】【"+token+"】");
+				return ReturnCode.error("schedule请求无效，token错误");
 			}
 			String service = obj.getString("_sev");
 			if(!ServletScheduleLoadInit.getSchedules().containsKey(service)) {
 				logger.info("schedule请求无效，未注册【"+service+"】");
-				return ReturnCode.ERROR;
+				return ReturnCode.error("schedule请求无效，未注册服务");
 			}
 			ScheduleModel model = ServletScheduleLoadInit.getSchedules().get(service);
 			

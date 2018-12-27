@@ -7,9 +7,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.zhao.usetime.util.HttpUtils;
-import org.zhao.usetime.util.RegiestServer;
-import org.zhao.usetime.util.SignUtil;
+import org.zhao.core.common.util.HttpUtils;
+import org.zhao.core.common.util.RegiestServer;
+import org.zhao.core.common.util.SignUtil;
 
 public class PutThread extends Thread{
 

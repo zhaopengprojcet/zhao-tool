@@ -17,6 +17,7 @@ public class RefreshSchedule {
 	//监测存活，有返回值则表示当前服务可用
 	@ScheduleMethod(scheduleName="zhao_schedule_live")
 	public String refresh() {
+		System.out.println("zhao_schedule_live 执行");
 		return ReturnCode.SUCCESS;
 	}
 }

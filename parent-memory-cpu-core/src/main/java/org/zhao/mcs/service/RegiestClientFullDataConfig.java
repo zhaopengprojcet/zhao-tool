@@ -7,9 +7,9 @@ import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
+import org.zhao.core.common.util.ConfigProperties;
+import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.mcs.model.PutThread;
-import org.zhao.mcs.util.ConfigProperties;
-import org.zhao.mcs.util.ThreadPoolUtils;
 
 /**
  * 推送信息 

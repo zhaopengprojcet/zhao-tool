@@ -25,6 +25,7 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.RolePowerHtml;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/role/")
@@ -101,6 +102,7 @@ public class RoleController {
 		return "role/rolePowerUpdate";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("powerSave.html")
 	@ResponseBody

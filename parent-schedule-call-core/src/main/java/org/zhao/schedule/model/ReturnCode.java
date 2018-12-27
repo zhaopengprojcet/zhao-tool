@@ -7,8 +7,11 @@ package org.zhao.schedule.model;
  */
 public class ReturnCode {
 
-	public static String SUCCESS = "{\"code\":\"0\",\"msg\":\"success\"}";
+	public static String SUCCESS = "{\"code\":\"0\",\"message\":\"success\"}";
 	
-	public static String ERROR = "{\"code\":\"-1\",\"msg\":\"error\"}";
+	public static String ERROR = "{\"code\":\"-1\",\"message\":\"error\"}";
 	
+	public static String error(String data) {
+		return "{\"code\":\"-1\",\"message\":\"error\",\"data\":\""+data+"\"}";
+	}
 }

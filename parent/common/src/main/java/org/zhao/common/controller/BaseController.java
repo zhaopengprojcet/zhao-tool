@@ -25,6 +25,7 @@ import org.zhao.common.service.ZuserService;
 import org.zhao.common.util.RandomUtils;
 import org.zhao.common.util.SessionUtil;
 import org.zhao.common.util.view.ResultContent;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 public class BaseController {
@@ -38,6 +39,7 @@ public class BaseController {
 		return "redirect:/login.html";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("/login.html")
 	public String login(@RequestParam(value="loginName",defaultValue="",required=false)String loginName ,
@@ -75,12 +77,14 @@ public class BaseController {
 		return "redirect:/index.html";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("/index.html")
 	public String index() {
 		return "index";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("/drawCode.sv")
 	public void drawCode(HttpServletRequest request , HttpServletResponse reponse) {

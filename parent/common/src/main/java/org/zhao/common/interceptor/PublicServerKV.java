@@ -36,7 +36,7 @@ public class PublicServerKV {
 	
 	public static String getStringVal(String key) {
 		if(map.containsKey(key)) return map.get(key);
-		else throw new RuntimeException("【"+key+"】"+"不存在");
+		else return null;
 	}
 	
 	public static double getDoubleVal(String key) {

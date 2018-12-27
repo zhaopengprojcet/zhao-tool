@@ -18,6 +18,8 @@ import org.zhao.common.client.ClientContext;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.server.ServerConfig;
 import org.zhao.common.util.CacheUtil;
+import org.zhao.common.util.HttpUtils;
+import org.zhao.common.util.view.ResultContent;
 
 /**
  * 计算机异常 处理线程
@@ -138,7 +140,19 @@ public class QuerySchedules extends Thread{
 	
 	//调用
 	private void callSchedules() {
-		
+		//伪码调用，后面更改为通过设置调用
+		for (String string : datas) {
+			List<String> tokens = (List<String>) CacheUtil.getMapListCache(SCHEDULE_CLIENTS, string);
+			String token = tokens.get(0);
+			ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, token);
+			Map<String, String> obj = new HashMap<String, String>();
+			JSONObject json = new JSONObject();
+			json.put("_tk", tokens.get(0));
+			json.put("_sev", string);
+			obj.put("_jr", json.toString());
+			ResultContent<String> result = HttpUtils.post("http://"+client.getIp()+":"+client.getPort()+"/schedule/response.html", obj);
+			System.out.println(JSONObject.fromObject(result).toString());
+		}
 	}
 	
 }
