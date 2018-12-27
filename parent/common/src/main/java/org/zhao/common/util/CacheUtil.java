@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.data.redis.core.RedisTemplate;
 
 public class CacheUtil {
@@ -242,7 +244,8 @@ public class CacheUtil {
 				l = new HashMap<String ,List<Object>>();
 				ll = new ArrayList<Object>();
 			}
-			ll.add(value);
+			if(value instanceof List) ll.addAll((List)value);
+			else ll.add(value);
 			l.put(hashKey, ll);
 			session.setAttribute(key, l);
 		}
@@ -259,9 +262,11 @@ public class CacheUtil {
 				l = new HashMap<String ,List<Object>>();
 				ll = new ArrayList<Object>();
 			}
-			ll.add(value);
+			if(value instanceof List) ll.addAll((List)value);
+			else ll.add(value);
 			l.put(hashKey, ll);
 			servlet.setAttribute(key, l);
+			System.out.println(JSONObject.fromObject(servlet.getAttribute(key)).toString());
 		}
 		else if(context instanceof RedisTemplate) {
 			RedisTemplate redis = (RedisTemplate) context;
@@ -272,7 +277,8 @@ public class CacheUtil {
 			else {
 				jd = new ArrayList<Object>();
 			}
-			jd.add(value);
+			if(value instanceof List) jd.addAll((List)value);
+			else jd.add(value);
 			redis.opsForHash().put(key, hashKey, jd);
 			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
 		}
@@ -336,7 +342,8 @@ public class CacheUtil {
 				l = new HashMap<String ,Set<Object>>();
 				ll = new HashSet<Object>();
 			}
-			ll.add(value);
+			if(value instanceof Set) ll.addAll((List)value);
+			else ll.add(value);
 			l.put(hashKey, ll);
 			session.setAttribute(key, l);
 		}
@@ -353,7 +360,8 @@ public class CacheUtil {
 				l = new HashMap<String ,Set<Object>>();
 				ll = new HashSet<Object>();
 			}
-			ll.add(value);
+			if(value instanceof Set) ll.addAll((List)value);
+			else ll.add(value);
 			l.put(hashKey, ll);
 			servlet.setAttribute(key, l);
 		}
@@ -366,7 +374,8 @@ public class CacheUtil {
 			else {
 				jd = new HashSet<Object>();
 			}
-			jd.add(value);
+			if(value instanceof Set) jd.addAll((List)value);
+			else jd.add(value);
 			redis.opsForHash().put(key, hashKey, jd);
 			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
 		}

@@ -33,6 +33,7 @@ public class ZuseTimeServiceImpl implements ZuseTimeService {
 		result.setCount(this.zRequestUseModelMapper.selectPageListByParameterRequireCount(paramMap));
 		return BaseResultUtil.setCodeMsg(result);
 	}
+	
 	@CacheEvict(value="useTimeSelect" ,allEntries=true ,beforeInvocation=false)
 	@Transactional
 	@Override

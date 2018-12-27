@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.zhao</groupId>
+  <artifactId>schedule-call-core</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>use-time-client</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+  <dependencies>
+    <dependency>
+		<groupId>net.sf.json-lib</groupId>
+		<artifactId>json-lib</artifactId>
+		<version>2.4</version>
+		<classifier>jdk15</classifier>
+	</dependency>
+     <dependency>
+	  <groupId>org.apache.httpcomponents</groupId>
+	  <artifactId>httpclient</artifactId>
+	  <version>4.5.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <version>4.3.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>4.3.2.RELEASE</version>
+	    <exclusions>
+	    	<exclusion>
+	    		<artifactId>spring-aop</artifactId>
+	    		<groupId>org.springframework</groupId>
+	    	</exclusion>
+	    	<exclusion>
+	    		<artifactId>spring-expression</artifactId>
+	    		<groupId>org.springframework</groupId>
+	    	</exclusion>
+	    </exclusions>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+  		<artifactId>commons-logging</artifactId>
+  		<version>1.1.1</version>
+	</dependency>
+  </dependencies>
+
+  
+</project>

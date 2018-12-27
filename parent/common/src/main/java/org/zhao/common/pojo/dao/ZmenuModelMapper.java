@@ -60,7 +60,7 @@ public interface ZmenuModelMapper extends MapperBase<ZmenuModel>{
 	 * 查询全部菜单资源 以树状图存在
 	 * @return
 	 */
-	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId} ")
+	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId} ORDER BY orders ")
 	@Results(value={
 		@Result(column="parent_menu_id",property="parentMenuId",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(column="menu_state",property="menuState",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),
@@ -80,7 +80,7 @@ public interface ZmenuModelMapper extends MapperBase<ZmenuModel>{
 	 * @param pId
 	 * @return
 	 */
-	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId} ")
+	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId}  ORDER BY orders ")
 	@Results(value={
 		@Result(column="menu_name",property="menuName",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(column="id",property="id",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),
@@ -90,7 +90,7 @@ public interface ZmenuModelMapper extends MapperBase<ZmenuModel>{
 	})
 	List<ZmenuModel> selectAllResourcesList(@Param("pId")String pId);
 	
-	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId} ")
+	@Select("SELECT * FROM r_menu WHERE parent_menu_id = #{pId}  ORDER BY orders ")
 	@Results(value={
 		@Result(column="id",property="id",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(column="menu_name",property="menuName",javaType=java.lang.String.class,jdbcType=JdbcType.VARCHAR),

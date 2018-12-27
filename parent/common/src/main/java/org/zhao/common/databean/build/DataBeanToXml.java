@@ -218,6 +218,7 @@ public class DataBeanToXml {
 	}
 	
 	private void requireText(Map.Entry<String, DataColum> entry) {
+		// 2018-12-26 更新为支持新版mybatis查询的生成
 		fileText.append(
 				"		<if test=\"require."+entry.getKey()+" != null\">\n" +
 				"			<if test=\"require."+entry.getKey()+".greaterThan != null\">\n" +

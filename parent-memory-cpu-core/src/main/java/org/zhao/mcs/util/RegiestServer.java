@@ -42,6 +42,10 @@ public class RegiestServer {
  			if(result.containsKey("code") && result.getString("code").equals("SUCCESS")) {
  				QUERY_TOKEN = result.getString("data");
  			}
+ 			else {
+ 				QUERY_TOKEN = "-1";
+ 				throw new RuntimeException("注册服务失败【"+result.getString("message")+"】");
+ 			}
  			return QUERY_TOKEN;
  		}
  		else {

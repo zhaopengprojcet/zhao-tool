@@ -25,6 +25,11 @@
       <artifactId>common</artifactId>
   	  <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>schedule-call-core</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   

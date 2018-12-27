@@ -5,8 +5,25 @@ server-center 扩展为注册中心
     1. 耗时监测  
     
 use-time-core -耗时监测组件  
-memory-cpu-core -计算机内存，cpu，磁盘占用监测组件
+memory-cpu-core -计算机内存，cpu，磁盘占用监测组件  
+schedule-call-core - 分布式定时任务调度组件  
 
+>>待完成  
+	服务端增加定时任务制定功能（包括主动调度和定时调度逻辑，分离任务注册与任务执行逻辑）  
+	服务端实现定时任务调度函数（调度请求的发起）   
+	服务端定时任务扫描机制确认 (期望在未开启定时任务服务时不占用系统线程)    
+	客户端定时任务调度结果回馈机制确认 (如何分离调度与返回结果，避免因客户端长时间任务导致超时)    
+  
+  
+>>更新记录  
+  
+>2018-12-27  
+	优化原有通用缓存工具org.zhao.common.util.CacheUtil实现  
+	现可支持map<String,List<Object>>及 map<String,Set<Object>> 函数  
+	在存过程中传入的value为object或集合形式  
+	新增schedule-call-core组件  
+	添加定时任务注册接口  
+	
 >2018-12-26  
 	弃用原有条件查询工具类  
 	org.zhao.common.mybatis.query.ParamterRequirement ，  

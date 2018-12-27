@@ -1,4 +1,4 @@
-package org.zhao.usetime.util;
+package org.zhao.schedule.util;
 
 import java.lang.management.ManagementFactory;
 import java.net.Inet4Address;
@@ -17,7 +17,7 @@ import javax.management.Query;
 import net.sf.json.JSONObject;
 
 import org.springframework.util.StringUtils;
-import org.zhao.usetime.model.ClientContext;
+import org.zhao.schedule.model.ClientContext;
 
 public class RegiestServer {
 
