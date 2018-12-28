@@ -11,15 +11,19 @@ import java.util.Set;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.zhao.common.client.ClientContext;
 import org.zhao.common.mybatis.query.PageContext;
+import org.zhao.common.pojo.model.ZscheduleLogModel;
 import org.zhao.common.server.ServerConfig;
 import org.zhao.common.util.CacheUtil;
 import org.zhao.common.util.HttpUtils;
+import org.zhao.common.util.RandomUtils;
 import org.zhao.common.util.view.ResultContent;
+import org.zhao.service.ZscheduleService;
 
 /**
  * 计算机异常 处理线程
@@ -29,14 +33,21 @@ import org.zhao.common.util.view.ResultContent;
 public class QuerySchedules extends Thread{
 	
 	private Log logger = LogFactory.getLog(this.getClass());
-	
+	private ZscheduleService zScheduleService;
 	private List<String> datas;
 	private String token;
-	
+	private String type;//ALL / ONLY
 	public QuerySchedules(){}
 	public QuerySchedules(List<String> data ,  String token) {
 		this.datas = data;
 		this.token = token;
+	}
+	
+	public QuerySchedules(List<String> data ,  String token , String type , ZscheduleService zScheduleService) {
+		this.datas = data;
+		this.token = token;
+		this.type = type;
+		this.zScheduleService = zScheduleService;
 	}
 	
 	@Override
@@ -141,18 +152,47 @@ public class QuerySchedules extends Thread{
 	//调用
 	private void callSchedules() {
 		//伪码调用，后面更改为通过设置调用
-		for (String string : datas) {
-			List<String> tokens = (List<String>) CacheUtil.getMapListCache(SCHEDULE_CLIENTS, string);
-			String token = tokens.get(0);
-			ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, token);
-			Map<String, String> obj = new HashMap<String, String>();
-			JSONObject json = new JSONObject();
-			json.put("_tk", tokens.get(0));
-			json.put("_sev", string);
-			obj.put("_jr", json.toString());
-			ResultContent<String> result = HttpUtils.post("http://"+client.getIp()+":"+client.getPort()+"/schedule/response.html", obj);
-			System.out.println(JSONObject.fromObject(result).toString());
+		for (String service : datas) {
+			List<String> tokens = (List<String>) CacheUtil.getMapListCache(SCHEDULE_CLIENTS, service);
+			if(CollectionUtils.isNotEmpty(tokens)) {
+				if(type.equals("ALL")) {
+					for (String token : tokens) {
+						put(token, service);
+					}
+				}
+				else {
+					int i = (int) (Math.random() * tokens.size());
+					put(tokens.get(i), service);
+				}
+			}
 		}
+		logger.info("本次调度完成");
 	}
 	
+	
+	private void put(String token , String service) {
+		ResultContent<String> result = new ResultContent<String>();
+		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, token);
+		ZscheduleLogModel log = new ZscheduleLogModel(service, client.getServiceName()+"["+client.getIp()+":"+client.getPort()+"]", null);
+		Map<String, String> obj = new HashMap<String, String>();
+		JSONObject json = new JSONObject();
+		json.put("_tk", token);
+		json.put("_sev", service);
+		json.put("_sci", log.getId());
+		obj.put("_jr", json.toString());
+		try {
+			this.zScheduleService.saveLog(log);
+			result = HttpUtils.post("http://"+client.getIp()+":"+client.getPort()+"/schedule/response.html", obj);
+			log.setPutState(JSONObject.fromObject(result).toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.setPutState(e.getLocalizedMessage());
+		}
+		try {
+			log.setPutState(JSONObject.fromObject(result).toString());
+			this.zScheduleService.updatePutLog(log);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

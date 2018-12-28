@@ -8,7 +8,7 @@ import org.zhao.schedule.annotation.zhaoScheduleBean;
 import org.zhao.schedule.model.ReturnCode;
 import org.zhao.service.ZuseTimeService;
 
-@zhaoScheduleBean
+//@zhaoScheduleBean
 public class SchedulePut {
 
 	@Autowired

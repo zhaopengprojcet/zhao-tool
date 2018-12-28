@@ -19,7 +19,7 @@ public class ZmenuSearchModel implements Serializable{
 	private String searchKey;
 	@DataColum(length=15,notNull=true,type=FieldTypeEnum.STRING,comment="查询类型")
 	private String searchType;
-	@DataColum(length=100,type=FieldTypeEnum.STRING,comment="初始加载数据")
+	@DataColum(length=300,type=FieldTypeEnum.STRING,comment="初始加载数据")
 	private String loadValue;
 	@DataColum(length=100,type=FieldTypeEnum.STRING,comment="初始加载数据请求地址/用于可以使用easyui加载的控件")
 	private String loadValueUrl;

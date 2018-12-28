@@ -25,6 +25,7 @@ import org.zhao.common.util.SignUtil;
 import org.zhao.common.util.ThreadPoolUtils;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.service.ServerService;
+import org.zhao.service.ZscheduleService;
 import org.zhao.service.ZserverExpService;
 import org.zhao.usetime.annotation.UseTime;
 
@@ -36,6 +37,8 @@ public class ServerController {
 	private ServerService serverService;
 	@Autowired
 	private ZserverExpService zServerExpService;
+	@Autowired
+	private ZscheduleService zScheduleService;
 	
 	/**
 	 * 注册服务
@@ -107,5 +110,30 @@ public class ServerController {
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
 		ThreadPoolUtils.putThread("定时任务注册", new QuerySchedules(schedules, time.getJsonString("token")));
 		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+	}
+	
+	/**
+	 * 调度定时任务执行情况反馈接口
+	 * @param context
+	 * @return
+	 */
+	@UseTime
+	@RoleAop(key=RoleAopEnum.ALL)
+	@RequestMapping("scheduleState.html")
+	public String scheduleState(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
+		if(!PublicServerKV.getBooleanVal("server.service.schedule")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启定时任务调度服务！"));
+		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"scheduleId","result");
+		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
+		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
+		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		
+		try {
+			JSONObject obj = JSONObject.fromObject(time.getData()).getJSONObject("result");
+			String scheduleId = time.getJsonString("scheduleId");
+			return BaseResultUtil.result(this.zScheduleService.updateResultLog(scheduleId, obj.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误"));
+		}
 	}
 }

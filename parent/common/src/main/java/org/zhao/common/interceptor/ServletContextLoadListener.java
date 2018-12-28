@@ -2,6 +2,7 @@ package org.zhao.common.interceptor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.ServletContext;
@@ -44,6 +45,8 @@ public class ServletContextLoadListener implements ApplicationRunner{
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+
+		Locale.setDefault(Locale.CHINA);
 		if(redisOpen) {
 			RedisTemplate redisTemplate = (RedisTemplate) SpringContextUtil.getBean("redisTemplate", RedisTemplate.class);
 			CacheUtil.context = redisTemplate;

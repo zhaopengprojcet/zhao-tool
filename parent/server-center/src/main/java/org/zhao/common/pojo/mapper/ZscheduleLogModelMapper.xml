@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZscheduleLogModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZscheduleLogModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="schedule_name" property="scheduleName" jdbcType="VARCHAR" />
+		<result column="put_state" property="putState" jdbcType="VARCHAR" />
+		<result column="do_end_time" property="doEndTime" jdbcType="TIMESTAMP" />
+		<result column="put_server" property="putServer" jdbcType="VARCHAR" />
+		<result column="do_state" property="doState" jdbcType="VARCHAR" />
+		<result column="put_time" property="putTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_SCHEDULE_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_SCHEDULE_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_SCHEDULE_LOG (id,schedule_name,put_state,do_end_time,put_server,do_state,put_time)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.scheduleName,jdbcType=VARCHAR},
+			#{record.putState,jdbcType=VARCHAR},
+			#{record.doEndTime,jdbcType=TIMESTAMP},
+			#{record.putServer,jdbcType=VARCHAR},
+			#{record.doState,jdbcType=VARCHAR},
+			#{record.putTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_SCHEDULE_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.scheduleName != null and record.scheduleName != '' ">
+				schedule_name,
+			</if>
+			<if test="record.putState != null and record.putState != '' ">
+				put_state,
+			</if>
+			<if test="record.doEndTime != null ">
+				do_end_time,
+			</if>
+			<if test="record.putServer != null and record.putServer != '' ">
+				put_server,
+			</if>
+			<if test="record.doState != null and record.doState != '' ">
+				do_state,
+			</if>
+			<if test="record.putTime != null ">
+				put_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.scheduleName != null and record.scheduleName != '' ">
+				#{record.scheduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putState != null and record.putState != '' ">
+				#{record.putState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.doEndTime != null ">
+				#{record.doEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.putServer != null and record.putServer != '' ">
+				#{record.putServer,jdbcType=VARCHAR},
+			</if>
+			<if test="record.doState != null and record.doState != '' ">
+				#{record.doState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putTime != null ">
+				#{record.putTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel">
+		update R_SCHEDULE_LOG
+		<set>
+			<if test="record.scheduleName != null and record.scheduleName != '' ">
+				schedule_name = #{record.scheduleName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putState != null and record.putState != '' ">
+				put_state = #{record.putState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.doEndTime != null ">
+				do_end_time = #{record.doEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.putServer != null and record.putServer != '' ">
+				put_server = #{record.putServer,jdbcType=VARCHAR},
+			</if>
+			<if test="record.doState != null and record.doState != '' ">
+				do_state = #{record.doState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putTime != null ">
+				put_time = #{record.putTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel">
+		update R_SCHEDULE_LOG
+		set
+		schedule_name = #{record.scheduleName,jdbcType=VARCHAR}
+		put_state = #{record.putState,jdbcType=VARCHAR}
+		do_end_time = #{record.doEndTime,jdbcType=TIMESTAMP}
+		put_server = #{record.putServer,jdbcType=VARCHAR}
+		do_state = #{record.doState,jdbcType=VARCHAR}
+		put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_SCHEDULE_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.scheduleName != null and record.scheduleName != '' ">
+			and schedule_name = #{record.scheduleName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putState != null and record.putState != '' ">
+			and put_state = #{record.putState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doEndTime != null ">
+			and do_end_time = #{record.doEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.putServer != null and record.putServer != '' ">
+			and put_server = #{record.putServer,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doState != null and record.doState != '' ">
+			and do_state = #{record.doState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putTime != null ">
+			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" resultType="java.lang.Integer">
+		select count(*) from R_SCHEDULE_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.scheduleName != null and record.scheduleName != '' ">
+			and schedule_name = #{record.scheduleName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putState != null and record.putState != '' ">
+			and put_state = #{record.putState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doEndTime != null ">
+			and do_end_time = #{record.doEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.putServer != null and record.putServer != '' ">
+			and put_server = #{record.putServer,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doState != null and record.doState != '' ">
+			and do_state = #{record.doState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putTime != null ">
+			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_SCHEDULE_LOG where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.scheduleName != null">
+			<if test="require.scheduleName.greaterThan != null">
+					and schedule_name > #{require.scheduleName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.lessThan != null">
+					and schedule_name &lt; #{require.scheduleName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.greaterThanAndEquals != null">
+					and schedule_name >= #{require.scheduleName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.lessThanAndEquals != null">
+					and schedule_name &lt;= #{require.scheduleName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.notEquality != null">
+					and schedule_name &lt;> #{require.scheduleName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.equality != null">
+					and schedule_name = #{require.scheduleName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.similar != null">
+					and INSTR(schedule_name, #{require.scheduleName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putState != null">
+			<if test="require.putState.greaterThan != null">
+					and put_state > #{require.putState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.lessThan != null">
+					and put_state &lt; #{require.putState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.greaterThanAndEquals != null">
+					and put_state >= #{require.putState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.lessThanAndEquals != null">
+					and put_state &lt;= #{require.putState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.notEquality != null">
+					and put_state &lt;> #{require.putState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.equality != null">
+					and put_state = #{require.putState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.similar != null">
+					and INSTR(put_state, #{require.putState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.doEndTime != null">
+			<if test="require.doEndTime.greaterThan != null">
+					and do_end_time > #{require.doEndTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.lessThan != null">
+					and do_end_time &lt; #{require.doEndTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.greaterThanAndEquals != null">
+					and do_end_time >= #{require.doEndTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.lessThanAndEquals != null">
+					and do_end_time &lt;= #{require.doEndTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.notEquality != null">
+					and do_end_time &lt;> #{require.doEndTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.equality != null">
+					and do_end_time = #{require.doEndTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.similar != null">
+					and INSTR(do_end_time, #{require.doEndTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putServer != null">
+			<if test="require.putServer.greaterThan != null">
+					and put_server > #{require.putServer.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.lessThan != null">
+					and put_server &lt; #{require.putServer.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.greaterThanAndEquals != null">
+					and put_server >= #{require.putServer.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.lessThanAndEquals != null">
+					and put_server &lt;= #{require.putServer.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.notEquality != null">
+					and put_server &lt;> #{require.putServer.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.equality != null">
+					and put_server = #{require.putServer.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.similar != null">
+					and INSTR(put_server, #{require.putServer.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.doState != null">
+			<if test="require.doState.greaterThan != null">
+					and do_state > #{require.doState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.lessThan != null">
+					and do_state &lt; #{require.doState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.greaterThanAndEquals != null">
+					and do_state >= #{require.doState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.lessThanAndEquals != null">
+					and do_state &lt;= #{require.doState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.notEquality != null">
+					and do_state &lt;> #{require.doState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.equality != null">
+					and do_state = #{require.doState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.similar != null">
+					and INSTR(do_state, #{require.doState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putTime != null">
+			<if test="require.putTime.greaterThan != null">
+					and put_time > #{require.putTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.lessThan != null">
+					and put_time &lt; #{require.putTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.greaterThanAndEquals != null">
+					and put_time >= #{require.putTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.lessThanAndEquals != null">
+					and put_time &lt;= #{require.putTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.notEquality != null">
+					and put_time &lt;> #{require.putTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.equality != null">
+					and put_time = #{require.putTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.similar != null">
+					and INSTR(put_time, #{require.putTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" resultType="java.lang.Integer">
+		select count(*) from R_SCHEDULE_LOG where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.scheduleName != null">
+			<if test="require.scheduleName.greaterThan != null">
+					and schedule_name > #{require.scheduleName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.lessThan != null">
+					and schedule_name &lt; #{require.scheduleName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.greaterThanAndEquals != null">
+					and schedule_name >= #{require.scheduleName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.lessThanAndEquals != null">
+					and schedule_name &lt;= #{require.scheduleName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.notEquality != null">
+					and schedule_name &lt;> #{require.scheduleName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.equality != null">
+					and schedule_name = #{require.scheduleName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.scheduleName.similar != null">
+					and INSTR(schedule_name, #{require.scheduleName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putState != null">
+			<if test="require.putState.greaterThan != null">
+					and put_state > #{require.putState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.lessThan != null">
+					and put_state &lt; #{require.putState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.greaterThanAndEquals != null">
+					and put_state >= #{require.putState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.lessThanAndEquals != null">
+					and put_state &lt;= #{require.putState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.notEquality != null">
+					and put_state &lt;> #{require.putState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.equality != null">
+					and put_state = #{require.putState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putState.similar != null">
+					and INSTR(put_state, #{require.putState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.doEndTime != null">
+			<if test="require.doEndTime.greaterThan != null">
+					and do_end_time > #{require.doEndTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.lessThan != null">
+					and do_end_time &lt; #{require.doEndTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.greaterThanAndEquals != null">
+					and do_end_time >= #{require.doEndTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.lessThanAndEquals != null">
+					and do_end_time &lt;= #{require.doEndTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.notEquality != null">
+					and do_end_time &lt;> #{require.doEndTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.equality != null">
+					and do_end_time = #{require.doEndTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doEndTime.similar != null">
+					and INSTR(do_end_time, #{require.doEndTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putServer != null">
+			<if test="require.putServer.greaterThan != null">
+					and put_server > #{require.putServer.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.lessThan != null">
+					and put_server &lt; #{require.putServer.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.greaterThanAndEquals != null">
+					and put_server >= #{require.putServer.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.lessThanAndEquals != null">
+					and put_server &lt;= #{require.putServer.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.notEquality != null">
+					and put_server &lt;> #{require.putServer.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.equality != null">
+					and put_server = #{require.putServer.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServer.similar != null">
+					and INSTR(put_server, #{require.putServer.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.doState != null">
+			<if test="require.doState.greaterThan != null">
+					and do_state > #{require.doState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.lessThan != null">
+					and do_state &lt; #{require.doState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.greaterThanAndEquals != null">
+					and do_state >= #{require.doState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.lessThanAndEquals != null">
+					and do_state &lt;= #{require.doState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.notEquality != null">
+					and do_state &lt;> #{require.doState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.equality != null">
+					and do_state = #{require.doState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doState.similar != null">
+					and INSTR(do_state, #{require.doState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putTime != null">
+			<if test="require.putTime.greaterThan != null">
+					and put_time > #{require.putTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.lessThan != null">
+					and put_time &lt; #{require.putTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.greaterThanAndEquals != null">
+					and put_time >= #{require.putTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.lessThanAndEquals != null">
+					and put_time &lt;= #{require.putTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.notEquality != null">
+					and put_time &lt;> #{require.putTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.equality != null">
+					and put_time = #{require.putTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putTime.similar != null">
+					and INSTR(put_time, #{require.putTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_SCHEDULE_LOG (
+		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.scheduleName,jdbcType=VARCHAR},
+			#{item.putState,jdbcType=VARCHAR},
+			#{item.doEndTime,jdbcType=TIMESTAMP},
+			#{item.putServer,jdbcType=VARCHAR},
+			#{item.doState,jdbcType=VARCHAR},
+			#{item.putTime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel">
+		delete from R_SCHEDULE_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.scheduleName != null and record.scheduleName != '' ">
+			and schedule_name = #{record.scheduleName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putState != null and record.putState != '' ">
+			and put_state = #{record.putState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doEndTime != null ">
+			and do_end_time = #{record.doEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.putServer != null and record.putServer != '' ">
+			and put_server = #{record.putServer,jdbcType=VARCHAR}
+		</if>
+		<if test="record.doState != null and record.doState != '' ">
+			and do_state = #{record.doState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putTime != null ">
+			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+	</delete>
+</mapper>

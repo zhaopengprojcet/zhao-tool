@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zhao.core.common.util.RegiestServer;
+import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.schedule.model.ReturnCode;
 import org.zhao.schedule.model.ScheduleModel;
+import org.zhao.schedule.thread.ScheduleDo;
 
 @RestController
 @RequestMapping("/schedule/")
@@ -28,7 +30,8 @@ public class ResponseController {
 		logger.info("schedule请求参数【"+context+"】");
 		try {
 			JSONObject obj = JSONObject.fromObject(context);
-			if(!obj.containsKey("_tk") || !obj.containsKey("_sev")) 
+			// token  , sericeName   scheduleId
+			if(!obj.containsKey("_tk") || !obj.containsKey("_sev") || !obj.containsKey("_sci")) 
 				return ReturnCode.ERROR;
 			String token = obj.getString("_tk");
 			if(RegiestServer.getToken(false).equals("-1")) {
@@ -44,10 +47,16 @@ public class ResponseController {
 				logger.info("schedule请求无效，未注册【"+service+"】");
 				return ReturnCode.error("schedule请求无效，未注册服务");
 			}
+			if(StringUtils.isEmpty(obj.getString("_sci"))) {
+				logger.info("schedule请求无效，未分派任务编码");
+				return ReturnCode.error("schedule请求无效，未分派任务编码");
+			}
+			
 			ScheduleModel model = ServletScheduleLoadInit.getSchedules().get(service);
 			
-			Object cla = applicationContext.getBean(model.getCla().getClass());
-			return JSONObject.fromObject(model.getMethod().invoke(cla)).toString();
+			ThreadPoolUtils.putThread("schedule-do【"+obj.getString("_sci")+"】", new ScheduleDo(obj.getString("_sci"), model, applicationContext));
+			
+			return ReturnCode.SUCCESS; //返回调用状态，不包括执行状态
 			
 		} catch (Exception e) {
 			e.printStackTrace();
