@@ -119,8 +119,10 @@ public class QuerySchedules extends Thread{
 			for (String key : services.keySet()) { //遍历原有缓存 删除新注册中没有的,添加在新注册中有的
 				List<String> tks = (List<String>) CacheUtil.getMapListCache(SCHEDULE_CLIENTS, key);
 				if(datas.contains(key)) { //原有注册
-					if(!tks.contains(token)) tks.add(token); //新
+					if(!tks.contains(token)) { 
+						tks.add(token); //新
 						CacheUtil.saveMapListCache(SCHEDULE_CLIENTS, key, tks);
+					}
 				}
 				else {
 					if(tks.contains(token)) {

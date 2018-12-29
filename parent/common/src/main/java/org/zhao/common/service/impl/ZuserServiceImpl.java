@@ -94,7 +94,7 @@ public class ZuserServiceImpl implements ZuserService {
 			return new ResultContent<ZuserModel>(ResultContent.ERROR, "用户名不存在");
 		}
 		user = list.get(0);
-		if(user.getLoginErrorCount() >= PublicServerKV.getIntVal("login.error.max")) {
+		if(user.getLoginErrorCount() >= PublicServerKV.getIntVal("common.login.error.max")) {
 			return new ResultContent<ZuserModel>(ResultContent.ERROR, "今日登录错误次数已超过,请明日再次尝试或联系管理员");
 		}
 		

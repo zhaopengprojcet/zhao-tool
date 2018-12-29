@@ -17,6 +17,7 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 /**
  * 缓存中 已注册定时任务数据
@@ -33,6 +34,7 @@ public class ZscheduleRegiestController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -45,6 +47,7 @@ public class ZscheduleRegiestController {
 		
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody

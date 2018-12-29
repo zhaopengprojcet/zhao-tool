@@ -1,5 +1,4 @@
 function loadSelectData() {
-	$.parser.parse('#update-center-table');
 	$("select[loadkey='combobox']").each(function(){
 		if($(this).attr("data") != undefined) {
 			var id = $(this).attr("id");
@@ -59,6 +58,8 @@ function loadSelectData() {
 		});
 	}
 }
+$.parser.parse('#update-center-table');
+
 if(loadNum == 0) {
 	loadNum = 1;
 	updateLoadNum();

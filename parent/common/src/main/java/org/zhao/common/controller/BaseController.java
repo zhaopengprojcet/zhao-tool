@@ -3,13 +3,9 @@ package org.zhao.common.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +35,6 @@ public class BaseController {
 		return "redirect:/login.html";
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("/login.html")
 	public String login(@RequestParam(value="loginName",defaultValue="",required=false)String loginName ,

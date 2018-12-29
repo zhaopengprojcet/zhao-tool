@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -33,8 +32,6 @@ import org.zhao.service.ZscheduleService;
 @Component
 @Order(value = 9)
 public class ServerSchedule implements ApplicationRunner{
-
-	private static boolean doit = true;
 	
 	private static final String SCHEDULE_MAP_KEY = "SCHEDULE_MAP_KEY";
 	
@@ -44,9 +41,14 @@ public class ServerSchedule implements ApplicationRunner{
 	@Autowired
 	private ZscheduleService zScheduleService;
 	
+	public static void reload() {
+		CacheUtil.removeCache(SCHEDULE_MAP_KEY);
+		loadTime = null;
+	}
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		if(PublicServerKV.getBooleanVal("server.service.schedule")) { //定时任务推送
+		if(PublicServerKV.getBooleanVal("server-center.service.schedule")) { //定时任务推送
 			Thread schedule = new Thread(){
 
 				@Override
@@ -54,7 +56,9 @@ public class ServerSchedule implements ApplicationRunner{
 					Date now = new Date();
 					if(StringUtils.isEmpty(loadTime) || !DateUtil.getTimeStr(now, DateUtil.yyyy_MM_dd).equals(loadTime)) { //今日未加载过
 						//加载全部生效的设置定时任务，并解析时间逻辑到缓存
-						ResultContent<List<ZscheduleSetModel>> load = zScheduleService.selectPageListByParameterRequire(null, new QueryParames().init().getParames());
+						QueryParames queryParames = QueryParames.init();
+						queryParames.addEquality("scheduleState", "1");
+						ResultContent<List<ZscheduleSetModel>> load = zScheduleService.selectPageListByParameterRequire(null, queryParames.getParames());
 						if(CollectionUtils.isNotEmpty(load.getData())) {
 							//结构  时间-->[调用逻辑-->[调用集合]]
 							Map<String, Map<String, List<String>>> plans = new HashMap<String, Map<String, List<String>>>();
@@ -138,9 +142,10 @@ public class ServerSchedule implements ApplicationRunner{
 			ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
 			pool.scheduleWithFixedDelay(  
 					schedule,  
-					getWaitTime(PublicServerKV.getStringVal("server.service.schedule.wait")),  
-					PublicServerKV.getIntVal("server.service.schedule.split"),  
+					getWaitTime(PublicServerKV.getStringVal("server-center.service.schedule.wait")),  
+					PublicServerKV.getIntVal("server-center.service.schedule.split"),  
 					TimeUnit.SECONDS); 
+			 
 		}
 	}
 	

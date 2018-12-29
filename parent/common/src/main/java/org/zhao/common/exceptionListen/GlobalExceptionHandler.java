@@ -45,7 +45,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver ,Ordered
 		ex.printStackTrace();
 		MappingJackson2JsonView view = new MappingJackson2JsonView();
 		view.addStaticAttribute("code", ResultContent.ERROR);
-		if(PublicServerKV.getBooleanVal("springmvc.exception.debug"))
+		if(PublicServerKV.getBooleanVal("common.springmvc.exception.debug"))
 			view.addStaticAttribute("message", "操作失败【"+ex.getMessage()+"】");
 		else
 			view.addStaticAttribute("message", "操作失败【"+specialExceptionResolve(ex, request)+"】");

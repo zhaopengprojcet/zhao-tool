@@ -23,6 +23,7 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/user/")
@@ -36,6 +37,7 @@ public class UserController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody

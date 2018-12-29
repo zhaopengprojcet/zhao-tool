@@ -10,7 +10,7 @@
 	    				<td>
 	    					<input th:if="${search.searchType == 'text'}" th:name="${search.searchKey}" class="easyui-textbox" style="width: 100%;height: 25px;"/>
 	    					<select th:if="${search.searchType == 'select'}" th:name="${search.searchKey}" th:attr="data=${search.loadValue},url=${search.loadValueUrl},loadKey='combobox',id='SL'+${search.id},valueField=${search.valueField},textField=${search.textField}" valueField="id" textField="text" class="easyui-combobox" editable="false"  style="width: 100%;height: 25px;"></select>
-	    					<input th:if="${search.searchType == 'date'}" th:name="${search.searchKey}" th:id="'SL'+${search.id}" type="text" class="easyui-datebox" editable="false" style="width: 100%;height: 25px;"/>
+	    					<input th:if="${search.searchType == 'date'}" th:name="${search.searchKey}" th:id="'SL'+${search.id}" type="text" class="easyui-datebox" editable="true" style="width: 100%;height: 25px;"/>
 	    					<input th:if="${search.searchType == 'datetime'}" th:name="${search.searchKey}" th:id="'SL'+${search.id}" type="text" class="easyui-datetimebox" editable="true" style="width: 100%;height: 25px;" />
 	    				</td>
 	    			</tr>

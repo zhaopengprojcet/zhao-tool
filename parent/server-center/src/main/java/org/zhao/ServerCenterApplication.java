@@ -19,6 +19,9 @@ public class ServerCenterApplication {
 		SpringApplication.run(ServerCenterApplication.class, args);
 	}
 
+	//schedule
+	//另需要在拦截器中放行/schedule/response.html用于任务调度响应接口
+	//后期如果使用其他嵌入容器，可以简化
 	@Bean
 	public ServletScheduleLoadInit getSchedule() {
 		return new ServletScheduleLoadInit();

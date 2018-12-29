@@ -17,7 +17,7 @@ public class ServerConfig {
 	
 	private static String[] serverPaths; //注册服务地址
 	protected static void setServerPaths() {
-		String path = PublicServerKV.getStringVal("server.paths");
+		String path = PublicServerKV.getStringVal("server-center.server.paths");
 		if(!StringUtils.isEmpty(path)) {
 			Set<String> set = new HashSet<String>();
 			String[] list = path.split(",");

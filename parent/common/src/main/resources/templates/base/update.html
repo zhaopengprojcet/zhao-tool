@@ -8,8 +8,8 @@
 				<input th:if="${view.type == 'password'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name},showEye='true'" class="easyui-passwordbox"/>
 				<select th:if="${view.type == 'select'}" th:name="${view.name}" th:id="'vid_'+${view.name}"  th:attr="data=${view.loadValue},url=${view.loadValueUrl},loadKey='combobox',check=${view.check},key=${view.name},data-options='onLoadSuccess:updateLoadNum',valueField=${view.valueField},textField=${view.textField}" class="easyui-combobox" valueField="id" textField="text" editable="false"></select>
 				<select th:if="${view.type == 'selectree'}" th:name="${view.name}" th:id="'vid_'+${view.name}"  th:attr="data=${view.loadValue},url=${view.loadValueUrl},loadKey='combotree',check=${view.check},idField=${view.valueField},textField=${view.textField},key=${view.name},data-options='onLoadSuccess:updateLoadNum'" class="easyui-combotree" valueField="id" textField="text" editable="false"></select>
-				<input th:if="${view.type == 'date'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},loadKey='date',key=${view.name}" class="easyui-datebox" editable="false"/>
-				<input th:if="${view.type == 'datetime'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-datetimebox" editable="false" />
+				<input th:if="${view.type == 'date'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},loadKey='date',key=${view.name}" class="easyui-datebox" editable="true"/>
+				<input th:if="${view.type == 'datetime'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-datetimebox" editable="true" />
 				<input th:if="${view.type == 'textarray'}" th:name="${view.name}" th:id="'vid_'+${view.name}" th:attr="check=${view.check},key=${view.name}" class="easyui-textbox update-textarray" data-options="multiline:true" />
 			</td>
 		</tr>

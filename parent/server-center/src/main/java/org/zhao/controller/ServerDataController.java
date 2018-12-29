@@ -17,6 +17,7 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ServerService;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/server/")
@@ -31,6 +32,7 @@ public class ServerDataController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody

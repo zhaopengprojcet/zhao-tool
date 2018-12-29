@@ -8,6 +8,11 @@ import org.zhao.schedule.annotation.zhaoScheduleBean;
 import org.zhao.schedule.model.ReturnCode;
 import org.zhao.service.ZuseTimeService;
 
+/**
+ * 耗时数据持久化
+ * @author zhao
+ *
+ */
 //@zhaoScheduleBean
 public class SchedulePut {
 
@@ -17,14 +22,11 @@ public class SchedulePut {
 	@ScheduleMethod(scheduleName = "put_time_save")
 	public String savePutTime() {
 		try {
-			/*zUseTimeService.save(QueryTimeUse.getSaveList());
-			QueryTimeUse.clearAll();*/
-			System.out.println("put_time_save 执行");
-			zUseTimeService.selectPageListByParameterRequire(null, QueryParames.init().getParames());
-			System.out.println("put_time_save 执行结束");
+			zUseTimeService.save(QueryTimeUse.getSaveList());
+			QueryTimeUse.clearAll();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ReturnCode.ERROR;
+			return ReturnCode.error(e.getLocalizedMessage());
 		}
 		return ReturnCode.SUCCESS;
 	}

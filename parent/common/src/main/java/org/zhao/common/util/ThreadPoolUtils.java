@@ -24,7 +24,7 @@ public class ThreadPoolUtils {
 	
 	public static synchronized void putThread(String name ,Thread t) {
 		t.setUncaughtExceptionHandler(new ThreadExectionHandler());
-		while(cachedThreadPool.getPoolSize() > PublicServerKV.getIntVal("thread.pool.maxsize")) {}
+		while(cachedThreadPool.getPoolSize() > PublicServerKV.getIntVal("common.thread.pool.maxsize")) {}
 		t.setName(name);
 		cachedThreadPool.execute(t);
 		logger.info("新线程任务【"+name+"】加入执行,当前任务数【"+(cachedThreadPool.getActiveCount())+"】,池内总线程数【"+cachedThreadPool.getPoolSize()+"】");

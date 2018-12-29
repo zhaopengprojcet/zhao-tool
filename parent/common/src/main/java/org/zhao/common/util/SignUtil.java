@@ -50,10 +50,10 @@ public class SignUtil {
 	 * @param times 时间戳
 	 */
 	public static String getHttpContext(String parameterJson) {
-		String signStr = PublicServerKV.getStringVal("sign.http.key") + "<&>" + parameterJson;
-		signStr = encrypt(signStr, PublicServerKV.getStringVal("sign.http.aes.key")) + "<*>" + System.currentTimeMillis();
+		String signStr = PublicServerKV.getStringVal("common.sign.http.key") + "<&>" + parameterJson;
+		signStr = encrypt(signStr, PublicServerKV.getStringVal("common.sign.http.aes.key")) + "<*>" + System.currentTimeMillis();
 		try {
-			signStr = publicEncrypt(signStr, getPublicKey(PublicServerKV.getStringVal("sign.http.rsa.public.key")));
+			signStr = publicEncrypt(signStr, getPublicKey(PublicServerKV.getStringVal("common.sign.http.rsa.public.key")));
 			return ZipUtil.zip(signStr);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -94,18 +94,18 @@ public class SignUtil {
 		if(StringUtils.isEmpty(context)) return new ResultContent<String>(ResultContent.ERROR, "消息内容为空");
 		String singStr = ZipUtil.unzip(context);
 		try {
-			singStr = privateDecrypt(singStr, getPrivateKey(PublicServerKV.getStringVal("sign.http.rsa.private.key")));
+			singStr = privateDecrypt(singStr, getPrivateKey(PublicServerKV.getStringVal("common.sign.http.rsa.private.key")));
 			String[] strList = singStr.split("<*>");
 			if(strList.length < 2) return new ResultContent<String>(ResultContent.ERROR, "消息结构被篡改");
 			String times = strList[1];
 			//判断消息是否过期
 			if(DateUtil.getMinOfTime2Now(Long.parseLong(times)) > 10) return new ResultContent<String>(ResultContent.ERROR, "消息请求超时");
 			
-			singStr = decrypt(strList[0], PublicServerKV.getStringVal("sign.http.aes.key"));
+			singStr = decrypt(strList[0], PublicServerKV.getStringVal("common.sign.http.aes.key"));
 			strList = singStr.split("<&>");
 			if(strList.length < 1) return new ResultContent<String>(ResultContent.ERROR, "消息结构被篡改");
 			String httpKey = strList[0];
-			if(!httpKey.equalsIgnoreCase(PublicServerKV.getStringVal("sign.http.key")))
+			if(!httpKey.equalsIgnoreCase(PublicServerKV.getStringVal("common.sign.http.key")))
 				return new ResultContent<String>(ResultContent.ERROR , "请求标记错误");
 			log.debug("解密后请求参数:" + strList[1]);
 			if(parameNames != null && parameNames.length > 0) {

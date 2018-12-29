@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zhao.common.mybatis.query.PageContext;
@@ -28,6 +30,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 	private ZscheduleLogModelMapper zScheduleLogModelMapper;
 	
 	
+	@Cacheable(value="scheduleSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
 	public ResultContent<List<ZscheduleSetModel>> selectPageListByParameterRequire(
 			PageContext page,
@@ -38,6 +41,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		return BaseResultUtil.setCodeMsg(result);
 	}
 
+	@Cacheable(value="scheduleSelect",keyGenerator="keyGenerator", unless="#result.data == null")
 	@Override
 	public ResultContent<ZscheduleSetModel> selectScheduleSetById(String id) {
 		ResultContent<ZscheduleSetModel> result = new ResultContent<ZscheduleSetModel>();
@@ -45,6 +49,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		return BaseResultUtil.setCodeMsg(result);
 	}
 
+	@CacheEvict(value="scheduleSelect" ,allEntries=true ,beforeInvocation=false)
 	@Transactional
 	@Override
 	public ResultContent<String> save(ZscheduleSetModel model) {
@@ -64,6 +69,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		return new ResultContent<String>(ResultContent.SUCCESS, "操作完成");
 	}
 
+	@CacheEvict(value="scheduleSelect" ,allEntries=true ,beforeInvocation=false)
 	@Transactional
 	@Override
 	public ResultContent<String> delete(String id) {
@@ -72,6 +78,15 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 	}
 
 	
+	@Override
+	public ResultContent<List<ZscheduleLogModel>> selectLogPageListByParameterRequire(
+			PageContext page, Map<String, Map<String, String>> parames) {
+		ResultContent<List<ZscheduleLogModel>> result = new ResultContent<List<ZscheduleLogModel>>();
+		result.setData(this.zScheduleLogModelMapper.selectPageListByParameterRequire(page, parames));
+		result.setCount(this.zScheduleLogModelMapper.selectPageListByParameterRequireCount(parames));
+		return BaseResultUtil.setCodeMsg(result);
+	}
+
 	@Transactional
 	@Override
 	public ResultContent<String> saveLog(ZscheduleLogModel log) {
@@ -79,6 +94,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		return new ResultContent<String>(ResultContent.SUCCESS, "操作完成");
 	}
 
+	@Transactional
 	@Override
 	public ResultContent<String> updateResultLog(String id, String msg) {
 		ZscheduleLogModel log = this.zScheduleLogModelMapper.selectByPrimaryKey(id);
@@ -90,6 +106,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成");
 	}
 
+	@Transactional
 	@Override
 	public ResultContent<String> updatePutLog(ZscheduleLogModel log) {
 		this.zScheduleLogModelMapper.updateByPrimaryKeySelective(log);

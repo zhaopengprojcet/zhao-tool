@@ -5,17 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.zhao.common.mybatis.query.PageContext;
-import org.zhao.common.mybatis.query.ParamterRequirement;
 import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZroleModel;
-import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.service.ZmenuService;
@@ -36,6 +34,7 @@ public class RoleController {
 	@Autowired
 	private ZmenuService zMenuService;
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("comboList.html")
 	@ResponseBody
@@ -49,6 +48,7 @@ public class RoleController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -75,6 +75,7 @@ public class RoleController {
 		return TablelListUtils.buildUpdate(ZroleModel.class,"/role/save.html", model , this.zRoleService.selectRoleById(query.getJsonString("id")).getData());
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("save.html")
 	@ResponseBody

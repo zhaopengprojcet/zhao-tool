@@ -29,9 +29,9 @@ public class QueryMcs extends Thread{
 	
 	@Override
 	public void run() {
-		double cpu = PublicServerKV.getDoubleVal("mcs.cpu.max");
-		double mem = PublicServerKV.getDoubleVal("mcs.memory.max");
-		double disk = PublicServerKV.getDoubleVal("mcs.disk.max");
+		double cpu = PublicServerKV.getDoubleVal("server-center.mcs.cpu.max");
+		double mem = PublicServerKV.getDoubleVal("server-center.mcs.memory.max");
+		double disk = PublicServerKV.getDoubleVal("server-center.mcs.disk.max");
 		
 		
 		double allMem = datas.get(0);//全部内存

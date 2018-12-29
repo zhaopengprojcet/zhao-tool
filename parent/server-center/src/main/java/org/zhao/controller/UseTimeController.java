@@ -26,6 +26,7 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ZuseTimeService;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/ut/")
@@ -39,6 +40,7 @@ public class UseTimeController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -72,6 +74,7 @@ public class UseTimeController {
 		}
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody

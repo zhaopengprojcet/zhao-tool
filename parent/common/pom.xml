@@ -29,7 +29,8 @@
 	    <artifactId>spring-boot-starter-redis</artifactId>
 	</dependency>
 	
-    <dependency>
+	
+	<dependency>
     	<groupId>org.zhao</groupId>
     	<artifactId>schedule-call-core</artifactId>
     	<version>0.0.1-SNAPSHOT</version>

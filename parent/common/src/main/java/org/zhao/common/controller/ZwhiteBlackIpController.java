@@ -25,6 +25,7 @@ import org.zhao.common.util.SessionUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/wbip/")
@@ -39,6 +40,7 @@ public class ZwhiteBlackIpController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -87,6 +89,7 @@ public class ZwhiteBlackIpController {
 		return BaseResultUtil.result(this.zWhiteBlackIpService.delete(query.getJsonString("id")));
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("rold.html")
 	@ResponseBody

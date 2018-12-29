@@ -23,4 +23,7 @@ public interface ZscheduleService {
 	ResultContent<String> updateResultLog(String id , String msg);
 	
 	ResultContent<String> updatePutLog(ZscheduleLogModel log);
+	
+	ResultContent<List<ZscheduleLogModel>> selectLogPageListByParameterRequire(PageContext page ,  Map<String, Map<String, String>> parames);
+	
 }

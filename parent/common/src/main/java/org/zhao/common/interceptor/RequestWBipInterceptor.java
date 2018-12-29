@@ -53,7 +53,7 @@ public class RequestWBipInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		if(PublicServerKV.getBooleanVal("server.wip.open")) {//白
+		if(PublicServerKV.getBooleanVal("common.server.wip.open")) {//白
 			if(request.getServletContext().getAttribute(SessionUtil.WHITE_IP_LIST) == null) {
 				loadIps(request , "1" , SessionUtil.WHITE_IP_LIST , this.zWhiteBlackIpService);
 			}
@@ -66,7 +66,7 @@ public class RequestWBipInterceptor implements HandlerInterceptor{
 			logger.info("白名单拦截【"+requestIp+"】");
 			return false;
 		}
-		else if(PublicServerKV.getBooleanVal("server.bip.open")) { //黑
+		else if(PublicServerKV.getBooleanVal("common.server.bip.open")) { //黑
 			if(request.getServletContext().getAttribute(SessionUtil.BLACK_IP_LIST) == null) {
 				loadIps(request , "2" , SessionUtil.BLACK_IP_LIST , this.zWhiteBlackIpService);
 			}

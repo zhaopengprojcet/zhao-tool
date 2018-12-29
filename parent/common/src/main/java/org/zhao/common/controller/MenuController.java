@@ -49,6 +49,7 @@ public class MenuController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -57,6 +58,7 @@ public class MenuController {
 		return BaseResultUtil.resultList(this.zMenuService.selectMenuListOfTree("0"));
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("comboList.html")
 	@ResponseBody
@@ -103,6 +105,7 @@ public class MenuController {
 		return "menu/buttonUpdate";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("buttonSave.html")
 	@ResponseBody
@@ -120,6 +123,7 @@ public class MenuController {
 		return "menu/fieldsUpdate";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("fieldSave.html")
 	@ResponseBody
@@ -137,6 +141,7 @@ public class MenuController {
 		return "menu/searchUpdate";
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("searchSave.html")
 	@ResponseBody

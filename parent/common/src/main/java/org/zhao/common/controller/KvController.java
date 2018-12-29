@@ -23,6 +23,7 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
+import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/kv/")
@@ -37,6 +38,7 @@ public class KvController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -79,6 +81,7 @@ public class KvController {
 		return BaseResultUtil.result(this.zKvService.delete(query.getJsonString("id")));
 	}
 	
+	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody

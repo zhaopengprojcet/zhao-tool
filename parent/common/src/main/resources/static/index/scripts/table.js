@@ -86,12 +86,6 @@ function loadSelectData() {
 		if($(this).attr("data") != undefined) {
 			var id = $(this).attr("id");
 			var data = $(this).attr("data");
-			/*var dl = data.split(",");
-			var o = "";
-			for(var i = 0 ; i < dl.length ; i ++) {
-				if(i != 0) o +=",";
-				o += "{\"id\":\""+dl[i].split("_")[0]+"\",\"text\":\""+dl[i].split("_")[1]+"\""+(dl.length > 2 ?",\"selected\":true":"")+"}";
-			}*/
 			data = data.replace("#BEGIN#" ,"[");
 			data = data.replace("#END#" ,"]");
 			$("#"+id).combobox({

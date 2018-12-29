@@ -50,7 +50,7 @@ public class ServerController {
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("regiest.html")
 	public String regiest(@RequestParam(value="_jr",required=false,defaultValue="")String context , HttpServletRequest request) {
-		if(!PublicServerKV.getBooleanVal("server.service.regiest")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启注册服务！"));
+		if(!PublicServerKV.getBooleanVal("server-center.service.regiest")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启注册服务！"));
 		ResultContent<ClientContext> client = SignUtil.getResultHttpContext(context, ClientContext.class, "ip","port","serviceName","loginName","password");
 		if(client.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(client);
 		return BaseResultUtil.result(this.serverService.regiestClient(client.getData(), request));
@@ -65,7 +65,7 @@ public class ServerController {
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putUseTime.html")
 	public String putUseTime(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
-		if(!PublicServerKV.getBooleanVal("server.service.puttime")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启耗时服务！"));
+		if(!PublicServerKV.getBooleanVal("server-center.service.puttime")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启耗时服务！"));
 		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"from","times");
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
@@ -84,7 +84,7 @@ public class ServerController {
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putMcs.html")
 	public String putMcs(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
-		if(!PublicServerKV.getBooleanVal("server.service.mcs")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启计算机运行异常记录服务！"));
+		if(!PublicServerKV.getBooleanVal("server-center.service.mcs")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启计算机运行异常记录服务！"));
 		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"mcs");
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		List<Double> datas = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("mcs"));
@@ -102,7 +102,7 @@ public class ServerController {
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putSchedule.html")
 	public String putSchedule(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
-		if(!PublicServerKV.getBooleanVal("server.service.schedule")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启定时任务调度服务！"));
+		if(!PublicServerKV.getBooleanVal("server-center.service.schedule")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启定时任务调度服务！"));
 		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"schedules");
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		List<String> schedules = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("schedules"));
@@ -121,7 +121,7 @@ public class ServerController {
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("scheduleState.html")
 	public String scheduleState(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
-		if(!PublicServerKV.getBooleanVal("server.service.schedule")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启定时任务调度服务！"));
+		if(!PublicServerKV.getBooleanVal("server-center.service.schedule")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启定时任务调度服务！"));
 		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"scheduleId","result");
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
