@@ -1,5 +1,6 @@
 package org.zhao.service.impl;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,12 +48,19 @@ public class ServerServiceImpl implements ServerService {
 			}
 		}*/
 		//验证账号密码
+		
+		/**
+		 * 帐号密码可用更新为分发式 ， 可用建立帐号,为各个服务单独分发
+		 * 可用在建立帐号时同时指派白名单地址
+		 * 可用防止在不同ip上相同的账号混用
+		 */
 		if(!StringUtils.isEmpty(PublicServerKV.getStringVal("server-center.config.loginUser")) && !StringUtils.isEmpty(PublicServerKV.getStringVal("server-center.config.pass"))) {
 			if(!client.getLoginName().equals(PublicServerKV.getStringVal("server-center.config.loginUser")) || !client.getPassword().equals(PublicServerKV.getStringVal("server-center.config.pass"))) {
 				logger.info("帐号密码注册失败，源【"+PublicServerKV.getStringVal("server-center.config.loginUser")+"|"+PublicServerKV.getStringVal("server-center.config.pass")+"】请求【"+client.getLoginName()+"|"+client.getPassword()+"】");
 				return new ResultContent<String>(ResultContent.ERROR, "无注册权限");
 			}
 		}
+		client.setRegiestTime(new Date());
 		//加入本地
 		ServerConfig.addClient(client);
 		String regiesToken = RandomUtils.getRandomStrByAll(100);

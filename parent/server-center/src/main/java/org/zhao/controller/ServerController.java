@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +55,22 @@ public class ServerController {
 		ResultContent<ClientContext> client = SignUtil.getResultHttpContext(context, ClientContext.class, "ip","port","serviceName","loginName","password");
 		if(client.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(client);
 		return BaseResultUtil.result(this.serverService.regiestClient(client.getData(), request));
+	}
+	
+	/**
+	 * token有效验证
+	 * @param context
+	 * @return
+	 */
+	@RoleAop(key=RoleAopEnum.ALL)
+	@RequestMapping("checkToken.html")
+	public String checkToken(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
+		if(!PublicServerKV.getBooleanVal("server-center.service.regiest")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启注册服务！"));
+		ResultContent<String> client = SignUtil.getResultHttpContext(context);
+		if(client.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(client);
+		if(StringUtils.isEmpty(client.getData())) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR, "参数缺失【01】"));
+		if(CacheUtil.getMapSetCache(ServerConfig.REGIEST_CLIENT_TOKEN, client.getData()) == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR, "无效TOKEN"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS, "success"));
 	}
 	
 	/**

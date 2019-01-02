@@ -1,5 +1,7 @@
 package org.zhao.common.client;
 
+import java.util.Date;
+
 /**
  * 注册服务时客户端参数实体
  * @author zhao
@@ -14,6 +16,7 @@ public class ClientContext {
 	private String password;
 	private boolean fullServer = true; //转发到其他注册中心,默认为true ，注册中心转发注册消息时为false
 	private String token = "";//当实体为主机转发到其他主机时，拥有token，则其他主机不再生成token
+	private Date regiestTime;//注册事件，定时器定时清除超过指定时间的token
 	
 	public String getIp() {
 		return ip;
@@ -56,6 +59,12 @@ public class ClientContext {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public Date getRegiestTime() {
+		return regiestTime;
+	}
+	public void setRegiestTime(Date regiestTime) {
+		this.regiestTime = regiestTime;
 	}
 	
 }

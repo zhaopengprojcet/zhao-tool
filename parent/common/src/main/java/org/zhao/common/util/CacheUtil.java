@@ -14,28 +14,71 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.zhao.common.interceptor.PublicServerKV;
 
 public class CacheUtil {
 
 	public static Object context;
+	
+	public static ServletContext servletContext;
+	
+	public static RedisTemplate redisTemplate;
 	
 	/**
 	 * 删除键
 	 * @param key
 	 * @param context
 	 */
-	public static void removeCache(String key) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void removeCache(String key , Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			session.removeAttribute(key);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			servlet.removeAttribute(key);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			redis.delete(key);
+		}
+	}
+	
+	/**
+	 * 删除键
+	 * @param key
+	 * @param context
+	 */
+	public static void removeMapCache(String key ,String hashKey , Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
+			Map<String, Object> map = (Map<String, Object>) session.getAttribute(key);
+			map.remove(hashKey);
+			session.setAttribute(key, map);
+		}
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
+			Map<String, Object> map = (Map<String, Object>) servlet.getAttribute(key);
+			map.remove(hashKey);
+			servlet.setAttribute(key, map);
+		}
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
+			redis.delete(hashKey);
 		}
 	}
 	
@@ -46,19 +89,26 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static void saveSingleCache(String key , Object value) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void saveSingleCache(String key , Object value, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			session.setAttribute(key, value);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			servlet.setAttribute(key, value);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			redis.opsForValue().set(key, value);
-			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
+			redis.expire(key, PublicServerKV.getIntVal("server-center.redis.outTime"), TimeUnit.HOURS);
 		}
 	}
 	/**
@@ -67,17 +117,24 @@ public class CacheUtil {
 	 * @param value
 	 * @param context
 	 */
-	public static Object getSingleCache(String key) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static Object getSingleCache(String key , Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			return session.getAttribute(key);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			return servlet.getAttribute(key);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			return redis.opsForValue().get(key);
 		}
 		return null;
@@ -91,9 +148,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static void saveListCache(String key , Object value) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void saveListCache(String key , Object value, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			List<Object> l = null;
 			if(session.getAttribute(key) != null) {
 				l = (List<Object>) session.getAttribute(key);
@@ -104,8 +168,8 @@ public class CacheUtil {
 			l.add(value);
 			session.setAttribute(key, l);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			List<Object> l = null;
 			if(servlet.getAttribute(key) != null) {
 				l = (List<Object>) servlet.getAttribute(key);
@@ -116,10 +180,10 @@ public class CacheUtil {
 			l.add(value);
 			servlet.setAttribute(key, l);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			redis.opsForList().rightPush(key, value);
-			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
+			redis.expire(key, PublicServerKV.getIntVal("server-center.redis.outTime"), TimeUnit.HOURS);
 		}
 	}
 	
@@ -130,17 +194,24 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<Object> getListCache(String key) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static List<Object> getListCache(String key, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			return (List<Object>) session.getAttribute(key);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			return (List<Object>) servlet.getAttribute(key);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			return redis.opsForList().range(key, 0, -1);
 		}
 		return null;
@@ -154,9 +225,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static void saveMapCache(String key ,String hashKey ,Object value) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void saveMapCache(String key ,String hashKey ,Object value, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String ,Object> l = null;
 			if(session.getAttribute(key) != null) {
 				l = (HashMap<String ,Object>) session.getAttribute(key);
@@ -167,8 +245,8 @@ public class CacheUtil {
 			l.put(hashKey ,value);
 			session.setAttribute(key, l);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String ,Object> l = null;
 			if(servlet.getAttribute(key) != null) {
 				l = (HashMap<String ,Object>) servlet.getAttribute(key);
@@ -179,10 +257,10 @@ public class CacheUtil {
 			l.put(hashKey ,value);
 			servlet.setAttribute(key, l);
 		}
-		else if(context instanceof RedisTemplate) {
+		else if(ct instanceof RedisTemplate) {
 			RedisTemplate redis = (RedisTemplate) context;
 			redis.opsForHash().put(key, hashKey, value);
-			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
+			redis.expire(key, PublicServerKV.getIntVal("server-center.redis.outTime"), TimeUnit.HOURS);
 		}
 	}
 	
@@ -194,9 +272,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static Object getMapCache(String key ,String hashKey) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static Object getMapCache(String key ,String hashKey, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String , Object> l = (Map<String, Object>) session.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -204,8 +289,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String , Object> l = (Map<String, Object>) servlet.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -213,8 +298,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			if(hashKey.equals("*"))
 				return redis.opsForHash().entries(key);
 			return redis.opsForHash().get(key, hashKey);
@@ -230,9 +315,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static void saveMapListCache(String key ,String hashKey, Object value) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void saveMapListCache(String key ,String hashKey, Object value, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String , List<Object>> l = null;
 			List<Object> ll = null;
 			if(session.getAttribute(key) != null) {
@@ -249,8 +341,8 @@ public class CacheUtil {
 			l.put(hashKey, ll);
 			session.setAttribute(key, l);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String , List<Object>> l = null;
 			List<Object> ll = null;
 			if(servlet.getAttribute(key) != null) {
@@ -266,10 +358,9 @@ public class CacheUtil {
 			else ll.add(value);
 			l.put(hashKey, ll);
 			servlet.setAttribute(key, l);
-			System.out.println(JSONObject.fromObject(servlet.getAttribute(key)).toString());
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			ArrayList<Object> jd = null;
 			if(redis.opsForHash().hasKey(key, hashKey)) {
 				jd = (ArrayList<Object>) redis.opsForHash().get(key, hashKey);
@@ -280,7 +371,7 @@ public class CacheUtil {
 			if(value instanceof List) jd.addAll((List)value);
 			else jd.add(value);
 			redis.opsForHash().put(key, hashKey, jd);
-			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
+			redis.expire(key, PublicServerKV.getIntVal("server-center.redis.outTime"), TimeUnit.HOURS);
 		}
 	}
 	
@@ -292,9 +383,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static Object getMapListCache(String key ,String hashKey) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static Object getMapListCache(String key ,String hashKey, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String , List<Object>> l = (Map<String, List<Object>>) session.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -302,8 +400,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String , List<Object>> l = (Map<String, List<Object>>) servlet.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -311,8 +409,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			if(hashKey.equals("*"))
 				return redis.opsForHash().entries(key);
 			return redis.opsForHash().get(key, hashKey);
@@ -328,9 +426,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static void saveMapSetCache(String key ,String hashKey, Object value) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static void saveMapSetCache(String key ,String hashKey, Object value, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String , Set<Object>> l = null;
 			Set<Object> ll = null;
 			if(session.getAttribute(key) != null) {
@@ -347,8 +452,8 @@ public class CacheUtil {
 			l.put(hashKey, ll);
 			session.setAttribute(key, l);
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String , Set<Object>> l = null;
 			Set<Object> ll = null;
 			if(servlet.getAttribute(key) != null) {
@@ -360,13 +465,13 @@ public class CacheUtil {
 				l = new HashMap<String ,Set<Object>>();
 				ll = new HashSet<Object>();
 			}
-			if(value instanceof Set) ll.addAll((List)value);
+			if(value instanceof Set) ll.addAll((Set)value);
 			else ll.add(value);
 			l.put(hashKey, ll);
 			servlet.setAttribute(key, l);
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			Set<Object> jd = null;
 			if(redis.opsForHash().hasKey(key, hashKey)) {
 				jd = (Set<Object>) redis.opsForHash().get(key, hashKey);
@@ -377,7 +482,7 @@ public class CacheUtil {
 			if(value instanceof Set) jd.addAll((List)value);
 			else jd.add(value);
 			redis.opsForHash().put(key, hashKey, jd);
-			redis.expire(key, 60 * 30, TimeUnit.SECONDS);
+			redis.expire(key, PublicServerKV.getIntVal("server-center.redis.outTime"), TimeUnit.HOURS);
 		}
 	}
 	
@@ -389,9 +494,16 @@ public class CacheUtil {
 	 * @param context
 	 */
 	@SuppressWarnings("unchecked")
-	public static Object getMapSetCache(String key ,String hashKey) {
-		if(context instanceof HttpSession) {
-			HttpSession session = (HttpSession) context;
+	public static Object getMapSetCache(String key ,String hashKey, Object... cont) {
+		Object ct = null;
+		if(cont != null && cont.length > 0) {
+			ct = cont[0];
+		}
+		else {
+			ct = context;
+		}
+		if(ct instanceof HttpSession) {
+			HttpSession session = (HttpSession) ct;
 			Map<String , Set<Object>> l = (Map<String, Set<Object>>) session.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -399,8 +511,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof ServletContext) {
-			ServletContext servlet = (ServletContext) context;
+		else if(ct instanceof ServletContext) {
+			ServletContext servlet = (ServletContext) ct;
 			Map<String , Set<Object>> l = (Map<String, Set<Object>>) servlet.getAttribute(key);
 			if(l != null) {
 				if(hashKey.equals("*"))
@@ -408,8 +520,8 @@ public class CacheUtil {
 				return l.get(hashKey);
 			}
 		}
-		else if(context instanceof RedisTemplate) {
-			RedisTemplate redis = (RedisTemplate) context;
+		else if(ct instanceof RedisTemplate) {
+			RedisTemplate redis = (RedisTemplate) ct;
 			if(hashKey.equals("*"))
 				return redis.opsForHash().entries(key);
 			return redis.opsForHash().get(key, hashKey);

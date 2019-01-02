@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -79,6 +81,13 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 
 	
 	@Override
+	public ResultContent<ZscheduleSetModel> selectModelById(String id) {
+		ResultContent<ZscheduleSetModel> result = new ResultContent<ZscheduleSetModel>();
+		result.setData(this.zScheduleSetModelMapper.selectByPrimaryKey(id));
+		return BaseResultUtil.setCodeMsg(result);
+	}
+
+	@Override
 	public ResultContent<List<ZscheduleLogModel>> selectLogPageListByParameterRequire(
 			PageContext page, Map<String, Map<String, String>> parames) {
 		ResultContent<List<ZscheduleLogModel>> result = new ResultContent<List<ZscheduleLogModel>>();
@@ -86,6 +95,8 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		result.setCount(this.zScheduleLogModelMapper.selectPageListByParameterRequireCount(parames));
 		return BaseResultUtil.setCodeMsg(result);
 	}
+
+	
 
 	@Transactional
 	@Override
@@ -101,7 +112,14 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 		if(log == null) return new ResultContent<String>(ResultContent.ERROR, "没有该任务");
 		if(!StringUtils.isEmpty(log.getDoState())) return new ResultContent<String>(ResultContent.ERROR, "任务已完结");
 		log.setDoEndTime(new Date());
-		log.setDoState(msg);
+		try {
+			log.setDoState(JSONObject.fromObject(msg).getString("code"));
+			log.setDoError(JSONObject.fromObject(msg).getString("message"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.setDoState("-1");
+			log.setDoError(msg);
+		}
 		this.zScheduleLogModelMapper.updateByPrimaryKeySelective(log);
 		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成");
 	}

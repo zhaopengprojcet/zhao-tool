@@ -50,6 +50,8 @@ public class ServletContextLoadListener implements ApplicationRunner{
 		if(redisOpen) {
 			RedisTemplate redisTemplate = (RedisTemplate) SpringContextUtil.getBean("redisTemplate", RedisTemplate.class);
 			CacheUtil.context = redisTemplate;
+			CacheUtil.redisTemplate = redisTemplate;
+			CacheUtil.servletContext = servletContext;
 		}
 		else {
 			CacheUtil.context = servletContext;

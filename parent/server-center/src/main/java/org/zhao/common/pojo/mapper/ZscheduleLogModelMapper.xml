@@ -9,9 +9,11 @@
 		<result column="put_server" property="putServer" jdbcType="VARCHAR" />
 		<result column="do_state" property="doState" jdbcType="VARCHAR" />
 		<result column="put_time" property="putTime" jdbcType="TIMESTAMP" />
+		<result column="do_error" property="doError" jdbcType="VARCHAR" />
+		<result column="put_error" property="putError" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time
+		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time,do_error,put_error
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
@@ -24,7 +26,7 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" useGeneratedKeys="true" keyProperty="id">
-		insert into R_SCHEDULE_LOG (id,schedule_name,put_state,do_end_time,put_server,do_state,put_time)
+		insert into R_SCHEDULE_LOG (id,schedule_name,put_state,do_end_time,put_server,do_state,put_time,do_error,put_error)
 		values (
 			#{record.id,jdbcType=VARCHAR},
 			#{record.scheduleName,jdbcType=VARCHAR},
@@ -32,7 +34,9 @@
 			#{record.doEndTime,jdbcType=TIMESTAMP},
 			#{record.putServer,jdbcType=VARCHAR},
 			#{record.doState,jdbcType=VARCHAR},
-			#{record.putTime,jdbcType=TIMESTAMP}
+			#{record.putTime,jdbcType=TIMESTAMP},
+			#{record.doError,jdbcType=VARCHAR},
+			#{record.putError,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZscheduleLogModel" useGeneratedKeys="true" keyProperty="id">
@@ -59,6 +63,12 @@
 			<if test="record.putTime != null ">
 				put_time,
 			</if>
+			<if test="record.doError != null and record.doError != '' ">
+				do_error,
+			</if>
+			<if test="record.putError != null and record.putError != '' ">
+				put_error,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="record.id != null and record.id != '' ">
@@ -81,6 +91,12 @@
 			</if>
 			<if test="record.putTime != null ">
 				#{record.putTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.doError != null and record.doError != '' ">
+				#{record.doError,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putError != null and record.putError != '' ">
+				#{record.putError,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -105,6 +121,12 @@
 			<if test="record.putTime != null ">
 				put_time = #{record.putTime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="record.doError != null and record.doError != '' ">
+				do_error = #{record.doError,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putError != null and record.putError != '' ">
+				put_error = #{record.putError,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where id = #{record.id,jdbcType=VARCHAR}
 	</update>
@@ -117,6 +139,8 @@
 		put_server = #{record.putServer,jdbcType=VARCHAR}
 		do_state = #{record.doState,jdbcType=VARCHAR}
 		put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		do_error = #{record.doError,jdbcType=VARCHAR}
+		put_error = #{record.putError,jdbcType=VARCHAR}
 		where id = #{record.id,jdbcType=VARCHAR}
 	</update>
 	<select id="selectPageListByParameters" resultMap="BaseResultMap">
@@ -141,6 +165,12 @@
 		</if>
 		<if test="record.putTime != null ">
 			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.doError != null and record.doError != '' ">
+			and do_error = #{record.doError,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putError != null and record.putError != '' ">
+			and put_error = #{record.putError,jdbcType=VARCHAR}
 		</if>
 		<if test=" page != null ">
 			<if test=" page.order != null  and page.order != '' ">
@@ -173,6 +203,12 @@
 		</if>
 		<if test="record.putTime != null ">
 			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.doError != null and record.doError != '' ">
+			and do_error = #{record.doError,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putError != null and record.putError != '' ">
+			and put_error = #{record.putError,jdbcType=VARCHAR}
 		</if>
 	</select>
 	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
@@ -336,6 +372,52 @@
 		    </if>
 			<if test="require.putTime.similar != null">
 					and INSTR(put_time, #{require.putTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.doError != null">
+			<if test="require.doError.greaterThan != null">
+					and do_error > #{require.doError.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.lessThan != null">
+					and do_error &lt; #{require.doError.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.greaterThanAndEquals != null">
+					and do_error >= #{require.doError.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.lessThanAndEquals != null">
+					and do_error &lt;= #{require.doError.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.notEquality != null">
+					and do_error &lt;> #{require.doError.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.equality != null">
+					and do_error = #{require.doError.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.similar != null">
+					and INSTR(do_error, #{require.doError.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putError != null">
+			<if test="require.putError.greaterThan != null">
+					and put_error > #{require.putError.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.lessThan != null">
+					and put_error &lt; #{require.putError.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.greaterThanAndEquals != null">
+					and put_error >= #{require.putError.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.lessThanAndEquals != null">
+					and put_error &lt;= #{require.putError.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.notEquality != null">
+					and put_error &lt;> #{require.putError.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.equality != null">
+					and put_error = #{require.putError.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.similar != null">
+					and INSTR(put_error, #{require.putError.similar , jdbcType=VARCHAR }) >0 
 		    </if>
 		</if>
 		<if test=" page != null ">
@@ -510,10 +592,56 @@
 					and INSTR(put_time, #{require.putTime.similar , jdbcType=VARCHAR }) >0 
 		    </if>
 		</if>
+		<if test="require.doError != null">
+			<if test="require.doError.greaterThan != null">
+					and do_error > #{require.doError.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.lessThan != null">
+					and do_error &lt; #{require.doError.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.greaterThanAndEquals != null">
+					and do_error >= #{require.doError.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.lessThanAndEquals != null">
+					and do_error &lt;= #{require.doError.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.notEquality != null">
+					and do_error &lt;> #{require.doError.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.equality != null">
+					and do_error = #{require.doError.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.doError.similar != null">
+					and INSTR(do_error, #{require.doError.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putError != null">
+			<if test="require.putError.greaterThan != null">
+					and put_error > #{require.putError.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.lessThan != null">
+					and put_error &lt; #{require.putError.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.greaterThanAndEquals != null">
+					and put_error >= #{require.putError.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.lessThanAndEquals != null">
+					and put_error &lt;= #{require.putError.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.notEquality != null">
+					and put_error &lt;> #{require.putError.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.equality != null">
+					and put_error = #{require.putError.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putError.similar != null">
+					and INSTR(put_error, #{require.putError.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
 	</select>
 	<insert id="batchCreate" parameterType="java.util.List">
 		insert into R_SCHEDULE_LOG (
-		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time
+		id,schedule_name,put_state,do_end_time,put_server,do_state,put_time,do_error,put_error
 		) values
 		<foreach collection="list" item="item" index="index" separator=",">
 			(
@@ -523,7 +651,9 @@
 			#{item.doEndTime,jdbcType=TIMESTAMP},
 			#{item.putServer,jdbcType=VARCHAR},
 			#{item.doState,jdbcType=VARCHAR},
-			#{item.putTime,jdbcType=TIMESTAMP}
+			#{item.putTime,jdbcType=TIMESTAMP},
+			#{item.doError,jdbcType=VARCHAR},
+			#{item.putError,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -549,6 +679,12 @@
 		</if>
 		<if test="record.putTime != null ">
 			and put_time = #{record.putTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.doError != null and record.doError != '' ">
+			and do_error = #{record.doError,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putError != null and record.putError != '' ">
+			and put_error = #{record.putError,jdbcType=VARCHAR}
 		</if>
 	</delete>
 </mapper>

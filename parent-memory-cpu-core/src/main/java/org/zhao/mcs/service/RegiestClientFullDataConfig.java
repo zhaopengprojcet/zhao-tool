@@ -1,15 +1,18 @@
 package org.zhao.mcs.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
+import org.zhao.core.common.model.PutThread;
 import org.zhao.core.common.util.ConfigProperties;
 import org.zhao.core.common.util.ThreadPoolUtils;
-import org.zhao.mcs.model.PutThread;
+import org.zhao.mcs.util.MemoryCpuUtil;
 
 /**
  * 推送信息 
@@ -30,7 +33,9 @@ public class RegiestClientFullDataConfig implements SchedulingConfigurer{
 
             @Override
             public void run() {
-            	ThreadPoolUtils.putThread("服务器状态记录", new PutThread());
+            	Map<String, Object> map = new HashMap<String, Object>();
+            	map.put("mcs", MemoryCpuUtil.getMemoryCupData());		
+            	ThreadPoolUtils.putThread("服务器状态记录", new PutThread(map , "/server/putMcs.html"));
             }
         }, new Trigger() {
 

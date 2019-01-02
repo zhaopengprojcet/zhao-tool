@@ -78,6 +78,23 @@ function reloadPareme(title,url,width,height) {
 	});
 }
 
+function confirmDo(title,url,width,height) {
+	var row;
+	if(tableType == "tree")
+		row = $("#center-table").treegrid('getSelected');
+	else 
+		row = $("#center-table").datagrid('getSelected');
+	if (!row){
+		top.msgAlert("请选择需要删除的数据" , "error");
+	}
+	else {
+		top.msgConfirm("确认操作？",function(){
+			top.ajax(url ,{id:row.id} , top.public_success);
+		});
+	}
+	
+}
+
 /**            ******************* 列表加载时 处理查询里面可能有 下拉框的情况   *************/
 
 
@@ -137,4 +154,10 @@ function public_wbipType(v) {
 function publit_ms(v) {
 	if(v != undefined && v != null) return v+" (ms)";
 	return v;
+}
+function scheduleLogPutState(v , r) {
+	return (r.putError == null?"":r.putError)+"【"+(v=="0"?"成功":"失败")+"】";
+}
+function scheduleLogDoState(v , r) {
+	return (r.doError == null?"":r.doError)+"【"+(v=="0"?"成功":"失败")+"】";
 }

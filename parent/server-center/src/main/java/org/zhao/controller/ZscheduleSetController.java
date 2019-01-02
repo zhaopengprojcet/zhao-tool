@@ -1,5 +1,8 @@
 package org.zhao.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
@@ -11,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.zhao.common.aspect.query.QuerySchedules;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZscheduleSetModel;
@@ -19,6 +23,7 @@ import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.schedule.ServerSchedule;
 import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.CacheUtil;
+import org.zhao.common.util.ThreadPoolUtils;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
@@ -98,5 +103,25 @@ public class ZscheduleSetController {
 		QuerySign.deQuery(context, request);
 		ServerSchedule.reload();
 		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS, "重置完成"));
+	}
+	
+	/**
+	 * 主动调用
+	 * @param context
+	 * @param request
+	 * @return
+	 */
+	@UseTime
+	@RoleAop(key=RoleAopEnum.POWER)
+	@RequestMapping("userPut.html")
+	@ResponseBody
+	public String userPut(@RequestParam(value="_jr",required=false,defaultValue="")String context , HttpServletRequest request) {
+		ResultContent<JSONObject> query = QuerySign.deQuery(context, request , "id");
+		ResultContent<ZscheduleSetModel> model = this.zScheduleService.selectModelById(query.getJsonString("id"));
+		if(model.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(model);
+		List<String> services = new ArrayList<String>();
+		services.add(model.getData().getScheduleKey());
+		ThreadPoolUtils.putThread("定时任务调用扫描", new QuerySchedules(services , null ,model.getData().getPushType() ,zScheduleService));
+		return  BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS, "调用成功"));
 	}
 }

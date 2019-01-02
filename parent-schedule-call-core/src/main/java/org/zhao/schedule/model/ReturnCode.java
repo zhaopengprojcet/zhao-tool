@@ -22,7 +22,7 @@ public class ReturnCode {
 	public static String ERROR = "{\"code\":\"-1\",\"message\":\"error\"}";
 	
 	public static String error(String data) {
-		return "{\"code\":\"-1\",\"message\":\"error\",\"data\":\""+data+"\"}";
+		return "{\"code\":\"-1\",\"message\":\""+data+"\"}";
 	}
 	
 	/**

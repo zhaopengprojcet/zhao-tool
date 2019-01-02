@@ -49,8 +49,16 @@ public class RegiestServer {
  			return QUERY_TOKEN;
  		}
  		else {
- 			if(!StringUtils.isEmpty(QUERY_TOKEN)) return QUERY_TOKEN;
- 			else return getToken(true);
+ 			if(!StringUtils.isEmpty(QUERY_TOKEN)) {
+ 				String url = queryPutUrl("/server/checkToken.html");
+ 	 			Map<String, String> obj = new HashMap<String, String>();
+ 	 			obj.put("_jr", SignUtil.getHttpContext(QUERY_TOKEN));
+ 	 			JSONObject result = HttpUtils.post(url, obj);
+ 	 			if(result.containsKey("code") && result.getString("code").equals("SUCCESS")) {
+ 	 				return QUERY_TOKEN;
+ 	 			}
+ 			}
+ 			return getToken(true);
  		}
  	}
 	
@@ -71,7 +79,6 @@ public class RegiestServer {
  	 		String ip = getWebIp();
  	 		if(StringUtils.isEmpty(ip)) throw new RuntimeException("获得服务ip失败");
  	 		ct.setIp(ip);
- 	 		//ct.setIp("127.0.0.1");
  	 		ct.setLoginName(ConfigProperties.instance().getPropertiesVal("zhao.usetime.loginname"));
  	 		ct.setPassword(ConfigProperties.instance().getPropertiesVal("zhao.usetime.password"));
  	 		String port = getLocalPort();

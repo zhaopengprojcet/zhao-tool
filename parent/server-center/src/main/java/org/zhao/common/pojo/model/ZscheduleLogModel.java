@@ -18,12 +18,16 @@ public class ZscheduleLogModel {
 	private String putServer;
 	@DataColum(type=FieldTypeEnum.DATETIME ,comment="调度发起时间")
 	private Date putTime;
-	@DataColum(type=FieldTypeEnum.STRING ,length=100 ,comment="调度结果")
+	@DataColum(type=FieldTypeEnum.STRING ,length=2 ,comment="调度结果")
 	private String putState;
+	@DataColum(type=FieldTypeEnum.STRING ,length=100 ,comment="调度错误信息")
+	private String putError;
 	@DataColum(type=FieldTypeEnum.DATETIME ,comment="执行结果反馈时间")
 	private Date doEndTime;
-	@DataColum(type=FieldTypeEnum.STRING ,length=100 ,comment="执行结果")
+	@DataColum(type=FieldTypeEnum.STRING ,length=2 ,comment="执行结果")
 	private String doState;
+	@DataColum(type=FieldTypeEnum.STRING ,length=100 ,comment="执行错误信息")
+	private String doError;
 	
 	public ZscheduleLogModel(){}
 	
@@ -75,6 +79,22 @@ public class ZscheduleLogModel {
 	}
 	public void setDoState(String doState) {
 		this.doState = doState;
+	}
+
+	public String getPutError() {
+		return putError;
+	}
+
+	public void setPutError(String putError) {
+		this.putError = putError;
+	}
+
+	public String getDoError() {
+		return doError;
+	}
+
+	public void setDoError(String doError) {
+		this.doError = doError;
 	}
 	
 	

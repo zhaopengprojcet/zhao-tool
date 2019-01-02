@@ -18,6 +18,13 @@ public interface ZscheduleService {
 	
 	ResultContent<String> delete(String id);
 	
+	ResultContent<ZscheduleSetModel> selectModelById(String id);
+	
+	
+	
+	
+	
+	/** log **/
 	ResultContent<String> saveLog(ZscheduleLogModel log);
 	
 	ResultContent<String> updateResultLog(String id , String msg);

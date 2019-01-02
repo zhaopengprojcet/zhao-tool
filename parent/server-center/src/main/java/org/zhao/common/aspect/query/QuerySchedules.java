@@ -153,7 +153,6 @@ public class QuerySchedules extends Thread{
 	
 	//调用
 	private void callSchedules() {
-		//伪码调用，后面更改为通过设置调用
 		for (String service : datas) {
 			List<String> tokens = (List<String>) CacheUtil.getMapListCache(SCHEDULE_CLIENTS, service);
 			if(CollectionUtils.isNotEmpty(tokens)) {
@@ -185,13 +184,14 @@ public class QuerySchedules extends Thread{
 		try {
 			this.zScheduleService.saveLog(log);
 			result = HttpUtils.post("http://"+client.getIp()+":"+client.getPort()+"/schedule/response.html", obj);
-			log.setPutState(JSONObject.fromObject(result).toString());
+			log.setPutState(JSONObject.fromObject(result).getString("code"));
+			log.setPutError(JSONObject.fromObject(result).getString("data"));
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.setPutState(e.getLocalizedMessage());
+			log.setPutState("-1");
+			log.setPutError(JSONObject.fromObject(result).toString());
 		}
 		try {
-			log.setPutState(JSONObject.fromObject(result).toString());
 			this.zScheduleService.updatePutLog(log);
 		} catch (Exception e) {
 			e.printStackTrace();

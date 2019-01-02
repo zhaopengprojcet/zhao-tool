@@ -4,16 +4,18 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.zhao.core.common.model.PutThread;
 import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.schedule.annotation.ScheduleMethod;
 import org.zhao.schedule.annotation.zhaoScheduleBean;
 import org.zhao.schedule.model.ScheduleModel;
-import org.zhao.schedule.thread.PutRegiestThread;
 
 /**
  * 初始化项目中包含的schedule计划任务
@@ -55,7 +57,9 @@ public class ServletScheduleLoadInit implements ApplicationListener<ContextRefre
 			if(schedules.keySet().size() > 0) {
 				logger.info("向中心服务器注册任务");
 				//每次发起注册服务都将删除原有本服务所提供的 定时任务
-				ThreadPoolUtils.putThread("定时任务注册", new PutRegiestThread());
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("schedules", JSONArray.fromObject(ServletScheduleLoadInit.getSchedules().keySet()));
+				ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"));
 			}
 		}
 	}

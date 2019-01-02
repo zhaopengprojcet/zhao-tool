@@ -1,11 +1,14 @@
 package org.zhao.usetime.aspect;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.zhao.core.common.model.PutThread;
 import org.zhao.core.common.util.ThreadPoolUtils;
-import org.zhao.usetime.model.PutThread;
 
 @Aspect
 public class RequestAfterAspect {
@@ -28,7 +31,10 @@ public class RequestAfterAspect {
  		long end = System.currentTimeMillis();
  		try {
 			String name = classType + "." + methodName;
-			ThreadPoolUtils.putThread("use-time-put", new PutThread(name , end-begin));
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("from", name);
+			map.put("times", end-begin);
+			ThreadPoolUtils.putThread("use-time-put", new PutThread(map , "/server/putUseTime.html"));
  		} catch (Exception e) {
 			e.printStackTrace();
 		}

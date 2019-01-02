@@ -1,4 +1,4 @@
-package org.zhao.usetime.model;
+package org.zhao.core.common.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,27 +13,27 @@ import org.zhao.core.common.util.SignUtil;
 
 public class PutThread extends Thread{
 
-	private Log logger = LogFactory.getLog(PutThread.class);
+	private Log logger = LogFactory.getLog(this.getClass());
 	
-	private String name;
-	private long time;
+	private Map<String, Object> parame;
+	
+	private String queryPath;
 	
 	public PutThread(){}
-	public PutThread(String name , long time) {
-		this.name = name;
-		this.time = time;
+	public PutThread(Map<String, Object> parame , String queryPath) {
+		this.parame = parame;
+		this.queryPath = queryPath;
 	}
-		
+	
 	@Override
 	public void run() {
-		String url = RegiestServer.queryPutUrl("/server/putUseTime.html");
- 		JSONObject obj = new JSONObject();
- 		obj.put("token", RegiestServer.getToken(false));
- 		obj.put("from", name);
- 		obj.put("times", time);
+		String url = RegiestServer.queryPutUrl(queryPath);
+ 		parame.put("token", RegiestServer.getToken(false));
  		Map<String, String> obj2 = new HashMap<String, String>();
-		obj2.put("_jr", SignUtil.getHttpContext(JSONObject.fromObject(obj).toString()));
+		obj2.put("_jr", SignUtil.getHttpContext(JSONObject.fromObject(parame).toString()));
 		JSONObject result = HttpUtils.post(url, obj2);
 		logger.info(result);
 	}
+
+	
 }
