@@ -11,7 +11,7 @@ import org.zhao.core.common.model.PutThread;
 import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.schedule.annotation.ScheduleMethod;
 import org.zhao.schedule.annotation.zhaoScheduleBean;
-import org.zhao.schedule.load.ServletScheduleLoadInit;
+import org.zhao.schedule.load.ScheduleServletScheduleLoadInit;
 import org.zhao.schedule.model.ReturnCode;
 
 /**
@@ -29,11 +29,11 @@ public class RefreshSchedule {
 	//监测存活，有返回值则表示当前服务可用
 	@ScheduleMethod(scheduleName="zhao_schedule_live")
 	public String refresh() {
-		if(ServletScheduleLoadInit.getSchedules().keySet().size() > 0) {
+		if(ScheduleServletScheduleLoadInit.getSchedules().keySet().size() > 0) {
 			logger.info("向中心服务器注册任务");
 			//每次发起注册服务都将删除原有本服务所提供的 定时任务
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("schedules", JSONArray.fromObject(ServletScheduleLoadInit.getSchedules().keySet()));
+			map.put("schedules", JSONArray.fromObject(ScheduleServletScheduleLoadInit.getSchedules().keySet()));
 			ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"));
 		}
 		return ReturnCode.SUCCESS;

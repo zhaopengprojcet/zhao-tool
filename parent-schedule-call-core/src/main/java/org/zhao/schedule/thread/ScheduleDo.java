@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.zhao.core.common.util.HttpUtils;
 import org.zhao.core.common.util.RegiestServer;
 import org.zhao.core.common.util.SignUtil;
-import org.zhao.schedule.load.ServletScheduleLoadInit;
+import org.zhao.schedule.load.ScheduleServletScheduleLoadInit;
 import org.zhao.schedule.model.ReturnCode;
 import org.zhao.schedule.model.ScheduleModel;
 
@@ -27,16 +27,19 @@ public class ScheduleDo extends Thread {
 	
 	private ScheduleModel model;
 	
+	private boolean writeLog = true;
+	
 	private ApplicationContext applicationContext;
 	
 	private Log logger = LogFactory.getLog(this.getClass());
 	
 	public ScheduleDo(){}
 	
-	public ScheduleDo(String scheduleId ,ScheduleModel model , ApplicationContext applicationContext){
+	public ScheduleDo(String scheduleId ,ScheduleModel model , ApplicationContext applicationContext , boolean writeLog){
 		this.scheduleId = scheduleId;
 		this.model = model;
 		this.applicationContext = applicationContext;
+		this.writeLog = writeLog;
 	}
 
 	@Override
@@ -52,11 +55,13 @@ public class ScheduleDo extends Thread {
 			code = ReturnCode.result(scheduleId, e.getLocalizedMessage());
 		}
 		
-		String url = RegiestServer.queryPutUrl("/server/scheduleState.html");
- 		Map<String, String> obj2 = new HashMap<String, String>();
-		obj2.put("_jr", SignUtil.getHttpContext(code));
-		JSONObject result = HttpUtils.post(url, obj2);
-		logger.info("定时任务执行结果反馈返回结果：" + result);
+		if(writeLog) {
+			String url = RegiestServer.queryPutUrl("/server/scheduleState.html");
+	 		Map<String, String> obj2 = new HashMap<String, String>();
+			obj2.put("_jr", SignUtil.getHttpContext(code));
+			JSONObject result = HttpUtils.post(url, obj2);
+			logger.info("定时任务执行结果反馈返回结果：" + result);
+		}
 		
 	}
 	

@@ -18,7 +18,7 @@ import org.zhao.schedule.thread.ScheduleDo;
 
 @RestController
 @RequestMapping("/schedule/")
-public class ResponseController {
+public class ScheduleResponseController {
 
 	private Log logger = LogFactory.getLog(this.getClass());
 	@Autowired
@@ -31,30 +31,30 @@ public class ResponseController {
 		try {
 			JSONObject obj = JSONObject.fromObject(context);
 			// token  , sericeName   scheduleId
-			if(!obj.containsKey("_tk") || !obj.containsKey("_sev") || !obj.containsKey("_sci")) 
+			if(!obj.containsKey("_tk") || !obj.containsKey("_sev") || !obj.containsKey("_sci") || !obj.containsKey("_wl")) 
 				return ReturnCode.ERROR;
 			String token = obj.getString("_tk");
 			if(RegiestServer.getToken(false).equals("-1")) {
 				logger.info("schedule请求无效，当前服务未进行注册");
-				return ReturnCode.error("schedule请求无效，当前服务未进行注册");
+				return ReturnCode.success("schedule请求无效，当前服务未进行注册");
 			}
 			if(!RegiestServer.getToken(false).equals(token)) {
 				logger.info("schedule请求无效，token错误【"+RegiestServer.getToken(false)+"】【"+token+"】");
-				return ReturnCode.error("schedule请求无效，token错误");
+				return ReturnCode.success("schedule请求无效，token错误");
 			}
 			String service = obj.getString("_sev");
-			if(!ServletScheduleLoadInit.getSchedules().containsKey(service)) {
+			if(!ScheduleServletScheduleLoadInit.getSchedules().containsKey(service)) {
 				logger.info("schedule请求无效，未注册【"+service+"】");
-				return ReturnCode.error("schedule请求无效，未注册服务");
+				return ReturnCode.success("schedule请求无效，未注册服务");
 			}
 			if(StringUtils.isEmpty(obj.getString("_sci"))) {
 				logger.info("schedule请求无效，未分派任务编码");
-				return ReturnCode.error("schedule请求无效，未分派任务编码");
+				return ReturnCode.success("schedule请求无效，未分派任务编码");
 			}
 			
-			ScheduleModel model = ServletScheduleLoadInit.getSchedules().get(service);
+			ScheduleModel model = ScheduleServletScheduleLoadInit.getSchedules().get(service);
 			
-			ThreadPoolUtils.putThread("schedule-do【"+obj.getString("_sci")+"】", new ScheduleDo(obj.getString("_sci"), model, applicationContext));
+			ThreadPoolUtils.putThread("schedule-do【"+obj.getString("_sci")+"】", new ScheduleDo(obj.getString("_sci"), model, applicationContext , obj.getBoolean("_wl")));
 			
 			return ReturnCode.SUCCESS; //返回调用状态，不包括执行状态
 			

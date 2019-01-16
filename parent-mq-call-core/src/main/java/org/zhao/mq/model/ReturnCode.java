@@ -1,4 +1,4 @@
-package org.zhao.schedule.model;
+package org.zhao.mq.model;
 
 import java.util.HashMap;
 import java.util.Map;

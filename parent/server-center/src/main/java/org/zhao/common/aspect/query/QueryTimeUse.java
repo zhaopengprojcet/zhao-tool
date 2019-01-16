@@ -22,7 +22,7 @@ import org.zhao.common.util.CacheUtil;
 import org.zhao.common.util.DateUtil;
 
 /**
- * 记录全局访问请求的平均耗时
+ * 耗时记录接收 处理线程
  * @author zhao
  *
  */

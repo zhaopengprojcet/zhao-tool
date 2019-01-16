@@ -10,7 +10,7 @@ import org.zhao.common.pojo.model.ZserverExpModel;
 import org.zhao.service.ZserverExpService;
 
 /**
- * 计算机异常 处理线程
+ * 计算机异常接收 处理线程
  * @author zhao
  *
  */

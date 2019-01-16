@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZmessageQueueLogModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZmessageQueueLogModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="last_return_context" property="lastReturnContext" jdbcType="VARCHAR" />
+		<result column="put_client_ip" property="putClientIp" jdbcType="VARCHAR" />
+		<result column="put_client_port" property="putClientPort" jdbcType="VARCHAR" />
+		<result column="mq_return_context" property="mqReturnContext" jdbcType="VARCHAR" />
+		<result column="last_pu_time" property="lastPuTime" jdbcType="TIMESTAMP" />
+		<result column="message_id" property="messageId" jdbcType="VARCHAR" />
+		<result column="put_client_name" property="putClientName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,last_return_context,put_client_ip,put_client_port,mq_return_context,last_pu_time,message_id,put_client_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_MQ_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_MQ_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MQ_LOG (id,last_return_context,put_client_ip,put_client_port,mq_return_context,last_pu_time,message_id,put_client_name)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.lastReturnContext,jdbcType=VARCHAR},
+			#{record.putClientIp,jdbcType=VARCHAR},
+			#{record.putClientPort,jdbcType=VARCHAR},
+			#{record.mqReturnContext,jdbcType=VARCHAR},
+			#{record.lastPuTime,jdbcType=TIMESTAMP},
+			#{record.messageId,jdbcType=VARCHAR},
+			#{record.putClientName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MQ_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+				last_return_context,
+			</if>
+			<if test="record.putClientIp != null and record.putClientIp != '' ">
+				put_client_ip,
+			</if>
+			<if test="record.putClientPort != null and record.putClientPort != '' ">
+				put_client_port,
+			</if>
+			<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+				mq_return_context,
+			</if>
+			<if test="record.lastPuTime != null ">
+				last_pu_time,
+			</if>
+			<if test="record.messageId != null and record.messageId != '' ">
+				message_id,
+			</if>
+			<if test="record.putClientName != null and record.putClientName != '' ">
+				put_client_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+				#{record.lastReturnContext,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientIp != null and record.putClientIp != '' ">
+				#{record.putClientIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientPort != null and record.putClientPort != '' ">
+				#{record.putClientPort,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+				#{record.mqReturnContext,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lastPuTime != null ">
+				#{record.lastPuTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.messageId != null and record.messageId != '' ">
+				#{record.messageId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientName != null and record.putClientName != '' ">
+				#{record.putClientName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel">
+		update R_MQ_LOG
+		<set>
+			<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+				last_return_context = #{record.lastReturnContext,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientIp != null and record.putClientIp != '' ">
+				put_client_ip = #{record.putClientIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientPort != null and record.putClientPort != '' ">
+				put_client_port = #{record.putClientPort,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+				mq_return_context = #{record.mqReturnContext,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lastPuTime != null ">
+				last_pu_time = #{record.lastPuTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.messageId != null and record.messageId != '' ">
+				message_id = #{record.messageId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putClientName != null and record.putClientName != '' ">
+				put_client_name = #{record.putClientName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel">
+		update R_MQ_LOG
+		set
+		last_return_context = #{record.lastReturnContext,jdbcType=VARCHAR}
+		put_client_ip = #{record.putClientIp,jdbcType=VARCHAR}
+		put_client_port = #{record.putClientPort,jdbcType=VARCHAR}
+		mq_return_context = #{record.mqReturnContext,jdbcType=VARCHAR}
+		last_pu_time = #{record.lastPuTime,jdbcType=TIMESTAMP}
+		message_id = #{record.messageId,jdbcType=VARCHAR}
+		put_client_name = #{record.putClientName,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_MQ_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+			and last_return_context = #{record.lastReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientIp != null and record.putClientIp != '' ">
+			and put_client_ip = #{record.putClientIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientPort != null and record.putClientPort != '' ">
+			and put_client_port = #{record.putClientPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+			and mq_return_context = #{record.mqReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastPuTime != null ">
+			and last_pu_time = #{record.lastPuTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.messageId != null and record.messageId != '' ">
+			and message_id = #{record.messageId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientName != null and record.putClientName != '' ">
+			and put_client_name = #{record.putClientName,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel" resultType="java.lang.Integer">
+		select count(*) from R_MQ_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+			and last_return_context = #{record.lastReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientIp != null and record.putClientIp != '' ">
+			and put_client_ip = #{record.putClientIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientPort != null and record.putClientPort != '' ">
+			and put_client_port = #{record.putClientPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+			and mq_return_context = #{record.mqReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastPuTime != null ">
+			and last_pu_time = #{record.lastPuTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.messageId != null and record.messageId != '' ">
+			and message_id = #{record.messageId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientName != null and record.putClientName != '' ">
+			and put_client_name = #{record.putClientName,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_MQ_LOG where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.lastReturnContext != null">
+			<if test="require.lastReturnContext.greaterThan != null">
+					and last_return_context > #{require.lastReturnContext.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.lessThan != null">
+					and last_return_context &lt; #{require.lastReturnContext.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.greaterThanAndEquals != null">
+					and last_return_context >= #{require.lastReturnContext.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.lessThanAndEquals != null">
+					and last_return_context &lt;= #{require.lastReturnContext.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.notEquality != null">
+					and last_return_context &lt;> #{require.lastReturnContext.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.equality != null">
+					and last_return_context = #{require.lastReturnContext.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.similar != null">
+					and INSTR(last_return_context, #{require.lastReturnContext.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientIp != null">
+			<if test="require.putClientIp.greaterThan != null">
+					and put_client_ip > #{require.putClientIp.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.lessThan != null">
+					and put_client_ip &lt; #{require.putClientIp.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.greaterThanAndEquals != null">
+					and put_client_ip >= #{require.putClientIp.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.lessThanAndEquals != null">
+					and put_client_ip &lt;= #{require.putClientIp.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.notEquality != null">
+					and put_client_ip &lt;> #{require.putClientIp.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.equality != null">
+					and put_client_ip = #{require.putClientIp.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.similar != null">
+					and INSTR(put_client_ip, #{require.putClientIp.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientPort != null">
+			<if test="require.putClientPort.greaterThan != null">
+					and put_client_port > #{require.putClientPort.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.lessThan != null">
+					and put_client_port &lt; #{require.putClientPort.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.greaterThanAndEquals != null">
+					and put_client_port >= #{require.putClientPort.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.lessThanAndEquals != null">
+					and put_client_port &lt;= #{require.putClientPort.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.notEquality != null">
+					and put_client_port &lt;> #{require.putClientPort.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.equality != null">
+					and put_client_port = #{require.putClientPort.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.similar != null">
+					and INSTR(put_client_port, #{require.putClientPort.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.mqReturnContext != null">
+			<if test="require.mqReturnContext.greaterThan != null">
+					and mq_return_context > #{require.mqReturnContext.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.lessThan != null">
+					and mq_return_context &lt; #{require.mqReturnContext.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.greaterThanAndEquals != null">
+					and mq_return_context >= #{require.mqReturnContext.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.lessThanAndEquals != null">
+					and mq_return_context &lt;= #{require.mqReturnContext.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.notEquality != null">
+					and mq_return_context &lt;> #{require.mqReturnContext.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.equality != null">
+					and mq_return_context = #{require.mqReturnContext.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.similar != null">
+					and INSTR(mq_return_context, #{require.mqReturnContext.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.lastPuTime != null">
+			<if test="require.lastPuTime.greaterThan != null">
+					and last_pu_time > #{require.lastPuTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.lessThan != null">
+					and last_pu_time &lt; #{require.lastPuTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.greaterThanAndEquals != null">
+					and last_pu_time >= #{require.lastPuTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.lessThanAndEquals != null">
+					and last_pu_time &lt;= #{require.lastPuTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.notEquality != null">
+					and last_pu_time &lt;> #{require.lastPuTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.equality != null">
+					and last_pu_time = #{require.lastPuTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.similar != null">
+					and INSTR(last_pu_time, #{require.lastPuTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.messageId != null">
+			<if test="require.messageId.greaterThan != null">
+					and message_id > #{require.messageId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.lessThan != null">
+					and message_id &lt; #{require.messageId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.greaterThanAndEquals != null">
+					and message_id >= #{require.messageId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.lessThanAndEquals != null">
+					and message_id &lt;= #{require.messageId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.notEquality != null">
+					and message_id &lt;> #{require.messageId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.equality != null">
+					and message_id = #{require.messageId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.similar != null">
+					and INSTR(message_id, #{require.messageId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientName != null">
+			<if test="require.putClientName.greaterThan != null">
+					and put_client_name > #{require.putClientName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.lessThan != null">
+					and put_client_name &lt; #{require.putClientName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.greaterThanAndEquals != null">
+					and put_client_name >= #{require.putClientName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.lessThanAndEquals != null">
+					and put_client_name &lt;= #{require.putClientName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.notEquality != null">
+					and put_client_name &lt;> #{require.putClientName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.equality != null">
+					and put_client_name = #{require.putClientName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.similar != null">
+					and INSTR(put_client_name, #{require.putClientName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel" resultType="java.lang.Integer">
+		select count(*) from R_MQ_LOG where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.lastReturnContext != null">
+			<if test="require.lastReturnContext.greaterThan != null">
+					and last_return_context > #{require.lastReturnContext.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.lessThan != null">
+					and last_return_context &lt; #{require.lastReturnContext.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.greaterThanAndEquals != null">
+					and last_return_context >= #{require.lastReturnContext.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.lessThanAndEquals != null">
+					and last_return_context &lt;= #{require.lastReturnContext.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.notEquality != null">
+					and last_return_context &lt;> #{require.lastReturnContext.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.equality != null">
+					and last_return_context = #{require.lastReturnContext.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastReturnContext.similar != null">
+					and INSTR(last_return_context, #{require.lastReturnContext.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientIp != null">
+			<if test="require.putClientIp.greaterThan != null">
+					and put_client_ip > #{require.putClientIp.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.lessThan != null">
+					and put_client_ip &lt; #{require.putClientIp.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.greaterThanAndEquals != null">
+					and put_client_ip >= #{require.putClientIp.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.lessThanAndEquals != null">
+					and put_client_ip &lt;= #{require.putClientIp.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.notEquality != null">
+					and put_client_ip &lt;> #{require.putClientIp.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.equality != null">
+					and put_client_ip = #{require.putClientIp.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientIp.similar != null">
+					and INSTR(put_client_ip, #{require.putClientIp.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientPort != null">
+			<if test="require.putClientPort.greaterThan != null">
+					and put_client_port > #{require.putClientPort.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.lessThan != null">
+					and put_client_port &lt; #{require.putClientPort.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.greaterThanAndEquals != null">
+					and put_client_port >= #{require.putClientPort.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.lessThanAndEquals != null">
+					and put_client_port &lt;= #{require.putClientPort.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.notEquality != null">
+					and put_client_port &lt;> #{require.putClientPort.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.equality != null">
+					and put_client_port = #{require.putClientPort.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientPort.similar != null">
+					and INSTR(put_client_port, #{require.putClientPort.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.mqReturnContext != null">
+			<if test="require.mqReturnContext.greaterThan != null">
+					and mq_return_context > #{require.mqReturnContext.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.lessThan != null">
+					and mq_return_context &lt; #{require.mqReturnContext.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.greaterThanAndEquals != null">
+					and mq_return_context >= #{require.mqReturnContext.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.lessThanAndEquals != null">
+					and mq_return_context &lt;= #{require.mqReturnContext.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.notEquality != null">
+					and mq_return_context &lt;> #{require.mqReturnContext.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.equality != null">
+					and mq_return_context = #{require.mqReturnContext.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.mqReturnContext.similar != null">
+					and INSTR(mq_return_context, #{require.mqReturnContext.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.lastPuTime != null">
+			<if test="require.lastPuTime.greaterThan != null">
+					and last_pu_time > #{require.lastPuTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.lessThan != null">
+					and last_pu_time &lt; #{require.lastPuTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.greaterThanAndEquals != null">
+					and last_pu_time >= #{require.lastPuTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.lessThanAndEquals != null">
+					and last_pu_time &lt;= #{require.lastPuTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.notEquality != null">
+					and last_pu_time &lt;> #{require.lastPuTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.equality != null">
+					and last_pu_time = #{require.lastPuTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.lastPuTime.similar != null">
+					and INSTR(last_pu_time, #{require.lastPuTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.messageId != null">
+			<if test="require.messageId.greaterThan != null">
+					and message_id > #{require.messageId.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.lessThan != null">
+					and message_id &lt; #{require.messageId.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.greaterThanAndEquals != null">
+					and message_id >= #{require.messageId.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.lessThanAndEquals != null">
+					and message_id &lt;= #{require.messageId.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.notEquality != null">
+					and message_id &lt;> #{require.messageId.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.equality != null">
+					and message_id = #{require.messageId.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.messageId.similar != null">
+					and INSTR(message_id, #{require.messageId.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putClientName != null">
+			<if test="require.putClientName.greaterThan != null">
+					and put_client_name > #{require.putClientName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.lessThan != null">
+					and put_client_name &lt; #{require.putClientName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.greaterThanAndEquals != null">
+					and put_client_name >= #{require.putClientName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.lessThanAndEquals != null">
+					and put_client_name &lt;= #{require.putClientName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.notEquality != null">
+					and put_client_name &lt;> #{require.putClientName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.equality != null">
+					and put_client_name = #{require.putClientName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putClientName.similar != null">
+					and INSTR(put_client_name, #{require.putClientName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_MQ_LOG (
+		id,last_return_context,put_client_ip,put_client_port,mq_return_context,last_pu_time,message_id,put_client_name
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.lastReturnContext,jdbcType=VARCHAR},
+			#{item.putClientIp,jdbcType=VARCHAR},
+			#{item.putClientPort,jdbcType=VARCHAR},
+			#{item.mqReturnContext,jdbcType=VARCHAR},
+			#{item.lastPuTime,jdbcType=TIMESTAMP},
+			#{item.messageId,jdbcType=VARCHAR},
+			#{item.putClientName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZmessageQueueLogModel">
+		delete from R_MQ_LOG where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastReturnContext != null and record.lastReturnContext != '' ">
+			and last_return_context = #{record.lastReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientIp != null and record.putClientIp != '' ">
+			and put_client_ip = #{record.putClientIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientPort != null and record.putClientPort != '' ">
+			and put_client_port = #{record.putClientPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.mqReturnContext != null and record.mqReturnContext != '' ">
+			and mq_return_context = #{record.mqReturnContext,jdbcType=VARCHAR}
+		</if>
+		<if test="record.lastPuTime != null ">
+			and last_pu_time = #{record.lastPuTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.messageId != null and record.messageId != '' ">
+			and message_id = #{record.messageId,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putClientName != null and record.putClientName != '' ">
+			and put_client_name = #{record.putClientName,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

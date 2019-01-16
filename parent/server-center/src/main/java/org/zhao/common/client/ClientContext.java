@@ -1,5 +1,6 @@
 package org.zhao.common.client;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @author zhao
  *
  */
-public class ClientContext {
+public class ClientContext implements Serializable{
 
 	private String ip;
 	private String port;

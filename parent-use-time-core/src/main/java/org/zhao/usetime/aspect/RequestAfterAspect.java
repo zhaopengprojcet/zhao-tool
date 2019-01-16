@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.zhao.core.common.model.PutThread;
+import org.zhao.core.common.util.RegiestServer;
 import org.zhao.core.common.util.ThreadPoolUtils;
 
 @Aspect
@@ -24,11 +25,13 @@ public class RequestAfterAspect {
  	 */
  	@Around("cutUseTimeMethod()")
  	public Object cutUseTimeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+ 		
  		String classType = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
  		long begin = System.currentTimeMillis();
  		Object obj= joinPoint.proceed();
  		long end = System.currentTimeMillis();
+ 		if(!RegiestServer.regiest) return obj;
  		try {
 			String name = classType + "." + methodName;
 			Map<String, Object> map = new HashMap<String, Object>();

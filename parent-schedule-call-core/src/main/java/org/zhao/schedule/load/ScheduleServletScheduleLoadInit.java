@@ -22,7 +22,7 @@ import org.zhao.schedule.model.ScheduleModel;
  * @author zhao
  *
  */
-public class ServletScheduleLoadInit implements ApplicationListener<ContextRefreshedEvent>{
+public class ScheduleServletScheduleLoadInit implements ApplicationListener<ContextRefreshedEvent>{
 
 	private Log logger = LogFactory.getLog(this.getClass());
 	
@@ -58,7 +58,7 @@ public class ServletScheduleLoadInit implements ApplicationListener<ContextRefre
 				logger.info("向中心服务器注册任务");
 				//每次发起注册服务都将删除原有本服务所提供的 定时任务
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("schedules", JSONArray.fromObject(ServletScheduleLoadInit.getSchedules().keySet()));
+				map.put("schedules", JSONArray.fromObject(ScheduleServletScheduleLoadInit.getSchedules().keySet()));
 				ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"));
 			}
 		}

@@ -16,6 +16,8 @@ import javax.management.Query;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StringUtils;
 import org.zhao.core.common.model.ClientContext;
 
@@ -27,12 +29,17 @@ public class RegiestServer {
 	
 	public static String WEB_IP = "";
 	
+	public static boolean regiest = true;
+	
+	private static Log logger = LogFactory.getLog(RegiestServer.class);
+	
 	/**
 	 * 向服务中心注册并取得token
 	 * @param rolad
 	 * @return
 	 */
 	public static synchronized String getToken(boolean rolad) {
+		if(!regiest) return null;
 		getContext();
  		if(rolad) {
  			String url = queryPutUrl("/server/regiest.html");
@@ -44,7 +51,8 @@ public class RegiestServer {
  			}
  			else {
  				QUERY_TOKEN = "-1";
- 				throw new RuntimeException("注册服务失败【"+result.getString("message")+"】");
+ 				regiest = false;
+ 				logger.error("注册服务失败【"+result.getString("message")+"】");
  			}
  			return QUERY_TOKEN;
  		}

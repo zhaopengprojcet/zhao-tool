@@ -15,7 +15,7 @@ public class ZscheduleSetModel {
 	@DataColum(type=FieldTypeEnum.STRING ,length=40,isKey=true,comment="编号")
 	private String id;
 	@UpdateView(check="{'required':true}",name="scheduleType",text="任务类型",type=UpdateTypeEm.SELECT , loadValue=ServerCenterUpdateFinalModel.SCHEDULE_TYPE)
-	@DataColum(type=FieldTypeEnum.STRING ,length=10,comment="定时任务类型  /FIXTIME 固定时间点  /FIXWEEK  固定星期x  /FIXDAY 固定日期（每月第几天） /EC  第一次运行后每隔x分钟执行一次")
+	@DataColum(type=FieldTypeEnum.STRING ,length=10,comment="定时任务类型  /FIXTIME 固定时间点  /FIXWEEK  固定星期x  /FIXDAY 固定日期（每月第几天） /EC  第一次运行后每隔x分钟执行一次    /FUSH 推送轮询无间隔")
 	private String scheduleType;
 	@UpdateView(check="{'required':true}",name="scheduleState",text="任务状态",type=UpdateTypeEm.SELECT , loadValue=UpdateFinalModel.CAN_USE)
 	@DataColum(type=FieldTypeEnum.STRING ,length=2,comment="定时任务状态  1 正常 2 禁用")
@@ -25,6 +25,7 @@ public class ZscheduleSetModel {
 	 * FIXWEEK    1-10:00|3-12:00...
 	 * FIXDAY     12-10:00|17-12:00...
 	 * EC         30
+	 * FUSH       
 	 */
 	@UpdateView(check="{'required':true,'maxLength':200,'minLength':1}",name="scheduleCron",text="定时周期",type=UpdateTypeEm.TEXTARRAY)
 	@DataColum(type=FieldTypeEnum.STRING ,length=300,comment="定时任务周期逻辑")

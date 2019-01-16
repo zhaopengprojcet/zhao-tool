@@ -8,6 +8,7 @@ server-center 扩展为注册中心
 use-time-core -耗时监测组件  
 memory-cpu-core -计算机内存，cpu，磁盘占用监测组件  
 schedule-call-core - 分布式定时任务调度组件  
+parent-mq-call-core - 分布式mq消息队列  
   
 >>待完成  
 	~~实现任务调度功能中的手动任务调度~~   
@@ -24,6 +25,13 @@ schedule-call-core - 分布式定时任务调度组件
   
 >>更新记录  
   
+>2019-01-16  
+	mq组件初步模型完成  
+	mq客户端插件，服务端处理模块完成  
+	mq初步测试通过  
+	mq服务端需要依赖schedule组件完成任务调用  
+	添加队列工具  
+	
 >2019-01-09  
 	启动mq组件开发工作  
 	完成服务端内存队列和redis队列初步原型开发  

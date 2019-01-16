@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zhao.common.aspect.query.QueryMcs;
+import org.zhao.common.aspect.query.QueryMq;
 import org.zhao.common.aspect.query.QuerySchedules;
 import org.zhao.common.aspect.query.QueryTimeUse;
 import org.zhao.common.client.ClientContext;
@@ -25,7 +26,9 @@ import org.zhao.common.util.CacheUtil;
 import org.zhao.common.util.SignUtil;
 import org.zhao.common.util.ThreadPoolUtils;
 import org.zhao.common.util.view.ResultContent;
+import org.zhao.common.zmq.model.MqContext;
 import org.zhao.service.ServerService;
+import org.zhao.service.ZmessageQueueService;
 import org.zhao.service.ZscheduleService;
 import org.zhao.service.ZserverExpService;
 import org.zhao.usetime.annotation.UseTime;
@@ -40,6 +43,8 @@ public class ServerController {
 	private ZserverExpService zServerExpService;
 	@Autowired
 	private ZscheduleService zScheduleService;
+	@Autowired
+	private ZmessageQueueService zMessageQueueService;
 	
 	/**
 	 * 注册服务
@@ -148,6 +153,69 @@ public class ServerController {
 			JSONObject obj = JSONObject.fromObject(time.getData()).getJSONObject("result");
 			String scheduleId = time.getJsonString("scheduleId");
 			return BaseResultUtil.result(this.zScheduleService.updateResultLog(scheduleId, obj.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误"));
+		}
+	}
+	
+	
+	
+	/**
+	 *mq客户端服务注册
+	 * @param context
+	 * @return
+	 */
+	@UseTime
+	@RoleAop(key=RoleAopEnum.ALL)
+	@RequestMapping("putMqClient.html")
+	public String putMqClient(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
+		if(!PublicServerKV.getBooleanVal("server-center.service.mq")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启mq消息服务！"));
+		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"mqServices");
+		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
+		List<String> mqServices = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("mqServices"));
+		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
+		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		ThreadPoolUtils.putThread("mq客户端服务注册", new QueryMq(mqServices, time.getJsonString("token")));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+	}
+	/**
+	 * mq客户端请求服务
+	 * @param context
+	 * @return
+	 */
+	@UseTime
+	@RoleAop(key=RoleAopEnum.ALL)
+	@RequestMapping("putMsg.html")
+	public String putMsg(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
+		if(!PublicServerKV.getBooleanVal("server-center.service.mq")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启mq消息服务！"));
+		ResultContent<MqContext> mq = SignUtil.getResultHttpContext(context,MqContext.class ,"token" ,"context" ,"service" ,"sendTime" , "pushType");
+		if(mq.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(mq);
+		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, mq.getData().getToken());
+		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		ThreadPoolUtils.putThread("接收mq消息", new QueryMq(mq.getData() , this.zMessageQueueService));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+	}
+	
+	/**
+	 * 调度mq情况反馈接口
+	 * @param context
+	 * @return
+	 */
+	@UseTime
+	@RoleAop(key=RoleAopEnum.ALL)
+	@RequestMapping("mqState.html")
+	public String mqState(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
+		if(!PublicServerKV.getBooleanVal("server-center.service.mq")) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "中心服务器未开启mq消息服务！"));
+		ResultContent<String> time = SignUtil.getResultHttpContext(context,"token" ,"scheduleId","result");
+		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
+		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
+		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		
+		try {
+			JSONObject obj = JSONObject.fromObject(time.getData()).getJSONObject("result");
+			String logId = time.getJsonString("scheduleId");
+			return BaseResultUtil.result(this.zMessageQueueService.updateLog(logId, obj.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误"));

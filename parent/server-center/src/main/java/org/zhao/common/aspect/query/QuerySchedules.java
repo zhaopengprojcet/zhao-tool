@@ -26,7 +26,7 @@ import org.zhao.common.util.view.ResultContent;
 import org.zhao.service.ZscheduleService;
 
 /**
- * 计算机异常 处理线程
+ * 任务调度接收 处理线程
  * @author zhao
  *
  */
@@ -37,17 +37,20 @@ public class QuerySchedules extends Thread{
 	private List<String> datas;
 	private String token;
 	private String type;//ALL / ONLY
+	
+	private boolean writeLog = true;
 	public QuerySchedules(){}
 	public QuerySchedules(List<String> data ,  String token) {
 		this.datas = data;
 		this.token = token;
 	}
 	
-	public QuerySchedules(List<String> data ,  String token , String type , ZscheduleService zScheduleService) {
+	public QuerySchedules(List<String> data ,  String token , String type , ZscheduleService zScheduleService , boolean writeLog) {
 		this.datas = data;
 		this.token = token;
 		this.type = type;
 		this.zScheduleService = zScheduleService;
+		this.writeLog = writeLog;
 	}
 	
 	@Override
@@ -180,9 +183,11 @@ public class QuerySchedules extends Thread{
 		json.put("_tk", token);
 		json.put("_sev", service);
 		json.put("_sci", log.getId());
+		json.put("_wl", writeLog);
 		obj.put("_jr", json.toString());
 		try {
-			this.zScheduleService.saveLog(log);
+			if(writeLog)
+				this.zScheduleService.saveLog(log);
 			result = HttpUtils.post("http://"+client.getIp()+":"+client.getPort()+"/schedule/response.html", obj);
 			log.setPutState(JSONObject.fromObject(result).getString("code"));
 			log.setPutError(JSONObject.fromObject(result).getString("data"));
@@ -192,7 +197,8 @@ public class QuerySchedules extends Thread{
 			log.setPutError(JSONObject.fromObject(result).toString());
 		}
 		try {
-			this.zScheduleService.updatePutLog(log);
+			if(writeLog)
+				this.zScheduleService.updatePutLog(log);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

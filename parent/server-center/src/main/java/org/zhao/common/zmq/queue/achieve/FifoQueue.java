@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.zhao.common.zmq.queue.Zqueue;
 
 /**
- * 先进先出队列
+ * 本地缓存队列实现
  * @author zhao
  *
  * @param <E>
@@ -15,6 +15,7 @@ public class FifoQueue<E> implements Zqueue<E> {
 	private Object[] datas ;
 	private int size = 0;
 	private final int DEFAULT_SIZE = 10;
+	
 	
 	public FifoQueue() {
 		checkNull();

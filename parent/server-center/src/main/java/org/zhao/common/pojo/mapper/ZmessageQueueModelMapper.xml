@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZmessageQueueModelMapper" >
+	<resultMap id="BaseResultMap" type="org.zhao.common.pojo.model.ZmessageQueueModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="send_port" property="sendPort" jdbcType="VARCHAR" />
+		<result column="send_server_name" property="sendServerName" jdbcType="VARCHAR" />
+		<result column="msg_state" property="msgState" jdbcType="VARCHAR" />
+		<result column="context" property="context" jdbcType="VARCHAR" />
+		<result column="put_service_name" property="putServiceName" jdbcType="VARCHAR" />
+		<result column="send_ip" property="sendIp" jdbcType="VARCHAR" />
+		<result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="push_type" property="pushType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,send_port,send_server_name,msg_state,context,put_service_name,send_ip,send_time,push_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from R_MQ
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from R_MQ
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MQ (id,send_port,send_server_name,msg_state,context,put_service_name,send_ip,send_time,push_type)
+		values (
+			#{record.id,jdbcType=VARCHAR},
+			#{record.sendPort,jdbcType=VARCHAR},
+			#{record.sendServerName,jdbcType=VARCHAR},
+			#{record.msgState,jdbcType=VARCHAR},
+			#{record.context,jdbcType=VARCHAR},
+			#{record.putServiceName,jdbcType=VARCHAR},
+			#{record.sendIp,jdbcType=VARCHAR},
+			#{record.sendTime,jdbcType=TIMESTAMP},
+			#{record.pushType,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel" useGeneratedKeys="true" keyProperty="id">
+		insert into R_MQ
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				id,
+			</if>
+			<if test="record.sendPort != null and record.sendPort != '' ">
+				send_port,
+			</if>
+			<if test="record.sendServerName != null and record.sendServerName != '' ">
+				send_server_name,
+			</if>
+			<if test="record.msgState != null and record.msgState != '' ">
+				msg_state,
+			</if>
+			<if test="record.context != null and record.context != '' ">
+				context,
+			</if>
+			<if test="record.putServiceName != null and record.putServiceName != '' ">
+				put_service_name,
+			</if>
+			<if test="record.sendIp != null and record.sendIp != '' ">
+				send_ip,
+			</if>
+			<if test="record.sendTime != null ">
+				send_time,
+			</if>
+			<if test="record.pushType != null and record.pushType != '' ">
+				push_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null and record.id != '' ">
+				#{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendPort != null and record.sendPort != '' ">
+				#{record.sendPort,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendServerName != null and record.sendServerName != '' ">
+				#{record.sendServerName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.msgState != null and record.msgState != '' ">
+				#{record.msgState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.context != null and record.context != '' ">
+				#{record.context,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putServiceName != null and record.putServiceName != '' ">
+				#{record.putServiceName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendIp != null and record.sendIp != '' ">
+				#{record.sendIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendTime != null ">
+				#{record.sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.pushType != null and record.pushType != '' ">
+				#{record.pushType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel">
+		update R_MQ
+		<set>
+			<if test="record.sendPort != null and record.sendPort != '' ">
+				send_port = #{record.sendPort,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendServerName != null and record.sendServerName != '' ">
+				send_server_name = #{record.sendServerName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.msgState != null and record.msgState != '' ">
+				msg_state = #{record.msgState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.context != null and record.context != '' ">
+				context = #{record.context,jdbcType=VARCHAR},
+			</if>
+			<if test="record.putServiceName != null and record.putServiceName != '' ">
+				put_service_name = #{record.putServiceName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendIp != null and record.sendIp != '' ">
+				send_ip = #{record.sendIp,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sendTime != null ">
+				send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.pushType != null and record.pushType != '' ">
+				push_type = #{record.pushType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel">
+		update R_MQ
+		set
+		send_port = #{record.sendPort,jdbcType=VARCHAR}
+		send_server_name = #{record.sendServerName,jdbcType=VARCHAR}
+		msg_state = #{record.msgState,jdbcType=VARCHAR}
+		context = #{record.context,jdbcType=VARCHAR}
+		put_service_name = #{record.putServiceName,jdbcType=VARCHAR}
+		send_ip = #{record.sendIp,jdbcType=VARCHAR}
+		send_time = #{record.sendTime,jdbcType=TIMESTAMP}
+		push_type = #{record.pushType,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPageListByParameters" resultMap="BaseResultMap">
+		select * from R_MQ where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendPort != null and record.sendPort != '' ">
+			and send_port = #{record.sendPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendServerName != null and record.sendServerName != '' ">
+			and send_server_name = #{record.sendServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.msgState != null and record.msgState != '' ">
+			and msg_state = #{record.msgState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.context != null and record.context != '' ">
+			and context = #{record.context,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putServiceName != null and record.putServiceName != '' ">
+			and put_service_name = #{record.putServiceName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendIp != null and record.sendIp != '' ">
+			and send_ip = #{record.sendIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendTime != null ">
+			and send_time = #{record.sendTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.pushType != null and record.pushType != '' ">
+			and push_type = #{record.pushType,jdbcType=VARCHAR}
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParametersCount" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel" resultType="java.lang.Integer">
+		select count(*) from R_MQ where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendPort != null and record.sendPort != '' ">
+			and send_port = #{record.sendPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendServerName != null and record.sendServerName != '' ">
+			and send_server_name = #{record.sendServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.msgState != null and record.msgState != '' ">
+			and msg_state = #{record.msgState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.context != null and record.context != '' ">
+			and context = #{record.context,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putServiceName != null and record.putServiceName != '' ">
+			and put_service_name = #{record.putServiceName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendIp != null and record.sendIp != '' ">
+			and send_ip = #{record.sendIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendTime != null ">
+			and send_time = #{record.sendTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.pushType != null and record.pushType != '' ">
+			and push_type = #{record.pushType,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequire" resultMap="BaseResultMap">
+		select * from R_MQ where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendPort != null">
+			<if test="require.sendPort.greaterThan != null">
+					and send_port > #{require.sendPort.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.lessThan != null">
+					and send_port &lt; #{require.sendPort.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.greaterThanAndEquals != null">
+					and send_port >= #{require.sendPort.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.lessThanAndEquals != null">
+					and send_port &lt;= #{require.sendPort.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.notEquality != null">
+					and send_port &lt;> #{require.sendPort.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.equality != null">
+					and send_port = #{require.sendPort.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.similar != null">
+					and INSTR(send_port, #{require.sendPort.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendServerName != null">
+			<if test="require.sendServerName.greaterThan != null">
+					and send_server_name > #{require.sendServerName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.lessThan != null">
+					and send_server_name &lt; #{require.sendServerName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.greaterThanAndEquals != null">
+					and send_server_name >= #{require.sendServerName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.lessThanAndEquals != null">
+					and send_server_name &lt;= #{require.sendServerName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.notEquality != null">
+					and send_server_name &lt;> #{require.sendServerName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.equality != null">
+					and send_server_name = #{require.sendServerName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.similar != null">
+					and INSTR(send_server_name, #{require.sendServerName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.msgState != null">
+			<if test="require.msgState.greaterThan != null">
+					and msg_state > #{require.msgState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.lessThan != null">
+					and msg_state &lt; #{require.msgState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.greaterThanAndEquals != null">
+					and msg_state >= #{require.msgState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.lessThanAndEquals != null">
+					and msg_state &lt;= #{require.msgState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.notEquality != null">
+					and msg_state &lt;> #{require.msgState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.equality != null">
+					and msg_state = #{require.msgState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.similar != null">
+					and INSTR(msg_state, #{require.msgState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.context != null">
+			<if test="require.context.greaterThan != null">
+					and context > #{require.context.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.lessThan != null">
+					and context &lt; #{require.context.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.greaterThanAndEquals != null">
+					and context >= #{require.context.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.lessThanAndEquals != null">
+					and context &lt;= #{require.context.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.notEquality != null">
+					and context &lt;> #{require.context.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.equality != null">
+					and context = #{require.context.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.similar != null">
+					and INSTR(context, #{require.context.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putServiceName != null">
+			<if test="require.putServiceName.greaterThan != null">
+					and put_service_name > #{require.putServiceName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.lessThan != null">
+					and put_service_name &lt; #{require.putServiceName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.greaterThanAndEquals != null">
+					and put_service_name >= #{require.putServiceName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.lessThanAndEquals != null">
+					and put_service_name &lt;= #{require.putServiceName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.notEquality != null">
+					and put_service_name &lt;> #{require.putServiceName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.equality != null">
+					and put_service_name = #{require.putServiceName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.similar != null">
+					and INSTR(put_service_name, #{require.putServiceName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendIp != null">
+			<if test="require.sendIp.greaterThan != null">
+					and send_ip > #{require.sendIp.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.lessThan != null">
+					and send_ip &lt; #{require.sendIp.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.greaterThanAndEquals != null">
+					and send_ip >= #{require.sendIp.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.lessThanAndEquals != null">
+					and send_ip &lt;= #{require.sendIp.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.notEquality != null">
+					and send_ip &lt;> #{require.sendIp.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.equality != null">
+					and send_ip = #{require.sendIp.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.similar != null">
+					and INSTR(send_ip, #{require.sendIp.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendTime != null">
+			<if test="require.sendTime.greaterThan != null">
+					and send_time > #{require.sendTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.lessThan != null">
+					and send_time &lt; #{require.sendTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.greaterThanAndEquals != null">
+					and send_time >= #{require.sendTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.lessThanAndEquals != null">
+					and send_time &lt;= #{require.sendTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.notEquality != null">
+					and send_time &lt;> #{require.sendTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.equality != null">
+					and send_time = #{require.sendTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.similar != null">
+					and INSTR(send_time, #{require.sendTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.pushType != null">
+			<if test="require.pushType.greaterThan != null">
+					and push_type > #{require.pushType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.lessThan != null">
+					and push_type &lt; #{require.pushType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.greaterThanAndEquals != null">
+					and push_type >= #{require.pushType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.lessThanAndEquals != null">
+					and push_type &lt;= #{require.pushType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.notEquality != null">
+					and push_type &lt;> #{require.pushType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.equality != null">
+					and push_type = #{require.pushType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.similar != null">
+					and INSTR(push_type, #{require.pushType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+	<select id="selectPageListByParameterRequireCount" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel" resultType="java.lang.Integer">
+		select count(*) from R_MQ where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendPort != null">
+			<if test="require.sendPort.greaterThan != null">
+					and send_port > #{require.sendPort.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.lessThan != null">
+					and send_port &lt; #{require.sendPort.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.greaterThanAndEquals != null">
+					and send_port >= #{require.sendPort.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.lessThanAndEquals != null">
+					and send_port &lt;= #{require.sendPort.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.notEquality != null">
+					and send_port &lt;> #{require.sendPort.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.equality != null">
+					and send_port = #{require.sendPort.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendPort.similar != null">
+					and INSTR(send_port, #{require.sendPort.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendServerName != null">
+			<if test="require.sendServerName.greaterThan != null">
+					and send_server_name > #{require.sendServerName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.lessThan != null">
+					and send_server_name &lt; #{require.sendServerName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.greaterThanAndEquals != null">
+					and send_server_name >= #{require.sendServerName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.lessThanAndEquals != null">
+					and send_server_name &lt;= #{require.sendServerName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.notEquality != null">
+					and send_server_name &lt;> #{require.sendServerName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.equality != null">
+					and send_server_name = #{require.sendServerName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendServerName.similar != null">
+					and INSTR(send_server_name, #{require.sendServerName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.msgState != null">
+			<if test="require.msgState.greaterThan != null">
+					and msg_state > #{require.msgState.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.lessThan != null">
+					and msg_state &lt; #{require.msgState.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.greaterThanAndEquals != null">
+					and msg_state >= #{require.msgState.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.lessThanAndEquals != null">
+					and msg_state &lt;= #{require.msgState.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.notEquality != null">
+					and msg_state &lt;> #{require.msgState.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.equality != null">
+					and msg_state = #{require.msgState.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.msgState.similar != null">
+					and INSTR(msg_state, #{require.msgState.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.context != null">
+			<if test="require.context.greaterThan != null">
+					and context > #{require.context.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.lessThan != null">
+					and context &lt; #{require.context.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.greaterThanAndEquals != null">
+					and context >= #{require.context.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.lessThanAndEquals != null">
+					and context &lt;= #{require.context.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.notEquality != null">
+					and context &lt;> #{require.context.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.equality != null">
+					and context = #{require.context.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.context.similar != null">
+					and INSTR(context, #{require.context.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.putServiceName != null">
+			<if test="require.putServiceName.greaterThan != null">
+					and put_service_name > #{require.putServiceName.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.lessThan != null">
+					and put_service_name &lt; #{require.putServiceName.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.greaterThanAndEquals != null">
+					and put_service_name >= #{require.putServiceName.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.lessThanAndEquals != null">
+					and put_service_name &lt;= #{require.putServiceName.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.notEquality != null">
+					and put_service_name &lt;> #{require.putServiceName.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.equality != null">
+					and put_service_name = #{require.putServiceName.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.putServiceName.similar != null">
+					and INSTR(put_service_name, #{require.putServiceName.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendIp != null">
+			<if test="require.sendIp.greaterThan != null">
+					and send_ip > #{require.sendIp.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.lessThan != null">
+					and send_ip &lt; #{require.sendIp.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.greaterThanAndEquals != null">
+					and send_ip >= #{require.sendIp.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.lessThanAndEquals != null">
+					and send_ip &lt;= #{require.sendIp.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.notEquality != null">
+					and send_ip &lt;> #{require.sendIp.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.equality != null">
+					and send_ip = #{require.sendIp.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendIp.similar != null">
+					and INSTR(send_ip, #{require.sendIp.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.sendTime != null">
+			<if test="require.sendTime.greaterThan != null">
+					and send_time > #{require.sendTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.lessThan != null">
+					and send_time &lt; #{require.sendTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.greaterThanAndEquals != null">
+					and send_time >= #{require.sendTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.lessThanAndEquals != null">
+					and send_time &lt;= #{require.sendTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.notEquality != null">
+					and send_time &lt;> #{require.sendTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.equality != null">
+					and send_time = #{require.sendTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.sendTime.similar != null">
+					and INSTR(send_time, #{require.sendTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.pushType != null">
+			<if test="require.pushType.greaterThan != null">
+					and push_type > #{require.pushType.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.lessThan != null">
+					and push_type &lt; #{require.pushType.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.greaterThanAndEquals != null">
+					and push_type >= #{require.pushType.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.lessThanAndEquals != null">
+					and push_type &lt;= #{require.pushType.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.notEquality != null">
+					and push_type &lt;> #{require.pushType.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.equality != null">
+					and push_type = #{require.pushType.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pushType.similar != null">
+					and INSTR(push_type, #{require.pushType.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+	</select>
+	<insert id="batchCreate" parameterType="java.util.List">
+		insert into R_MQ (
+		id,send_port,send_server_name,msg_state,context,put_service_name,send_ip,send_time,push_type
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR},
+			#{item.sendPort,jdbcType=VARCHAR},
+			#{item.sendServerName,jdbcType=VARCHAR},
+			#{item.msgState,jdbcType=VARCHAR},
+			#{item.context,jdbcType=VARCHAR},
+			#{item.putServiceName,jdbcType=VARCHAR},
+			#{item.sendIp,jdbcType=VARCHAR},
+			#{item.sendTime,jdbcType=TIMESTAMP},
+			#{item.pushType,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteByParames" parameterType="org.zhao.common.pojo.model.ZmessageQueueModel">
+		delete from R_MQ where 1 = 1
+		<if test="record.id != null and record.id != '' ">
+			and id = #{record.id,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendPort != null and record.sendPort != '' ">
+			and send_port = #{record.sendPort,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendServerName != null and record.sendServerName != '' ">
+			and send_server_name = #{record.sendServerName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.msgState != null and record.msgState != '' ">
+			and msg_state = #{record.msgState,jdbcType=VARCHAR}
+		</if>
+		<if test="record.context != null and record.context != '' ">
+			and context = #{record.context,jdbcType=VARCHAR}
+		</if>
+		<if test="record.putServiceName != null and record.putServiceName != '' ">
+			and put_service_name = #{record.putServiceName,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendIp != null and record.sendIp != '' ">
+			and send_ip = #{record.sendIp,jdbcType=VARCHAR}
+		</if>
+		<if test="record.sendTime != null ">
+			and send_time = #{record.sendTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="record.pushType != null and record.pushType != '' ">
+			and push_type = #{record.pushType,jdbcType=VARCHAR}
+		</if>
+	</delete>
+</mapper>

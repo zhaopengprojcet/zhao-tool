@@ -45,6 +45,12 @@
     	<artifactId>memory-cpu-client</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>message-call-core</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
   </dependencies>
   
   <build>

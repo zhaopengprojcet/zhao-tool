@@ -35,7 +35,11 @@ public class ServerSchedule implements ApplicationRunner{
 	
 	private static final String SCHEDULE_MAP_KEY = "SCHEDULE_MAP_KEY";
 	
+	private static final String SIGN_SCHEDULE_MAP_KEY = "SIGN_SCHEDULE_MAP_KEY";
+	
 	private static String loadTime = "";
+	
+	private static boolean fush = false;
 	
 	private Log logger = LogFactory.getLog(this.getClass());
 	@Autowired
@@ -43,7 +47,9 @@ public class ServerSchedule implements ApplicationRunner{
 	
 	public static void reload() {
 		CacheUtil.removeCache(SCHEDULE_MAP_KEY);
+		CacheUtil.removeCache(SIGN_SCHEDULE_MAP_KEY);
 		loadTime = null;
+		fush = false;
 	}
 	
 	@Override
@@ -133,19 +139,64 @@ public class ServerSchedule implements ApplicationRunner{
 					if(plans.containsKey(DateUtil.getTimeStr(now, DateUtil.hh_mm))) {
 						Map<String, List<String>> services = plans.get(DateUtil.getTimeStr(now, DateUtil.hh_mm));
 						for(String key : services.keySet()) {
-							ThreadPoolUtils.putThread("定时任务调用扫描", new QuerySchedules(services.get(key) , null ,key ,zScheduleService));
+							ThreadPoolUtils.putThread("定时任务调用扫描", new QuerySchedules(services.get(key) , null ,key ,zScheduleService , true));
 						}
 					}
 				}
 				
 			};
-			ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+			ScheduledExecutorService pool = Executors.newScheduledThreadPool(2);
 			pool.scheduleWithFixedDelay(  
 					schedule,  
 					getWaitTime(PublicServerKV.getStringVal("server-center.service.schedule.wait")),  
 					PublicServerKV.getIntVal("server-center.service.schedule.split"),  
 					TimeUnit.SECONDS); 
-			 
+			Thread scheduleFush = new Thread(){
+
+				@Override
+				public void run() {
+					if(!fush) { //今日未加载过
+						//加载全部生效的设置定时任务，并解析时间逻辑到缓存
+						QueryParames queryParames = QueryParames.init();
+						queryParames.addEquality("scheduleState", "1");
+						ResultContent<List<ZscheduleSetModel>> load = zScheduleService.selectPageListByParameterRequire(null, queryParames.getParames());
+						if(CollectionUtils.isNotEmpty(load.getData())) {
+							//结构  时间-->[调用逻辑-->[调用集合]]
+							Map<String , List<String>> plans = new HashMap<String, List<String>>();
+							for (ZscheduleSetModel doSc : load.getData()) {
+								if(doSc.getScheduleType().equals("FUSH")) {
+									List<String> l = null;
+									if(plans.containsKey(doSc.getScheduleType())) {
+										l = plans.get(doSc.getScheduleType());
+									}
+									else {
+										l = new ArrayList<String>();
+									}
+									l.add(doSc.getScheduleKey());
+									plans.put(doSc.getScheduleType(), l);
+								}
+							}
+
+							CacheUtil.saveSingleCache(SIGN_SCHEDULE_MAP_KEY, plans);
+						}
+						
+						fush = true;
+					}
+					
+					Map<String , List<String>> plans = (Map<String , List<String>>) CacheUtil.getSingleCache(SIGN_SCHEDULE_MAP_KEY);
+					if(plans == null) return;
+					for(String key : plans.keySet()) {
+						ThreadPoolUtils.putThread("推送定时任务调用扫描", new QuerySchedules(plans.get(key) , null ,key ,zScheduleService , false));
+					}
+					
+				}
+				
+			};
+			pool.scheduleWithFixedDelay(  
+					scheduleFush,  
+					1,  
+					1,  
+					TimeUnit.SECONDS); 
 		}
 	}
 	

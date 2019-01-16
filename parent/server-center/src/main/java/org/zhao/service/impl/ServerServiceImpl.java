@@ -69,9 +69,11 @@ public class ServerServiceImpl implements ServerService {
 		CacheUtil.saveMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, regiesToken, client);
 		
 		//推送到其他注册中心
-		if(client.isFullServer())
+		if(client.isFullServer()) {
+			client.setFullServer(false);
+			client.setToken(regiesToken);
 			ThreadPoolUtils.putThread("regiestFull【"+client.getServiceName()+"】", new RegiestOtherServerThread(client , this.zLogService));
-		
+		}
 		logger.info("注册完成，当前注册服务内容【"+JSONObject.fromObject(ServerConfig.getClients()).toString()+"】身份编码【"+regiesToken+"】");
 		
 		return new ResultContent<String>(ResultContent.SUCCESS, "注册成功" , regiesToken);

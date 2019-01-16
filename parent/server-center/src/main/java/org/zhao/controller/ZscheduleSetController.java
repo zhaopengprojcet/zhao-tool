@@ -121,7 +121,7 @@ public class ZscheduleSetController {
 		if(model.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(model);
 		List<String> services = new ArrayList<String>();
 		services.add(model.getData().getScheduleKey());
-		ThreadPoolUtils.putThread("定时任务调用扫描", new QuerySchedules(services , null ,model.getData().getPushType() ,zScheduleService));
+		ThreadPoolUtils.putThread("定时任务调用扫描", new QuerySchedules(services , null ,model.getData().getPushType() ,zScheduleService , true));
 		return  BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS, "调用成功"));
 	}
 }
