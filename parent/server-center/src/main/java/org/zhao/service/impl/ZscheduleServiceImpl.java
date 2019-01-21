@@ -109,8 +109,8 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 	@Override
 	public ResultContent<String> updateResultLog(String id, String msg) {
 		ZscheduleLogModel log = this.zScheduleLogModelMapper.selectByPrimaryKey(id);
-		if(log == null) return new ResultContent<String>(ResultContent.ERROR, "没有该任务");
-		if(!StringUtils.isEmpty(log.getDoState())) return new ResultContent<String>(ResultContent.ERROR, "任务已完结");
+		if(log == null) return new ResultContent<String>(ResultContent.ERROR, "没有该任务【SCC】");
+		if(!StringUtils.isEmpty(log.getDoState())) return new ResultContent<String>(ResultContent.ERROR, "任务已完结【SCC】");
 		log.setDoEndTime(new Date());
 		try {
 			log.setDoState(JSONObject.fromObject(msg).getString("code"));
@@ -121,7 +121,7 @@ public class ZscheduleServiceImpl implements ZscheduleService{
 			log.setDoError(msg);
 		}
 		this.zScheduleLogModelMapper.updateByPrimaryKeySelective(log);
-		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成");
+		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成【SCC】");
 	}
 
 	@Transactional

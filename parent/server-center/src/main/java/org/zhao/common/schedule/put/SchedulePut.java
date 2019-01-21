@@ -26,9 +26,9 @@ import org.zhao.common.util.HttpUtils;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.zmq.queue.ZQueueConfig;
 import org.zhao.common.zmq.queue.Zqueue;
+import org.zhao.core.common.model.ReturnCode;
 import org.zhao.schedule.annotation.ScheduleMethod;
 import org.zhao.schedule.annotation.zhaoScheduleBean;
-import org.zhao.schedule.model.ReturnCode;
 import org.zhao.service.ZmessageQueueService;
 import org.zhao.service.ZuseTimeService;
 

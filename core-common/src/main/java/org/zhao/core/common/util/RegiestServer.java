@@ -23,13 +23,11 @@ import org.zhao.core.common.model.ClientContext;
 
 public class RegiestServer {
 
-	public static String QUERY_TOKEN = "";
+	public static Map<String, String> QUERY_TOKEN = new HashMap<String, String>();
 	
 	public static ClientContext context;
 	
 	public static String WEB_IP = "";
-	
-	public static boolean regiest = true;
 	
 	private static Log logger = LogFactory.getLog(RegiestServer.class);
 	
@@ -38,8 +36,7 @@ public class RegiestServer {
 	 * @param rolad
 	 * @return
 	 */
-	public static synchronized String getToken(boolean rolad) {
-		if(!regiest) return null;
+	public static synchronized String getToken(boolean rolad , String key) {
 		getContext();
  		if(rolad) {
  			String url = queryPutUrl("/server/regiest.html");
@@ -47,26 +44,25 @@ public class RegiestServer {
  			obj.put("_jr", SignUtil.getHttpContext(JSONObject.fromObject(context).toString()));
  			JSONObject result = HttpUtils.post(url, obj);
  			if(result.containsKey("code") && result.getString("code").equals("SUCCESS")) {
- 				QUERY_TOKEN = result.getString("data");
+ 				QUERY_TOKEN.put(key, result.getString("data"));
  			}
  			else {
- 				QUERY_TOKEN = "-1";
- 				regiest = false;
- 				logger.error("注册服务失败【"+result.getString("message")+"】");
+ 				QUERY_TOKEN.put(key, "-1");
+ 				logger.error("注册服务【"+key+"】失败【"+result.getString("message")+"】");
  			}
- 			return QUERY_TOKEN;
+ 			return QUERY_TOKEN.get(key);
  		}
  		else {
- 			if(!StringUtils.isEmpty(QUERY_TOKEN)) {
+ 			if(!StringUtils.isEmpty(QUERY_TOKEN.get(key)) && !QUERY_TOKEN.get(key).equals("-1")) {
  				String url = queryPutUrl("/server/checkToken.html");
  	 			Map<String, String> obj = new HashMap<String, String>();
- 	 			obj.put("_jr", SignUtil.getHttpContext(QUERY_TOKEN));
+ 	 			obj.put("_jr", SignUtil.getHttpContext(QUERY_TOKEN.get(key)));
  	 			JSONObject result = HttpUtils.post(url, obj);
  	 			if(result.containsKey("code") && result.getString("code").equals("SUCCESS")) {
- 	 				return QUERY_TOKEN;
+ 	 				return QUERY_TOKEN.get(key);
  	 			}
  			}
- 			return getToken(true);
+ 			return getToken(true , key);
  		}
  	}
 	
@@ -87,8 +83,8 @@ public class RegiestServer {
  	 		String ip = getWebIp();
  	 		if(StringUtils.isEmpty(ip)) throw new RuntimeException("获得服务ip失败");
  	 		ct.setIp(ip);
- 	 		ct.setLoginName(ConfigProperties.instance().getPropertiesVal("zhao.usetime.loginname"));
- 	 		ct.setPassword(ConfigProperties.instance().getPropertiesVal("zhao.usetime.password"));
+ 	 		ct.setLoginName(ConfigProperties.instance().getPropertiesVal("zhao.loginname"));
+ 	 		ct.setPassword(ConfigProperties.instance().getPropertiesVal("zhao.password"));
  	 		String port = getLocalPort();
  	 		if(StringUtils.isEmpty(port)) throw new RuntimeException("获得服务端口失败");
  	 		ct.setPort(port);

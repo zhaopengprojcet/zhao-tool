@@ -3,18 +3,17 @@ package org.zhao.mq.thread;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.zhao.core.common.model.ReturnCode;
 import org.zhao.core.common.util.HttpUtils;
 import org.zhao.core.common.util.RegiestServer;
 import org.zhao.core.common.util.SignUtil;
-import org.zhao.mq.load.MqServletScheduleLoadInit;
 import org.zhao.mq.model.MqModel;
-import org.zhao.mq.model.ReturnCode;
+import org.zhao.mq.util.MessageUtil;
 
 /**
  * mq消息调用线程，用于在执行完成后反馈执行结果
@@ -45,14 +44,14 @@ public class MqDo extends Thread {
 	@Override
 	public void run() {
 		Object cla = applicationContext.getBean(model.getCla().getClass());
-		String code = ReturnCode.result(logId, ReturnCode.ERROR);
+		String code = ReturnCode.result(logId, ReturnCode.ERROR , MessageUtil.MMC_KEY);
 		try {
 			Object result = model.getMethod().invoke(cla , context);
-			code = ReturnCode.result(logId, JSONObject.fromObject(result).toString());
+			code = ReturnCode.result(logId, JSONObject.fromObject(result).toString() ,MessageUtil.MMC_KEY);
 		} catch (Exception e) {
 			logger.error("执行队列消息调度失败");
 			e.printStackTrace();
-			code = ReturnCode.result(logId, e.getLocalizedMessage());
+			code = ReturnCode.result(logId, e.getLocalizedMessage() ,MessageUtil.MMC_KEY);
 		}
 		
 		String url = RegiestServer.queryPutUrl("/server/mqState.html");

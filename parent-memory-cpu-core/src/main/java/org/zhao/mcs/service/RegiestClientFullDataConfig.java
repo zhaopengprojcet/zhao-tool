@@ -23,6 +23,8 @@ public class RegiestClientFullDataConfig implements SchedulingConfigurer{
 
 	private static String cron ; 
 
+	private final static String MCC_KEY = "MCC";
+	
 	public RegiestClientFullDataConfig() {
 		cron = ConfigProperties.instance().getPropertiesVal("server.mcs.put.cron");
 	}
@@ -35,7 +37,7 @@ public class RegiestClientFullDataConfig implements SchedulingConfigurer{
             public void run() {
             	Map<String, Object> map = new HashMap<String, Object>();
             	map.put("mcs", MemoryCpuUtil.getMemoryCupData());		
-            	ThreadPoolUtils.putThread("服务器状态记录", new PutThread(map , "/server/putMcs.html"));
+            	ThreadPoolUtils.putThread("服务器状态记录", new PutThread(map , "/server/putMcs.html" , MCC_KEY));
             }
         }, new Trigger() {
 

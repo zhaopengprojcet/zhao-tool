@@ -24,6 +24,8 @@ import org.zhao.schedule.model.ScheduleModel;
  */
 public class ScheduleServletScheduleLoadInit implements ApplicationListener<ContextRefreshedEvent>{
 
+	public static final String SCC_KEY = "SCC";
+	
 	private Log logger = LogFactory.getLog(this.getClass());
 	
 	private static Map<String, ScheduleModel> schedules = new HashMap<String, ScheduleModel>();
@@ -59,7 +61,7 @@ public class ScheduleServletScheduleLoadInit implements ApplicationListener<Cont
 				//每次发起注册服务都将删除原有本服务所提供的 定时任务
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("schedules", JSONArray.fromObject(ScheduleServletScheduleLoadInit.getSchedules().keySet()));
-				ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"));
+				ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html" ,SCC_KEY));
 			}
 		}
 	}

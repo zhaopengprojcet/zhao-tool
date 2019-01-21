@@ -10,11 +10,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zhao.core.common.model.ReturnCode;
 import org.zhao.core.common.util.RegiestServer;
 import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.mq.model.MqModel;
-import org.zhao.mq.model.ReturnCode;
 import org.zhao.mq.thread.MqDo;
+import org.zhao.mq.util.MessageUtil;
 
 @RestController
 @RequestMapping("/mq/")
@@ -34,12 +35,12 @@ public class MqResponseController {
 			if(!obj.containsKey("_tk") || !obj.containsKey("_sev") || !obj.containsKey("_sci") || !obj.containsKey("_ct")) 
 				return ReturnCode.ERROR;
 			String token = obj.getString("_tk");
-			if(RegiestServer.getToken(false).equals("-1")) {
+			if(RegiestServer.getToken(false ,MessageUtil.MMC_KEY).equals("-1")) {
 				logger.info("mq请求无效，当前服务未进行注册");
 				return ReturnCode.success("mq请求无效，当前服务未进行注册");
 			}
-			if(!RegiestServer.getToken(false).equals(token)) {
-				logger.info("mq请求无效，token错误【"+RegiestServer.getToken(false)+"】【"+token+"】");
+			if(!RegiestServer.getToken(false ,MessageUtil.MMC_KEY).equals(token)) {
+				logger.info("mq请求无效，token错误【"+RegiestServer.getToken(false ,MessageUtil.MMC_KEY)+"】【"+token+"】");
 				return ReturnCode.success("mq请求无效，token错误");
 			}
 			String service = obj.getString("_sev");

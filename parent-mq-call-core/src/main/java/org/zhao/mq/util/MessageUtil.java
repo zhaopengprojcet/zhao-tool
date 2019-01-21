@@ -18,6 +18,8 @@ public class MessageUtil {
 
 	private static Log logger = LogFactory.getLog(MessageUtil.class);
 	
+	public static final String MMC_KEY = "MMC";
+	
 	public static ResultContent<String> sendMsg(String key , String context , MqTypeEm type) {
 		String url = RegiestServer.queryPutUrl("/server/putMsg.html");
  		Map<String, String> obj2 = new HashMap<String, String>();
@@ -26,7 +28,7 @@ public class MessageUtil {
  		code.setPushType(type.getValue());
  		code.setSendTime(new Date());
  		code.setService(key);
- 		code.setToken(RegiestServer.getToken(false));
+ 		code.setToken(RegiestServer.getToken(false , MMC_KEY));
  		
 		obj2.put("_jr", SignUtil.getHttpContext(JSONObject.fromObject(code).toString()));
 		JSONObject result = HttpUtils.post(url, obj2);

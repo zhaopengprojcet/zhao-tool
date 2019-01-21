@@ -14,6 +14,8 @@ import org.zhao.core.common.util.ThreadPoolUtils;
 @Aspect
 public class RequestAfterAspect {
 	
+	private final static String UTC_KEY = "UTC";
+	
  	@Pointcut("@annotation(org.zhao.usetime.annotation.UseTime) ")
     public void cutUseTimeMethod(){
     }
@@ -31,13 +33,12 @@ public class RequestAfterAspect {
  		long begin = System.currentTimeMillis();
  		Object obj= joinPoint.proceed();
  		long end = System.currentTimeMillis();
- 		if(!RegiestServer.regiest) return obj;
  		try {
 			String name = classType + "." + methodName;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("from", name);
 			map.put("times", end-begin);
-			ThreadPoolUtils.putThread("use-time-put", new PutThread(map , "/server/putUseTime.html"));
+			ThreadPoolUtils.putThread("use-time-put", new PutThread(map , "/server/putUseTime.html" ,UTC_KEY));
  		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.zhao.core.common.util.HttpUtils;
@@ -19,16 +20,21 @@ public class PutThread extends Thread{
 	
 	private String queryPath;
 	
+	private String key;
+	
 	public PutThread(){}
-	public PutThread(Map<String, Object> parame , String queryPath) {
+	public PutThread(Map<String, Object> parame , String queryPath , String key) {
 		this.parame = parame;
 		this.queryPath = queryPath;
+		this.key = key;
 	}
 	
 	@Override
 	public void run() {
 		String url = RegiestServer.queryPutUrl(queryPath);
- 		parame.put("token", RegiestServer.getToken(false));
+		String token = RegiestServer.getToken(false , key);
+		if(StringUtils.isEmpty(token) || token.equals("-1")) return;
+ 		parame.put("token", token);
  		Map<String, String> obj2 = new HashMap<String, String>();
 		obj2.put("_jr", SignUtil.getHttpContext(JSONObject.fromObject(parame).toString()));
 		JSONObject result = HttpUtils.post(url, obj2);

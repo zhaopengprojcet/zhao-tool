@@ -8,11 +8,11 @@ import net.sf.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.zhao.core.common.model.PutThread;
+import org.zhao.core.common.model.ReturnCode;
 import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.schedule.annotation.ScheduleMethod;
 import org.zhao.schedule.annotation.zhaoScheduleBean;
 import org.zhao.schedule.load.ScheduleServletScheduleLoadInit;
-import org.zhao.schedule.model.ReturnCode;
 
 /**
  * 初始化时加入定时任务
@@ -34,7 +34,7 @@ public class RefreshSchedule {
 			//每次发起注册服务都将删除原有本服务所提供的 定时任务
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("schedules", JSONArray.fromObject(ScheduleServletScheduleLoadInit.getSchedules().keySet()));
-			ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"));
+			ThreadPoolUtils.putThread("定时任务注册", new PutThread(map , "/server/putSchedule.html"  ,ScheduleServletScheduleLoadInit.SCC_KEY));
 		}
 		return ReturnCode.SUCCESS;
 	}

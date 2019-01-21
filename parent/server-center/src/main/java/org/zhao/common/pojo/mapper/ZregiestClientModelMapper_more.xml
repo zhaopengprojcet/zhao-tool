@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zhao.common.pojo.dao.ZregiestClientModelMapper" >
+	<resultMap id="BaseResultMapNoPass" type="org.zhao.common.pojo.model.ZregiestClientModel" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="client_desc" property="clientDesc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="powers" property="powers" jdbcType="VARCHAR" />
+		<result column="use_ips" property="useIps" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectPageListByParameterRequireNoPass" resultMap="BaseResultMapNoPass">
+		select * from R_CLIENT_KEY where 1 = 1
+		<if test="require.id != null">
+			<if test="require.id.greaterThan != null">
+					and id > #{require.id.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThan != null">
+					and id &lt; #{require.id.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.greaterThanAndEquals != null">
+					and id >= #{require.id.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.lessThanAndEquals != null">
+					and id &lt;= #{require.id.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.notEquality != null">
+					and id &lt;> #{require.id.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.equality != null">
+					and id = #{require.id.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.id.similar != null">
+					and INSTR(id, #{require.id.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.clientDesc != null">
+			<if test="require.clientDesc.greaterThan != null">
+					and client_desc > #{require.clientDesc.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.lessThan != null">
+					and client_desc &lt; #{require.clientDesc.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.greaterThanAndEquals != null">
+					and client_desc >= #{require.clientDesc.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.lessThanAndEquals != null">
+					and client_desc &lt;= #{require.clientDesc.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.notEquality != null">
+					and client_desc &lt;> #{require.clientDesc.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.equality != null">
+					and client_desc = #{require.clientDesc.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.clientDesc.similar != null">
+					and INSTR(client_desc, #{require.clientDesc.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.pass != null">
+			<if test="require.pass.greaterThan != null">
+					and pass > #{require.pass.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.lessThan != null">
+					and pass &lt; #{require.pass.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.greaterThanAndEquals != null">
+					and pass >= #{require.pass.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.lessThanAndEquals != null">
+					and pass &lt;= #{require.pass.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.notEquality != null">
+					and pass &lt;> #{require.pass.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.equality != null">
+					and pass = #{require.pass.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.pass.similar != null">
+					and INSTR(pass, #{require.pass.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.createTime != null">
+			<if test="require.createTime.greaterThan != null">
+					and create_time > #{require.createTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThan != null">
+					and create_time &lt; #{require.createTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.greaterThanAndEquals != null">
+					and create_time >= #{require.createTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.lessThanAndEquals != null">
+					and create_time &lt;= #{require.createTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.notEquality != null">
+					and create_time &lt;> #{require.createTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.equality != null">
+					and create_time = #{require.createTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.createTime.similar != null">
+					and INSTR(create_time, #{require.createTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.name != null">
+			<if test="require.name.greaterThan != null">
+					and name > #{require.name.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.lessThan != null">
+					and name &lt; #{require.name.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.greaterThanAndEquals != null">
+					and name >= #{require.name.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.lessThanAndEquals != null">
+					and name &lt;= #{require.name.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.notEquality != null">
+					and name &lt;> #{require.name.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.equality != null">
+					and name = #{require.name.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.name.similar != null">
+					and INSTR(name, #{require.name.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.useTime != null">
+			<if test="require.useTime.greaterThan != null">
+					and use_time > #{require.useTime.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.lessThan != null">
+					and use_time &lt; #{require.useTime.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.greaterThanAndEquals != null">
+					and use_time >= #{require.useTime.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.lessThanAndEquals != null">
+					and use_time &lt;= #{require.useTime.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.notEquality != null">
+					and use_time &lt;> #{require.useTime.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.equality != null">
+					and use_time = #{require.useTime.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useTime.similar != null">
+					and INSTR(use_time, #{require.useTime.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.state != null">
+			<if test="require.state.greaterThan != null">
+					and state > #{require.state.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.lessThan != null">
+					and state &lt; #{require.state.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.greaterThanAndEquals != null">
+					and state >= #{require.state.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.lessThanAndEquals != null">
+					and state &lt;= #{require.state.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.notEquality != null">
+					and state &lt;> #{require.state.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.equality != null">
+					and state = #{require.state.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.state.similar != null">
+					and INSTR(state, #{require.state.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.powers != null">
+			<if test="require.powers.greaterThan != null">
+					and powers > #{require.powers.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.lessThan != null">
+					and powers &lt; #{require.powers.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.greaterThanAndEquals != null">
+					and powers >= #{require.powers.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.lessThanAndEquals != null">
+					and powers &lt;= #{require.powers.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.notEquality != null">
+					and powers &lt;> #{require.powers.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.equality != null">
+					and powers = #{require.powers.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.powers.similar != null">
+					and INSTR(powers, #{require.powers.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test="require.useIps != null">
+			<if test="require.useIps.greaterThan != null">
+					and use_ips > #{require.useIps.greaterThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.lessThan != null">
+					and use_ips &lt; #{require.useIps.lessThan , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.greaterThanAndEquals != null">
+					and use_ips >= #{require.useIps.greaterThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.lessThanAndEquals != null">
+					and use_ips &lt;= #{require.useIps.lessThanAndEquals , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.notEquality != null">
+					and use_ips &lt;> #{require.useIps.notEquality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.equality != null">
+					and use_ips = #{require.useIps.equality , jdbcType=VARCHAR }
+		    </if>
+			<if test="require.useIps.similar != null">
+					and INSTR(use_ips, #{require.useIps.similar , jdbcType=VARCHAR }) >0 
+		    </if>
+		</if>
+		<if test=" page != null ">
+			<if test=" page.order != null  and page.order != '' ">
+				order by ${page.order } ${page.orderBy}
+			</if>
+			<if test=" page.start  != null  and page.count  != null ">
+				limit #{page.start } , #{page.count }
+			</if>
+		</if>
+	</select>
+</mapper>

@@ -65,10 +65,10 @@ public class ZmessageQueueServiceImpl implements ZmessageQueueService{
 	@Override
 	public ResultContent<String> updateLog(String id, String context) {
 		ZmessageQueueLogModel log = this.zMessageQueueLogModelMapper.selectByPrimaryKey(id);
-		if(log == null) return new ResultContent<String>(ResultContent.ERROR, "未找到推送记录");
+		if(log == null) return new ResultContent<String>(ResultContent.ERROR, "未找到推送记录【MMC】");
 		log.setMqReturnContext(context);
 		this.zMessageQueueLogModelMapper.updateByPrimaryKeySelective(log);
-		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成");
+		return new ResultContent<String>(ResultContent.SUCCESS, "记录完成【MMC】");
 	}
 
 	

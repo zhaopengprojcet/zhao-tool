@@ -16,6 +16,7 @@ import org.zhao.common.aspect.query.QueryMcs;
 import org.zhao.common.aspect.query.QueryMq;
 import org.zhao.common.aspect.query.QuerySchedules;
 import org.zhao.common.aspect.query.QueryTimeUse;
+import org.zhao.common.client.ClientCheckUtil;
 import org.zhao.common.client.ClientContext;
 import org.zhao.common.interceptor.PublicServerKV;
 import org.zhao.common.role.RoleAop;
@@ -52,7 +53,7 @@ public class ServerController {
 	 * @param request
 	 * @return
 	 */
-	@UseTime
+	//@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("regiest.html")
 	public String regiest(@RequestParam(value="_jr",required=false,defaultValue="")String context , HttpServletRequest request) {
@@ -92,8 +93,13 @@ public class ServerController {
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		
+		if(!ClientCheckUtil.checkPowers(client, null, "UTC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【UTC】"));
+		}
+		
 		QueryTimeUse.putTime(client.getIp() + "|" + client.getServiceName() + "|" +  time.getJsonString("from"), Long.parseLong(time.getJsonString("times")));
-		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成【UTC】"));
 	}
 	
 	/**
@@ -111,8 +117,11 @@ public class ServerController {
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		List<Double> datas = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("mcs"));
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
+		if(!ClientCheckUtil.checkPowers(client, null, "MCC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【MCC】"));
+		}
 		ThreadPoolUtils.putThread("异常状态处理", new QueryMcs(datas ,this.zServerExpService , client));
-		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成【MCC】"));
 	}
 	
 	/**
@@ -130,8 +139,11 @@ public class ServerController {
 		List<String> schedules = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("schedules"));
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		if(!ClientCheckUtil.checkPowers(client, null, "SCC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【SCC】"));
+		}
 		ThreadPoolUtils.putThread("定时任务注册", new QuerySchedules(schedules, time.getJsonString("token")));
-		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "注册完成【SCC】"));
 	}
 	
 	/**
@@ -148,14 +160,16 @@ public class ServerController {
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
-		
+		if(!ClientCheckUtil.checkPowers(client, null, "SCC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【SCC】"));
+		}
 		try {
 			JSONObject obj = JSONObject.fromObject(time.getData()).getJSONObject("result");
 			String scheduleId = time.getJsonString("scheduleId");
 			return BaseResultUtil.result(this.zScheduleService.updateResultLog(scheduleId, obj.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误"));
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误【SCC】"));
 		}
 	}
 	
@@ -176,8 +190,11 @@ public class ServerController {
 		List<String> mqServices = JSONArray.toList(JSONObject.fromObject(time.getData()).getJSONArray("mqServices"));
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		if(!ClientCheckUtil.checkPowers(client, null, "MMC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【MMC】"));
+		}
 		ThreadPoolUtils.putThread("mq客户端服务注册", new QueryMq(mqServices, time.getJsonString("token")));
-		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "注册完成【MMC】"));
 	}
 	/**
 	 * mq客户端请求服务
@@ -193,8 +210,11 @@ public class ServerController {
 		if(mq.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(mq);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, mq.getData().getToken());
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
+		if(!ClientCheckUtil.checkPowers(client, null, "MMC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【MMC】"));
+		}
 		ThreadPoolUtils.putThread("接收mq消息", new QueryMq(mq.getData() , this.zMessageQueueService));
-		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成"));
+		return BaseResultUtil.result(new ResultContent<String>(ResultContent.SUCCESS , "记录完成【MMC】"));
 	}
 	
 	/**
@@ -211,14 +231,16 @@ public class ServerController {
 		if(time.getCode().equals(ResultContent.ERROR)) return BaseResultUtil.result(time);
 		ClientContext client = (ClientContext) CacheUtil.getMapCache(ServerConfig.REGIEST_CLIENT_TOKEN, time.getJsonString("token"));
 		if(client == null) return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "token错误"));
-		
+		if(!ClientCheckUtil.checkPowers(client, null, "MMC")) {
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "授权验证未通过【MMC】"));
+		}
 		try {
 			JSONObject obj = JSONObject.fromObject(time.getData()).getJSONObject("result");
 			String logId = time.getJsonString("scheduleId");
 			return BaseResultUtil.result(this.zMessageQueueService.updateLog(logId, obj.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误"));
+			return BaseResultUtil.result(new ResultContent<String>(ResultContent.ERROR , "执行结果解析错误【MMC】"));
 		}
 	}
 }

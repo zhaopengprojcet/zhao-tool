@@ -16,6 +16,7 @@ import org.zhao.core.common.util.ThreadPoolUtils;
 import org.zhao.mq.annotation.MqMethod;
 import org.zhao.mq.annotation.ZhaoMessageBean;
 import org.zhao.mq.model.MqModel;
+import org.zhao.mq.util.MessageUtil;
 
 /**
  * 初始化项目中包含的消息队列订阅任务
@@ -59,7 +60,7 @@ public class MqServletScheduleLoadInit implements ApplicationListener<ContextRef
 				//每次发起注册服务都将删除原有本服务所提供的 定时任务
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("mqServices", JSONArray.fromObject(MqServletScheduleLoadInit.getMqServices().keySet()));
-				ThreadPoolUtils.putThread("消息订阅注册", new PutThread(map , "/server/putMqClient.html"));
+				ThreadPoolUtils.putThread("消息订阅注册", new PutThread(map , "/server/putMqClient.html" , MessageUtil.MMC_KEY));
 			}
 		}
 	}

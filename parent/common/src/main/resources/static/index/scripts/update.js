@@ -101,6 +101,12 @@ $.fn.check = function() {
 		else if($(this).hasClass("easyui-combobox")) {
 			value = $(this).combobox("getValue");
 		}
+		else if($(this).hasClass("easyui-datetimebox")) {
+			value = $(this).datetimebox("getValue");
+		}
+		else if($(this).hasClass("easyui-datebox")) {
+			value = $(this).datebox("getValue");
+		}
 		var title = $(this).parent().siblings("th").html();
 		if(checkJson.required != undefined && checkJson.required) {
 			if(value == null || value == "") {

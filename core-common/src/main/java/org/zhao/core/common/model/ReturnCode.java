@@ -1,4 +1,4 @@
-package org.zhao.mq.model;
+package org.zhao.core.common.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +32,9 @@ public class ReturnCode {
 	/**
 	 * 回馈任务执行状态
 	 */
-	public static String result(String scheduleId ,String code) {
+	public static String result(String scheduleId ,String code , String key ) {
 		JSONObject map = new JSONObject();
-		map.put("token", RegiestServer.getToken(false));
+		map.put("token", RegiestServer.getToken(false ,key));
 		map.put("scheduleId", scheduleId);
 		map.put("result", code);
 		return map.toString();
