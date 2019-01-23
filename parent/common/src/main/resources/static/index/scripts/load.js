@@ -33,7 +33,44 @@ $(document).ready(function(){
 		// 默认展开所有节点
 		zTree.expandAll(false);
 	}
+	
+	//加载功能
+	$("#out-login").click(function(){
+		msgConfirm("确认退出当前登录？",outLogin);
+	});
+	
+	$("#seting-pass").click(function(){
+		$("input[id^='user-pass-update']").each(function(){
+			try{$("#"+this.id).passwordbox("setValue", "");}catch(e){}
+		});
+		$("#pass-dialog").dialog("open");
+	});
 });
+//退出登录
+function outLogin() {
+	window.location = "/outLogin.html";
+}
+//更新密码
+function updatePass() {
+	var check = true;
+	$("input[id^='user-pass-update']").each(function(){
+		if($("#"+this.id).passwordbox("getValue") == "") {
+			msgAlert("密码不能为空", "error");
+			check = false;
+			return false;
+		}
+	});
+	if(!check) return;
+	if($("#user-pass-update-new").passwordbox("getValue") != $("#user-pass-update-dnew").passwordbox("getValue")) {
+		msgAlert("两次输入的新密码不同", "error");
+		return;
+	}
+	ajax("/user/passUpdate.html" , $("#pass-form").serializeObject() , updatePassSuccess);
+}
+function updatePassSuccess(data) {
+	top.msgAlert(data.message,data.code=="SUCCESS"?"info":"error");
+}
+
 var curExpandNode = null;
 
 /** 用于捕获节点被点击的事件回调函数  **/

@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.mybatis.query.PageContext;
-import org.zhao.common.mybatis.query.ParamterRequirement;
 import org.zhao.common.mybatis.query.QueryParames;
-import org.zhao.common.pojo.model.ZserverExpModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.util.BaseResultUtil;
-import org.zhao.common.util.DateUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ZserverExpService;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/exp/")
@@ -38,7 +34,6 @@ public class ServerExpController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody

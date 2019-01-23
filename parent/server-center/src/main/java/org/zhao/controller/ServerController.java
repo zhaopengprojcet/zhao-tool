@@ -32,7 +32,6 @@ import org.zhao.service.ServerService;
 import org.zhao.service.ZmessageQueueService;
 import org.zhao.service.ZscheduleService;
 import org.zhao.service.ZserverExpService;
-import org.zhao.usetime.annotation.UseTime;
 
 @RestController
 @RequestMapping("/server/")
@@ -108,7 +107,6 @@ public class ServerController {
 	 * @param request
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putMcs.html")
 	public String putMcs(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -129,7 +127,6 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putSchedule.html")
 	public String putSchedule(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -151,7 +148,6 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("scheduleState.html")
 	public String scheduleState(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -180,7 +176,6 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putMqClient.html")
 	public String putMqClient(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -201,7 +196,6 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("putMsg.html")
 	public String putMsg(@RequestParam(value="_jr",required=false,defaultValue="")String context) {
@@ -222,7 +216,6 @@ public class ServerController {
 	 * @param context
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.ALL)
 	@RequestMapping("mqState.html")
 	public String mqState(@RequestParam(value="_jr",required=false,defaultValue="")String context) {

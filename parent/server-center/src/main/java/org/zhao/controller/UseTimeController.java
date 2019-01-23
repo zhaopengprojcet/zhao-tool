@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.aspect.query.QueryTimeUse;
 import org.zhao.common.mybatis.query.PageContext;
-import org.zhao.common.mybatis.query.ParamterRequirement;
 import org.zhao.common.mybatis.query.QueryParames;
-import org.zhao.common.pojo.model.ZrequestUseModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.util.BaseResultUtil;
@@ -26,7 +24,6 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ZuseTimeService;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/ut/")
@@ -40,7 +37,6 @@ public class UseTimeController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -74,7 +70,6 @@ public class UseTimeController {
 		}
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody

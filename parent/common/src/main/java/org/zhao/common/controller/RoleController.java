@@ -23,7 +23,6 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.RolePowerHtml;
 import org.zhao.common.util.view.TablelListUtils;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/role/")
@@ -34,7 +33,6 @@ public class RoleController {
 	@Autowired
 	private ZmenuService zMenuService;
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("comboList.html")
 	@ResponseBody
@@ -48,7 +46,6 @@ public class RoleController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -75,7 +72,6 @@ public class RoleController {
 		return TablelListUtils.buildUpdate(ZroleModel.class,"/role/save.html", model , this.zRoleService.selectRoleById(query.getJsonString("id")).getData());
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("save.html")
 	@ResponseBody
@@ -103,7 +99,6 @@ public class RoleController {
 		return "role/rolePowerUpdate";
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("powerSave.html")
 	@ResponseBody

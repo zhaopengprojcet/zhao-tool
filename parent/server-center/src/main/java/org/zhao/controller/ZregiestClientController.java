@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZregiestClientModel;
-import org.zhao.common.pojo.model.ZscheduleSetModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.util.BaseResultUtil;
@@ -22,7 +21,6 @@ import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ZregiestClientService;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/regiestclient/")
@@ -37,7 +35,6 @@ public class ZregiestClientController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -23,6 +25,8 @@ import org.zhao.common.properties.ConfigProperties;
 import org.zhao.common.service.ZuserService;
 import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.RandomUtils;
+import org.zhao.common.util.SessionUtil;
+import org.zhao.common.util.SignUtil;
 import org.zhao.common.util.view.ResultContent;
 
 @Service
@@ -78,12 +82,14 @@ public class ZuserServiceImpl implements ZuserService {
 	}
 
 	@CacheEvict(value="userSelect" ,allEntries=true ,beforeInvocation=false)
+	@Transactional
 	@Override
 	public ResultContent<String> delete(String id) {
 		this.zuserModelMapper.deleteByPrimaryKey(id);
 		return new ResultContent<String>(ResultContent.SUCCESS , "更新完成");
 	}
 
+	@Transactional
 	@Override
 	public ResultContent<ZuserModel> checkUserLogin(String name, String pass) {
 		ZuserModel user = new ZuserModel();
@@ -97,7 +103,6 @@ public class ZuserServiceImpl implements ZuserService {
 		if(user.getLoginErrorCount() >= PublicServerKV.getIntVal("common.login.error.max")) {
 			return new ResultContent<ZuserModel>(ResultContent.ERROR, "今日登录错误次数已超过,请明日再次尝试或联系管理员");
 		}
-		
 		if(user.getPassword().equals(new Md5Hash(pass, user.getId(), 2).toString())) {
 			
 			user.setLastLoginTime(new Date());
@@ -113,5 +118,21 @@ public class ZuserServiceImpl implements ZuserService {
 		}
 	}
 
-	
+	@Transactional
+	@Override
+	public ResultContent<String> updatePass(String oldPass, String newPass,
+			String newDpass , HttpServletRequest request) {
+		if(StringUtils.isEmpty(oldPass) || StringUtils.isEmpty(newPass) || StringUtils.isEmpty(newDpass)) return new ResultContent<String>(ResultContent.ERROR , "密码不能为空");
+		if(!newPass.equals(newDpass)) return new ResultContent<String>(ResultContent.ERROR , "两次输入的新密码不同");
+		ZuserModel loginMember = (ZuserModel) request.getSession().getAttribute(SessionUtil.LOGIN_MEMBER);
+		loginMember = this.zuserModelMapper.selectByPrimaryKey(loginMember.getId());
+		if(new Md5Hash(SignUtil.strToBase64(new Md5Hash(oldPass).toString()), loginMember.getId(), 2).toString().equals(loginMember.getPassword())) {
+			ZuserModel save = new ZuserModel();
+			save.setId(loginMember.getId());
+			save.setPassword(new Md5Hash(SignUtil.strToBase64(new Md5Hash(oldPass).toString()), loginMember.getId(), 2).toString());
+			this.zuserModelMapper.updateByPrimaryKeySelective(save);
+			return new ResultContent<String>(ResultContent.SUCCESS , "更新完成,下次登录生效");
+		}
+		else return new ResultContent<String>(ResultContent.ERROR , "原密码错误");
+	}
 }

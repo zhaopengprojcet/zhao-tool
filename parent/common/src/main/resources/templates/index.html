@@ -8,9 +8,9 @@
 		</div>
 		<div id="top_links">
 			<ul class="top-desc">
-				<li><a href="#"><i class="fa fa-sign-out"></i>outLogin</a></li>
+				<li><a href="javaScript:;" id="out-login"><i class="fa fa-sign-out"></i>outLogin</a></li>
+				<li><a href="javaScript:;" id="seting-pass"><i class="fa fa-cog"></i>seting</a></li>
 				<li><a href="#"><i class="fa fa-user-circle"></i>admin</a></li>
-				<li><a href="#"><i class="fa fa-cog"></i>seting</a></li>
 			</ul>
 		</div>
 	</div>
@@ -34,6 +34,34 @@
     <div id="model_index"></div>
     <div id="model_ajax" class="model-ajax">
 		<img th:src="@{/index/images/loading.gif}" />
+	</div>
+	<div id="pass-dialog" style="width: 300px;height: 180px;" class="easyui-dialog" title="设置" data-options="buttons:'#pass-button',resizable:false,modal:true,closed:true">
+		<form id="pass-form">
+			<table id="update-center-table" class="update-center-table" border="1">
+			<tr>
+				<th>原密码</th>
+				<td>
+					<input id="user-pass-update-old" name="upuo" th:attr="showEye='true'" class="easyui-passwordbox" style="width: 200px"/>
+				</td>
+			</tr>
+			<tr>
+				<th>新密码</th>
+				<td>
+					<input id="user-pass-update-new" name="upun" th:attr="showEye='true'" class="easyui-passwordbox" style="width: 200px"/>
+				</td>
+			</tr>
+			<tr>
+				<th>确认新密码</th>
+				<td>
+					<input id="user-pass-update-dnew" name="upudn" th:attr="showEye='true'" class="easyui-passwordbox" style="width: 200px"/>
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	<div id="pass-button">
+		<a href="javaScript:;" onclick="javaScript:updatePass();" class="easyui-linkbutton" iconCls="icon-cologne-check">更新</a>
+		<a href="javaScript:;" onclick="javaScript:$('#pass-dialog').dialog('close');" class="easyui-linkbutton" iconCls="icon-munich-collaboration">关闭</a>
 	</div>
 	<span th:include="/common-js :: commonOnLoadJs"></span>
 	<script type="text/javascript" th:src="@{/index/scripts/load.js}"></script>

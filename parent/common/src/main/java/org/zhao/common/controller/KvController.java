@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.interceptor.ServletContextLoadListener;
 import org.zhao.common.mybatis.query.PageContext;
-import org.zhao.common.mybatis.query.ParamterRequirement;
 import org.zhao.common.mybatis.query.QueryParames;
 import org.zhao.common.pojo.model.ZkeyValueModel;
 import org.zhao.common.role.RoleAop;
@@ -23,7 +22,6 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/kv/")
@@ -38,7 +36,6 @@ public class KvController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -81,7 +78,6 @@ public class KvController {
 		return BaseResultUtil.result(this.zKvService.delete(query.getJsonString("id")));
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody

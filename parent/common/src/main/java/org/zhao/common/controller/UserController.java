@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhao.common.mybatis.query.PageContext;
-import org.zhao.common.mybatis.query.ParamterRequirement;
 import org.zhao.common.mybatis.query.QueryParames;
-import org.zhao.common.pojo.model.ZmenuModel;
 import org.zhao.common.pojo.model.ZuserModel;
 import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
@@ -23,7 +21,6 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/user/")
@@ -37,7 +34,6 @@ public class UserController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -81,5 +77,14 @@ public class UserController {
 	public String delete(@RequestParam(value="_jr",required=false,defaultValue="")String context , HttpServletRequest request) {
 		ResultContent<JSONObject> query = QuerySign.deQuery(context, request , "id");
 		return BaseResultUtil.result(this.zUserService.delete(query.getJsonString("id")));
+	}
+	
+	@RoleAop(key=RoleAopEnum.LOGIN)
+	@RequestMapping("passUpdate.html")
+	@ResponseBody
+	public String passUpdate(@RequestParam(value="_jr",required=false,defaultValue="")String context ,HttpServletRequest request) {
+		ResultContent<JSONObject> query = QuerySign.deQuery(context, request , "upuo" , "upun" , "upudn");
+		return BaseResultUtil.result(this.zUserService.updatePass(query.getJsonString("upuo"), query.getJsonString("upun"), query.getJsonString("upudn"), request));
+		
 	}
 }

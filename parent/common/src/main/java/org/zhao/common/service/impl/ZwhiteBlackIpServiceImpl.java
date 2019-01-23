@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zhao.common.mybatis.query.PageContext;
 import org.zhao.common.pojo.dao.ZwhiteBlackIpListMapper;
 import org.zhao.common.pojo.model.ZwhiteBlackIpList;
@@ -41,6 +42,7 @@ public class ZwhiteBlackIpServiceImpl implements ZwhiteBlackIpService{
 		return BaseResultUtil.setCodeMsg(result);
 	}
 	@CacheEvict(value="wbIpSelect" ,allEntries=true ,beforeInvocation=false)
+	@Transactional
 	@Override
 	public ResultContent<String> save(ZwhiteBlackIpList ip) {
 		if(StringUtils.isEmpty(ip.getId())) {
@@ -54,6 +56,7 @@ public class ZwhiteBlackIpServiceImpl implements ZwhiteBlackIpService{
 		return new ResultContent<String>(ResultContent.SUCCESS, "更新完成");
 	}
 	@CacheEvict(value="wbIpSelect" ,allEntries=true ,beforeInvocation=false)
+	@Transactional
 	@Override
 	public ResultContent<String> delete(String id) {
 		this.zWhiteBlackIpListMapper.deleteByPrimaryKey(id);

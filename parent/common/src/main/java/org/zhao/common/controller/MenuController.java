@@ -22,7 +22,6 @@ import org.zhao.common.util.BaseResultUtil;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/menu/")
@@ -35,7 +34,6 @@ public class MenuController {
 	 * 界面菜单加载
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("menuPowerList.html")
 	@ResponseBody
@@ -49,7 +47,6 @@ public class MenuController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -58,7 +55,6 @@ public class MenuController {
 		return BaseResultUtil.resultList(this.zMenuService.selectMenuListOfTree("0"));
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.LOGIN)
 	@RequestMapping("comboList.html")
 	@ResponseBody
@@ -105,7 +101,6 @@ public class MenuController {
 		return "menu/buttonUpdate";
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("buttonSave.html")
 	@ResponseBody
@@ -123,7 +118,6 @@ public class MenuController {
 		return "menu/fieldsUpdate";
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("fieldSave.html")
 	@ResponseBody
@@ -141,7 +135,6 @@ public class MenuController {
 		return "menu/searchUpdate";
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("searchSave.html")
 	@ResponseBody

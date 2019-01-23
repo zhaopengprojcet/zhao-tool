@@ -25,6 +25,29 @@
       <artifactId>common</artifactId>
   	  <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>schedule-call-core</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- 
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>use-time-client</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>memory-cpu-client</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.zhao</groupId>
+    	<artifactId>message-call-core</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency> -->
+    
   </dependencies>
 
   

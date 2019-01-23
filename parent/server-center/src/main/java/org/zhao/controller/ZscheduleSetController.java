@@ -22,13 +22,11 @@ import org.zhao.common.role.RoleAop;
 import org.zhao.common.role.RoleAopEnum;
 import org.zhao.common.schedule.ServerSchedule;
 import org.zhao.common.util.BaseResultUtil;
-import org.zhao.common.util.CacheUtil;
 import org.zhao.common.util.ThreadPoolUtils;
 import org.zhao.common.util.view.QuerySign;
 import org.zhao.common.util.view.ResultContent;
 import org.zhao.common.util.view.TablelListUtils;
 import org.zhao.service.ZscheduleService;
-import org.zhao.usetime.annotation.UseTime;
 
 @Controller
 @RequestMapping("/scheduleSet/")
@@ -43,7 +41,6 @@ public class ZscheduleSetController {
 		return TablelListUtils.addSessionButtons(menuId, request, model);
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("list.html")
 	@ResponseBody
@@ -95,7 +92,6 @@ public class ZscheduleSetController {
 		return BaseResultUtil.result(this.zScheduleService.delete(query.getJsonString("id")));
 	}
 	
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("reload.html")
 	@ResponseBody
@@ -111,7 +107,6 @@ public class ZscheduleSetController {
 	 * @param request
 	 * @return
 	 */
-	@UseTime
 	@RoleAop(key=RoleAopEnum.POWER)
 	@RequestMapping("userPut.html")
 	@ResponseBody

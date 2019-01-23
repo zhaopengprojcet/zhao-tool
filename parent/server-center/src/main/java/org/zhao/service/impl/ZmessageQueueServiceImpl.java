@@ -51,6 +51,7 @@ public class ZmessageQueueServiceImpl implements ZmessageQueueService{
 		return new ResultContent<String>(ResultContent.SUCCESS, "重新加入队列完成");
 	}
 
+	@Transactional
 	@Override
 	public void saveLog(ZmessageQueueLogModel model) {
 		if(StringUtils.isEmpty(model.getId())) {
@@ -62,6 +63,7 @@ public class ZmessageQueueServiceImpl implements ZmessageQueueService{
 		}
 	}
 
+	@Transactional
 	@Override
 	public ResultContent<String> updateLog(String id, String context) {
 		ZmessageQueueLogModel log = this.zMessageQueueLogModelMapper.selectByPrimaryKey(id);
